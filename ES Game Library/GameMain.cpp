@@ -22,7 +22,7 @@ bool GameMain::Initialize()
 	chara_x = 100; chara_y = 580;
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
-	floor1_0x = -1280.0f; floor1_1x = 0; floor1_2x = 1280.0f; kaidan1_x = 1280.0f * 2;//背景のスクロール
+	floor3_0x = -1280.0f; floor3_1x = 0; floor3_2x = 1280.0f; kaidan3_x = 1280.0f * 2;//背景のスクロール
 
 	player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -83,7 +83,7 @@ int GameMain::Update()
 	//画面制限
 	if (chara_x < 0) {
 		chara_x = 0;
-		floor1_0x = -1280;	floor1_1x = 0; floor1_2x = 1280; kaidan1_x = 2560;
+		floor3_0x = -1280;	floor3_1x = 0; floor3_2x = 1280; kaidan3_x = 2560;
 	}
 	if (chara_x > 1100) {
 		chara_x = 1100;
@@ -107,22 +107,22 @@ void GameMain::MainPlayer()
 	if (Key.IsKeyDown(Keys_A)) {
 		player_state = 1;
 		chara_x -= 6.0f;
-		floor1_0x += 6.0f;
-		floor1_1x += 6.0f;
-		floor1_2x += 6.0f;
-		kaidan1_x += 6.0f;
+		floor3_0x += 6.0f;
+		floor3_1x += 6.0f;
+		floor3_2x += 6.0f;
+		kaidan3_x += 6.0f;
 	}
 	if (Key.IsKeyDown(Keys_D)) {
 		player_state = 0;
 		chara_x += 6.0f;
-		floor1_0x -= 6.0f;
-		floor1_1x -= 6.0f;
-		floor1_2x -= 6.0f;
-		kaidan1_x -= 6.0f;
+		floor3_0x -= 6.0f;
+		floor3_1x -= 6.0f;
+		floor3_2x -= 6.0f;
+		kaidan3_x -= 6.0f;
 	}
 
-	if (kaidan1_x < 0) {
-		floor1_0x = -1280.0f * 3; floor1_1x = -1280.0f * 2; floor1_2x = -1280.0f;  kaidan1_x = 0;
+	if (kaidan3_x < 0) {
+		floor3_0x = -1280.0f * 3; floor3_1x = -1280.0f * 2; floor3_2x = -1280.0f;  kaidan3_x = 0;
 	}
 
 	//武器(クナイ)
@@ -277,10 +277,10 @@ void GameMain::Draw()
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
-	SpriteBatch.Draw(*floor, Vector3(floor1_0x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor1_2x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*kaidan, Vector3(kaidan1_x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor3_0x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor3_2x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*kaidan, Vector3(kaidan3_x, 0.0f, 0.0f));
 
 	if (enemy_move_flg == false && hit_state == 0)
 	{

@@ -68,7 +68,7 @@ private:
 	int player_state, jump_state, hit_state, shot_count, kunai_flag;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
-	float floor1_0x, floor1_1x, floor1_2x, kaidan1_x;
+	float floor3_0x, floor3_1x, floor3_2x, kaidan3_x;
 	enum { SHOT_MAX = 1 };
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
