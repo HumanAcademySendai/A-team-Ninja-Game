@@ -80,10 +80,9 @@ int GameMain::Update()
 		if (enemy_x > 1200) { enemy_x = 1200; enemy_move_flg = false; }
 	}
 
-	//‰æ–Ê§ŒÀ
+	//ƒvƒŒƒCƒ„[ˆÚ“®§ŒÀ
 	if (chara_x < 0) {
 		chara_x = 0;
-		floor3_0x = -1280;	floor3_1x = 0; floor3_2x = 1280; kaidan3_x = 2560;
 	}
 	if (chara_x > 1100) {
 		chara_x = 1100;
@@ -121,6 +120,10 @@ void GameMain::MainPlayer()
 		kaidan3_x -= 6.0f;
 	}
 
+	//”wŒiˆÚ“®§ŒÀ
+	if (chara_x < 0) {
+		floor3_0x = -1280;	floor3_1x = 0; floor3_2x = 1280; kaidan3_x = 2560;
+	}
 	if (kaidan3_x < 0) {
 		floor3_0x = -1280.0f * 3; floor3_1x = -1280.0f * 2; floor3_2x = -1280.0f;  kaidan3_x = 0;
 	}
