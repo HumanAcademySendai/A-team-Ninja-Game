@@ -63,13 +63,12 @@ private:
 	int enemy_move_flg;
 
 
-	SPRITE  player, leftplayer, kunai,kunai2,sword,sword2;
+	SPRITE  player, leftplayer, kunai, kunai2, floor, kaidan;
 	float  chara_x, chara_y;
-	int player_state, jump_state, hit_state, shot_count, sword_flag;
+	int player_state, jump_state, hit_state, shot_count, kunai_flag;
 	float jumpspeed, jumptime, zahyou;
-	float sword_x, sword_y, sword2_x, sword2_y;
-	float kunai_x, kunai_y;
-
+	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
+	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
 	enum { SHOT_MAX = 1 };
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
