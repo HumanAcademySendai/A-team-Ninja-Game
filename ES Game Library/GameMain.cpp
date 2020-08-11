@@ -80,7 +80,7 @@ int GameMain::Update()
 		if (enemy_x > 1200) { enemy_x = 1200; enemy_move_flg = false; }
 	}
 
-	//‰æ–Ê§ŒÀ
+	//ƒvƒŒƒCƒ„[ˆÚ“®§ŒÀ
 	if (chara_x < 0) {
 		chara_x = 0;
 	}
