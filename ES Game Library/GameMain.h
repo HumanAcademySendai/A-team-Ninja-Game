@@ -56,24 +56,7 @@ private:
 
 private:
 	// •Ï”éŒ¾
-	SPRITE night;
-	SPRITE enemy;
-	float enemy_x, enemy_y;
-	float speed;
-	int enemy_move_flg;
 
-
-	SPRITE  player, leftplayer, kunai,kunai2,sword,sword2;
-	float  chara_x, chara_y;
-	int player_state, jump_state, hit_state, shot_count, sword_flag;
-	float jumpspeed, jumptime, zahyou;
-	float sword_x, sword_y, sword2_x, sword2_y;
-	float kunai_x, kunai_y;
-
-	enum { SHOT_MAX = 1 };
-	int shot_flg[SHOT_MAX];
-	float shot_x[SHOT_MAX];
-	float shot_y[SHOT_MAX];
 	// ŠÖ”éŒ¾
-	void MainPlayer();
+
 };
