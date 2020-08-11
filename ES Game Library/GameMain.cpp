@@ -83,7 +83,6 @@ int GameMain::Update()
 	//‰æ–Ê§ŒÀ
 	if (chara_x < 0) {
 		chara_x = 0;
-		floor1_0x = -1280;	floor1_1x = 0; floor1_2x = 1280; kaidan1_x = 2560;
 	}
 	if (chara_x > 1100) {
 		chara_x = 1100;
@@ -121,6 +120,10 @@ void GameMain::MainPlayer()
 		kaidan1_x -= 6.0f;
 	}
 
+	//”wŒiˆÚ“®§ŒÀ
+	if (chara_x < 0) {
+		floor1_0x = -1280;	floor1_1x = 0; floor1_2x = 1280; kaidan1_x = 2560;
+	}
 	if (kaidan1_x < 0) {
 		floor1_0x =- 1280.0f * 3; floor1_1x = -1280.0f * 2; floor1_2x = -1280.0f;  kaidan1_x = 0;
 	}
