@@ -28,7 +28,7 @@ bool GameMain::Initialize()
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
 	enemy_x = 1100.0f;
-	enemy_y = 560.0f;
+	enemy_y = 530.0f;
 	speed = 2.0f;
 
 	enemy_move_flg = false;
