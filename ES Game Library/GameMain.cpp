@@ -33,6 +33,7 @@ bool GameMain::Initialize()
 
 	enemy_move_flg = false;
 
+	//ワープクナイ初期位置
 	for (int i = 0; i < SHOT_MAX; i++)
 	{
 		shot_flg[i] = 0.0f;
@@ -128,7 +129,7 @@ void GameMain::MainPlayer()
 		floor4_0x = 1280 * 3;	floor4_1x = 1280 * 2; floor4_2x = 1280; kaidan4_x = 0.0f;
 	}
 
-	//武器(クナイ)
+	//武器(攻撃用クナイ)
 	if (Key_buf.IsPressed(Keys_Z)) {
 		if (kunai_flag == false) {
 			kunai_flag = true;
@@ -183,7 +184,7 @@ void GameMain::MainPlayer()
 
 	}
 
-	//武器(クナイ)
+	//武器(ワープクナイ)
 	if (Key_buf.IsPressed(Keys_X))
 	{
 		for (int i = 0; i < SHOT_MAX; i++)
@@ -247,7 +248,7 @@ void GameMain::MainPlayer()
 		}
 	}
 
-	//クナイ発射
+	//ワープクナイ発射
 	for (int i = 0; i < SHOT_MAX; i++)
 	{
 		if (shot_flg[i] == 1 && player_state == 0)
