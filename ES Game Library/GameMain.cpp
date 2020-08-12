@@ -115,12 +115,10 @@ void GameMain::MainPlayer()
 	if (Key.IsKeyDown(Keys_D)) {
 		player_state = 0;
 		chara_x += 6.0f;
-		if (kaidan1_x > 480) {
-			floor1_0x -= 6.0f;
-			floor1_1x -= 6.0f;
-			floor1_2x -= 6.0f;
-			kaidan1_x -= 6.0f;
-		}
+		floor1_0x -= 6.0f;
+		floor1_1x -= 6.0f;
+		floor1_2x -= 6.0f;
+		kaidan1_x -= 6.0f;
 	}
 
 	//”wŒiˆÚ“®§ŒÀ
