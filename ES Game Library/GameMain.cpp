@@ -146,8 +146,8 @@ void GameMain::MainPlayer()
 
 
 	//敵　―　攻撃用クナイ
-	if (kunai_x > enemy_x + 52.0f || kunai_x + 100.0f < enemy_x ||
-		kunai_y > enemy_y + 73.0f || kunai_y + 150.0f < enemy_y) {
+	if (kunai_x > enemy_x + 52.0f || kunai_x + 60.0f < enemy_x ||
+		kunai_y > enemy_y + 73.0f || kunai_y + 30.0f < enemy_y) {
 		// 当たっていない
 	}
 	else {
@@ -157,8 +157,8 @@ void GameMain::MainPlayer()
 		}
 	}
 
-	if (kunai2_x > enemy_x + 52.0f || kunai2_x + 100.0f < enemy_x ||
-		kunai2_y > enemy_y + 73.0f || kunai2_y + 150.0f < enemy_y) {
+	if (kunai2_x > enemy_x + 52.0f || kunai2_x + 60.0f < enemy_x ||
+		kunai2_y > enemy_y + 73.0f || kunai2_y + 30.0f < enemy_y) {
 		// 当たっていない
 	}
 	else {
@@ -166,6 +166,20 @@ void GameMain::MainPlayer()
 		if (Key.IsKeyDown(Keys_Z)) {
 			hit_state = 1;
 		}
+
+	}
+
+	
+	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)(その時はforで処理をする)
+	if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 96.0f - 30.0f < enemy_x ||
+		chara_y > enemy_y + 130.0f - 21.0f|| chara_y + 100.0f - 30.0f < enemy_y) {
+		// 当たっていない
+	}
+	else {
+		// 当たっている
+
+		
+		
 
 	}
 
@@ -298,5 +312,7 @@ void GameMain::Draw()
 	SpriteBatch.End();
 
 	GraphicsDevice.EndScene();
+
+
 
 }
