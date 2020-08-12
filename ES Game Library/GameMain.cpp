@@ -179,9 +179,6 @@ void GameMain::MainPlayer()
 	else {
 		// 当たっている
 
-		
-		
-
 	}
 
 	//武器(ワープクナイ)
