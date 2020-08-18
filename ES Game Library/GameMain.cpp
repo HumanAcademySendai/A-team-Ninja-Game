@@ -33,13 +33,6 @@ bool GameMain::Initialize()
 
 	enemy_move_flg = false;
 
-	//ワープクナイ初期位置
-	for (int i = 0; i < SHOT_MAX; i++)
-	{
-		shot_flg[i] = 0.0f;
-		shot_x[i] = 0.0f;
-		shot_y[i] = 0.0f;
-	}
 
 	return true;
 }
@@ -183,23 +176,6 @@ void GameMain::MainPlayer()
 		}
 	}
 
-
-	//武器(ワープクナイ)
-	if (Key_buf.IsPressed(Keys_X))
-	{
-		for (int i = 0; i < SHOT_MAX; i++)
-		{
-			if (shot_flg[i] == 0 && shot_count < 10)
-			{
-				shot_flg[i] = 1;
-				shot_x[i] = chara_x + 60;
-				shot_y[i] = chara_y + 30;
-				break;
-			}
-		}
-		shot_count += 1;
-	}
-
 	//当たり判定(未完成)(橋本君のプログラムをちょっと手を加えたらワープクナイできそうなのでそちらを使ってください)
 //for (int i = 0; i < SHOT_MAX; i++) {
 //	if (shot_flg[i] == 1) {
@@ -248,26 +224,6 @@ void GameMain::MainPlayer()
 		}
 	}
 
-	//ワープクナイ発射
-	for (int i = 0; i < SHOT_MAX; i++)
-	{
-		if (shot_flg[i] == 1 && player_state == 0)
-		{
-			shot_x[i] += 35.0f;
-			if (shot_x[i] > 1280)
-			{
-				shot_flg[i] = 0;
-			}
-		}
-		if (shot_flg[i] == 1 && player_state == 1)
-		{
-			shot_x[i] -= 35.0f;
-			if (shot_x[i] < 0)
-			{
-				shot_flg[i] = 0;
-			}
-		}
-	}
 }
 /// <summary>
 /// This is called when the game should draw itself.
@@ -284,13 +240,6 @@ void GameMain::Draw()
 
 	if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
 	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
-
-
-	for (int i = 0; i < SHOT_MAX; i++)
-	{
-		if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
-		if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
-	}
 
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
