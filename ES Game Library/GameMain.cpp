@@ -17,13 +17,9 @@ bool GameMain::Initialize()
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-	sword = GraphicsDevice.CreateSpriteFromFile(_T("katana.png"), Color(255, 255, 255));
-	sword2 = GraphicsDevice.CreateSpriteFromFile(_T("katana2.png"), Color(255, 255, 255));
 
 
 	chara_x = 0; chara_y = 514;
-	sword_x = chara_x + 100, sword_y = chara_y - 40;
-	sword2_x = chara_x - 100, sword2_y = chara_y - 40;
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
 	chara_x = 0; chara_y = 550;
