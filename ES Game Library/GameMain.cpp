@@ -12,12 +12,11 @@ bool GameMain::Initialize()
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("ES Game Library"));
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("floor.png"));
-	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("kaidan.png"));
+	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("階段3.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-
 
 	chara_x = 0; chara_y = 514;
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
@@ -33,8 +32,16 @@ bool GameMain::Initialize()
 	enemy_x = 1100.0f;
 	enemy_y = 530.0f;
 	speed = 2.0f;
+	hp_x = 200;
+	hp_count = 192;
+	enemyhit_count == 0;
 
 	enemy_move_flg = false;
+
+	Title = GraphicsDevice.CreateSpriteFromFile(_T("タイトル画面.png"));
+	GameOver = GraphicsDevice.CreateSpriteFromFile(_T("ゲームオーバー.png"));
+	Last = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
+	hp1 = GraphicsDevice.CreateSpriteFromFile(_T("HPアイコン (1).png"));
 
 	//ワープクナイ初期位置
 	for (int i = 0; i < SHOT_MAX; i++)
@@ -43,6 +50,8 @@ bool GameMain::Initialize()
 		shot_x[i] = 0.0f;
 		shot_y[i] = 0.0f;
 	}
+
+	gamescene == 0;
 
 	return true;
 }
@@ -380,7 +389,8 @@ void GameMain::MainPlayer()
 		}
 		else {
 			// 当たっている
-			
+			enemyhit_count += 1;
+			hp_count = 192 - (60 + 3 * enemyhit_count);
 		}
 	}
 
@@ -469,6 +479,11 @@ void GameMain::MainPlayer()
 		}
 	}
 }
+
+void GameMain::scene_change()
+{
+
+}
 /// <summary>
 /// This is called when the game should draw itself.
 /// </summary>
@@ -481,34 +496,44 @@ void GameMain::Draw()
 
 
 	SpriteBatch.Begin();
+	if (gamescene = 1) {
+		if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
+		if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
 
-	if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
-	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
+		SpriteBatch.Draw(*hp1, Vector3(hp_x, 0, 0), RectWH(0, 0, hp_count, 60));
 
+		for (int i = 0; i < SHOT_MAX; i++)
+		{
+			if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
+			if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
+		}
 
-	for (int i = 0; i < SHOT_MAX; i++)
-	{
-		if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
-		if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
+		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
+		if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
+
+		SpriteBatch.Draw(*floor, Vector3(floor1_0x, 0.0f, 0.0f));
+		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
+		SpriteBatch.Draw(*floor, Vector3(floor1_2x, 0.0f, 0.0f));
+		SpriteBatch.Draw(*kaidan, Vector3(kaidan1_x, 0.0f, 0.0f));
+
+		if (enemy_move_flg == false && hit_state == 0)
+		{
+			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
+		}
+		if (enemy_move_flg == true && hit_state == 0)
+		{
+			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
+		}
 	}
-
-	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
-	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
-
-	SpriteBatch.Draw(*floor, Vector3(floor1_0x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor1_2x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*kaidan, Vector3(kaidan1_x, 0.0f, 0.0f));
-
-	if (enemy_move_flg == false && hit_state == 0)
-	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
+	if (gamescene = 0) {
+		SpriteBatch.Draw(*Title, Vector3(0, 0, 0));
 	}
-	if (enemy_move_flg == true && hit_state == 0)
-	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
+	if (gamescene = 2) {
+		SpriteBatch.Draw(*GameOver, Vector3(0, 0, 0));
 	}
-
+	if (gamescene = 3) {
+		SpriteBatch.Draw(*Last, Vector3(0, 0, 0));
+	}
 
 	SpriteBatch.End();
 

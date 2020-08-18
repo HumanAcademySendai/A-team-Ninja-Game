@@ -63,6 +63,15 @@ private:
 	float speed;
 	int enemy_move_flg;
 
+	SPRITE Title;
+	SPRITE GameOver;
+	SPRITE Last;
+	SPRITE hp1;
+
+	float hp_x;
+	float hp_count;
+	int enemyhit_count;
+	int gamescene;
 
 	SPRITE  player, leftplayer, kunai, kunai2, floor, kaidan;
 	float  chara_x, chara_y;
@@ -78,4 +87,5 @@ private:
 	// ŠÖ”éŒ¾
 	void MainPlayer();
 	void steage2();
+	void scene_change();
 };
