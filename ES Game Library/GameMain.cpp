@@ -43,7 +43,7 @@ void GameMain::Initialize_1_3()
 		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 		kunai2_x = chara_x, kunai2_y = chara_y;
 		floor1_1x = 0;//背景のスクロール
-		floor1_1y = 0; kaidan1_x = 1000; kaidan1_y = 0;
+		floor1_1y = 0; kaidan1_x = 1000;
 		player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
 		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
