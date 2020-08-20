@@ -11,8 +11,7 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("ES Game Library"));
-	floor = GraphicsDevice.CreateSpriteFromFile(_T("floor.png"));
-	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("kaidan2.png"));
+	_2F = GraphicsDevice.CreateSpriteFromFile(_T("2,4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
@@ -22,7 +21,7 @@ bool GameMain::Initialize()
 	chara_x = 1100; chara_y = 550;
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
-	floor2_0x = 1280.0f; floor2_1x = 0; floor2_2x = -1280.0f; kaidan2_x = -1280.0f * 2;//背景のスクロール
+	floor2_1x = 1280.0f * 2; //背景のスクロール
 
 	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -97,29 +96,23 @@ void GameMain::MainPlayer()
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
 	//移動
-	if (Key.IsKeyDown(Keys_A)) {
+	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 1;
 		chara_x -= 6.0f;
-		floor2_0x += 6.0f;
 		floor2_1x += 6.0f;
-		floor2_2x += 6.0f;
-		kaidan2_x += 6.0f;
 	}
-	if (Key.IsKeyDown(Keys_D)) {
+	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 0;
 		chara_x += 6.0f;
-		floor2_0x -= 6.0f;
 		floor2_1x -= 6.0f;
-		floor2_2x -= 6.0f;
-		kaidan2_x -= 6.0f;
 		
 	}
 	//背景移動制限
-	if (kaidan2_x < -1280 * 2) {
-		floor2_0x = 1280.0f; floor2_1x = 0.0f; floor2_2x = -1280.0f;  kaidan2_x = -1280 * 2;
+	if (floor2_1x < 1280 * 2) {
+		chara_x = 1100;
 	}
-	if (kaidan2_x > 0) {
-		floor2_0x = 1280 * 3;	floor2_1x = 1280 * 2; floor2_2x = 1280; kaidan2_x = 0.0f;
+	if (floor2_1x < 0) {
+		 chara_x = 0.0f;
 	}
 
 	//武器(攻撃用クナイ)
@@ -193,7 +186,7 @@ void GameMain::MainPlayer()
 
 // ジャンプ
 	if (jump_state == 0) {
-		if (Key_buf.IsPressed(Keys_W)) {
+		if (Key_buf.IsPressed(Keys_Up)) {
 
 			zahyou = chara_y;
 			jumpspeed = 25;
@@ -244,10 +237,8 @@ void GameMain::Draw()
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
-	SpriteBatch.Draw(*floor, Vector3(floor2_0x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor2_2x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*kaidan, Vector3(kaidan2_x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*_2F, Vector3(floor2_1x, 0.0f, -2));
+
 
 	if (enemy_move_flg == false && hit_state == 0)
 	{

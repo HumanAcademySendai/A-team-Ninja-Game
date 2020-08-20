@@ -63,12 +63,12 @@ private:
 	int enemy_move_flg;
 
 
-	SPRITE  player, leftplayer, kunai, kunai2, floor, kaidan;
+	SPRITE  player, leftplayer, kunai, kunai2, _2F;
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_state, shot_count, kunai_flag;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
-	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
+	float  floor2_1x;
 
 	// 関数宣言
 	void MainPlayer();
