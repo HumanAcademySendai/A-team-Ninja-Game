@@ -63,32 +63,7 @@ void GameMain::Initialize_1_3()
 
 
 
-//2と4ステ
-void GameMain::Initialize_2_4()
-{//2と4ステ
-	
-		floor = GraphicsDevice.CreateSpriteFromFile(_T("floor.png"));
-		kaidan = GraphicsDevice.CreateSpriteFromFile(_T("kaidan2.png"));
-		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-		player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-		leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
-		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-		chara_x = 1100; chara_y = 550;
-		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
-		kunai2_x = chara_x, kunai2_y = chara_y;
-		floor2_0x = 1280.0f; floor2_1x = 0; floor2_2x = -1280.0f; kaidan2_x = -1280.0f * 2;//背景のスクロール
-
-		player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
-		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
-
-		enemy_x = 1100.0f;
-		enemy_y = 530.0f;
-		speed = 2.0f;
-		enemy_move_flg = false;
-		//ここまで2と4ステ
-	}
 
 
 

@@ -88,7 +88,5 @@ private:
 	void MainPlayer_1_3();
 	void Initialize_1_3();
 	void Draw_1_3();
-	void MainPlayer_2_4();
-	void Initialize_2_4();
-	void Draw_2_4();
+	
 };
