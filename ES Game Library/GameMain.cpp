@@ -116,12 +116,12 @@ void GameMain::MainPlayer()
 	}
 
 	//武器(攻撃用クナイ)
-	if (Key_buf.IsPressed(Keys_Z)) {
+	if (Key_buf.IsPressed(Keys_Space)) {
 		if (kunai_flag == false) {
 			kunai_flag = true;
 		}
 	}
-	if (Key_buf.IsReleased(Keys_Z)) {
+	if (Key_buf.IsReleased(Keys_Space)) {
 		if (kunai_flag == true) {
 			kunai_flag = false;
 		}
@@ -140,7 +140,7 @@ void GameMain::MainPlayer()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 	}
@@ -151,7 +151,7 @@ void GameMain::MainPlayer()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 
@@ -237,7 +237,7 @@ void GameMain::Draw()
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
-	SpriteBatch.Draw(*_2F, Vector3(floor2_1x, 0.0f, -2));
+	SpriteBatch.Draw(*_2F, Vector3(floor2_1x, 0.0f, 0.0f));
 
 
 	if (enemy_move_flg == false && hit_state == 0)
