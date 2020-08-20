@@ -11,7 +11,7 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("ES Game Library"));
-	floor = GraphicsDevice.CreateSpriteFromFile(_T("floor.png"));
+	floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("階段3.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
@@ -38,7 +38,7 @@ bool GameMain::Initialize()
 
 	enemy_move_flg = false;
 
-	Title = GraphicsDevice.CreateSpriteFromFile(_T("タイトル画面.png"));
+	Title = GraphicsDevice.CreateSpriteFromFile(_T("タイトル画面（修正）.png"));
 	GameOver = GraphicsDevice.CreateSpriteFromFile(_T("ゲームオーバー.png"));
 	Last = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
 	hp1 = GraphicsDevice.CreateSpriteFromFile(_T("HPアイコン (1).png"));
