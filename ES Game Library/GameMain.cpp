@@ -20,11 +20,7 @@ bool GameMain::Initialize()
 	{
        Initialize_1_3();
 	}
-	if (Game_scene_flg = false)
-	{
-		Initialize_2_4();
-	}
-		
+	
 	    
 	//２と４
 
@@ -115,17 +111,9 @@ int GameMain::Update()
 		chara_y = 550;
 	}
 	//プレイヤー&&プレイヤー移動制限
-	{   
-		if (Game_scene_flg = true)
-		{
-			MainPlayer_1_3();
-		}
-		if (Game_scene_flg == false)
-		{
-			MainPlayer_2_4();
-		}
 
-	}
+	MainPlayer_1_3();
+	
 
 	return 0;
 }
@@ -285,10 +273,7 @@ void GameMain::Draw()
 	{
 	Draw_1_3();
     }
-	if (Game_scene_flg == false)
-	{
-		Draw_2_4();
-	}
+	
 	SpriteBatch.End();
 
 
