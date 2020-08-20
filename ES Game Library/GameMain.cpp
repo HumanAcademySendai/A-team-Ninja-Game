@@ -30,7 +30,7 @@ void GameMain::Initialize_2_4()
 	chara_x = 1100; chara_y = 550;
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
-	 floor2_1x = 2560; //背景のスクロール
+	floor2_1x = 2560; floor2_1y = 0;//背景のスクロール
 
 	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -101,7 +101,6 @@ int GameMain::Update()
 //2と4ステ
 void GameMain::MainPlayer_2_4()
 {//2と4ステ
-
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 	//移動
@@ -122,6 +121,20 @@ void GameMain::MainPlayer_2_4()
 	if (floor2_1x < 2560) {
 		chara_x = 0;
 	}
+
+	//階段当たり判定
+	if (chara_x > floor2_1x + 460.0f || chara_x + 96.0f - 30.0f < floor2_1x + 0 ||
+		chara_y > floor2_1y + 550.0f || chara_y + 100.0f - 30.0f < floor2_1y) {
+
+	}
+	else {
+		chara_y = -1.4f * chara_x + 1500;
+		if (chara_y < 100.0f) {
+			
+
+		}
+	}
+
 	//武器(攻撃用クナイ)
 	if (Key_buf.IsPressed(Keys_Space)) {
 		if (kunai_flag == false) {
@@ -150,7 +163,7 @@ void GameMain::MainPlayer_2_4()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 	}
@@ -160,7 +173,7 @@ void GameMain::MainPlayer_2_4()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 
@@ -243,9 +256,7 @@ void GameMain::Draw_2_4()
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
 
-	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0.0f));
-
-
+	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, -1.0f));
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
 
