@@ -11,6 +11,15 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("ES Game Library"));
+
+	Initialize_2_4();
+
+	return true;
+}
+//2と4ステ
+void GameMain::Initialize_2_4()
+{//2と4ステ
+
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("2,4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
@@ -21,35 +30,7 @@ bool GameMain::Initialize()
 	chara_x = 1100; chara_y = 550;
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
-	floor2_1x = 1280.0f * 2; //背景のスクロール
-
-	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
-	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
-
-	enemy_x = 1100.0f;
-	enemy_y = 530.0f;
-	speed = 2.0f;
-
-	enemy_move_flg = false;
-
-
-	return true;
-}
-//2と4ステ
-void GameMain::Initialize_2_4()
-{//2と4ステ
-
-	floor = GraphicsDevice.CreateSpriteFromFile(_T("3,4F.png"));
-	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
-	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
-
-	chara_x = 1100; chara_y = 550;
-	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
-	kunai2_x = chara_x, kunai2_y = chara_y;
-	 floor2_1x = 0; //背景のスクロール
+	 floor2_1x = 2560; //背景のスクロール
 
 	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -121,7 +102,7 @@ void GameMain::MainPlayer_2_4()
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 	//移動
-	if (Key.IsKeyDown(Keys_A)) {
+	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 1;
 		chara_x -= 6.0f;
 		floor2_1x += 6.0f;
@@ -129,11 +110,14 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//背景移動制限
-	if (kaidan2_x < -1280 * 2) {
-		 floor2_1x = 0.0f;
+	if (chara_x > 1100) {
+		floor2_1x = 2560;
 	}
-	if (kaidan2_x > 0) {
-		floor2_1x = 1280 * 2; 
+	if (floor2_1x < 1280) {
+		floor2_1x = 1280;
+	}
+	if (floor2_1x < 2560) {
+		chara_x = 0;
 	}
 	//武器(攻撃用クナイ)
 	if (Key_buf.IsPressed(Keys_Z)) {
@@ -189,35 +173,35 @@ void GameMain::MainPlayer_2_4()
 
 		}
 	}
+
 	// ジャンプ
-	/*if (jump_state == 0) {
-		if (Key_buf.IsPressed(Keys_W)) {
+	if (jump_state == 0) {
+		if (Key_buf.IsPressed(Keys_Up)) {
 
 			zahyou = chara_y;
-			jumpspeed = 25;
+			jumpspeed = 80;
 			jumptime = 0;
 			jump_state = 1;
 		}
 	}
 	if (jump_state == 1) {
-		zahyou = chara_y;
-		jumpspeed += 0.1;
-		jump_state = 1;
-		if (jumpspeed >= 25) {
-			jumpspeed = 25;
-			jump_state = 1;
+		if (Key.IsKeyDown(Keys_Up)) {
+			if (jumpspeed >= 80) {
+				jumpspeed = 80;
+			}
 		}
-	}
-	if (jump_state == 1) {
+		//jumpspeed -= 2;
 		jumptime = jumptime + 0.25;
+
+		chara_y -= jumpspeed;
 
 		chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
 
-		if (chara_y > 580) {
-			chara_y = 580;
+		if (chara_y > 550) {
+			chara_y = 550;
 			jump_state = 0;
 		}
-	}*/
+	}
 	//ここまで2と4ステ
 }
 /// <summary>
@@ -233,24 +217,7 @@ void GameMain::Draw()
 
 	SpriteBatch.Begin();
 
-	if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
-	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
-
-	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
-	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
-
-	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0.0f));
-
-
-	if (enemy_move_flg == false && hit_state == 0)
-	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
-	}
-	if (enemy_move_flg == true && hit_state == 0)
-	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
-	}
-
+	Draw_2_4();
 
 	SpriteBatch.End();
 
