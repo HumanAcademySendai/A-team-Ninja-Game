@@ -110,53 +110,54 @@ int GameMain::Update()
 	}
 	//プレイヤー
 	{
-		MainPlayer();
+		MainPlayer_2_4();
 	}
 
 	return 0;
 }
-void GameMain::MainPlayer()
-{
+//2と4ステ
+void GameMain::MainPlayer_2_4()
+{//2と4ステ
+
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
-
 	//移動
-	if (Key.IsKeyDown(Keys_Left)) {
+	if (Key.IsKeyDown(Keys_A)) {
 		player_state = 1;
 		chara_x -= 6.0f;
+		floor2_0x += 6.0f;
 		floor2_1x += 6.0f;
-	}
-	if (Key.IsKeyDown(Keys_Right)) {
-		player_state = 0;
-		chara_x += 6.0f;
-		floor2_1x -= 6.0f;
-		
-	}
-	//背景移動制限
-	if (floor2_1x < 1280 * 2) {
-		chara_x = 1100;
-	}
-	if (floor2_1x < 0) {
-		 chara_x = 0.0f;
+		floor2_2x += 6.0f;
+		kaidan2_x += 6.0f;
 	}
 
+	//背景移動制限
+	if (kaidan2_x < -1280 * 2) {
+		floor2_0x = 1280.0f; floor2_1x = 0.0f; floor2_2x = -1280.0f;  kaidan2_x = -1280 * 2;
+	}
+	if (kaidan2_x > 0) {
+		floor2_0x = 1280 * 3;	floor2_1x = 1280 * 2; floor2_2x = 1280; kaidan2_x = 0.0f;
+	}
 	//武器(攻撃用クナイ)
-	if (Key_buf.IsPressed(Keys_Space)) {
+	if (Key_buf.IsPressed(Keys_Z)) {
 		if (kunai_flag == false) {
 			kunai_flag = true;
 		}
 	}
-	if (Key_buf.IsReleased(Keys_Space)) {
+	if (Key_buf.IsReleased(Keys_Z)) {
 		if (kunai_flag == true) {
 			kunai_flag = false;
 		}
 	}
-
 	//攻撃用クナイ座標
 	kunai_x = chara_x + 80, kunai_y = chara_y + 50;
 	kunai2_x = chara_x - 10, kunai2_y = chara_y + 50;
-
-
+	if (chara_x < 0) {
+		chara_x = 0;
+	}
+	if (chara_x > 1150) {
+		chara_x = 1150;
+	}
 
 	//敵　―　攻撃用クナイ
 	if (kunai_x > enemy_x + 52.0f || kunai_x + 8.0f < enemy_x ||
@@ -165,23 +166,21 @@ void GameMain::MainPlayer()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Space)) {
+		if (Key.IsKeyDown(Keys_Z)) {
 			hit_state = 1;
 		}
 	}
-
 	if (kunai2_x > enemy_x + 52.0f || kunai2_x + 8.0f < enemy_x ||
 		kunai2_y > enemy_y + 73.0f || kunai2_y + 5.0f < enemy_y) {
 		// 当たっていない
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Space)) {
+		if (Key.IsKeyDown(Keys_Z)) {
 			hit_state = 1;
 		}
 
 	}
-
 	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)(その時はforで処理をする)
 	if (hit_state == 0) {
 		if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 96.0f - 30.0f < enemy_x ||
@@ -193,25 +192,9 @@ void GameMain::MainPlayer()
 
 		}
 	}
-
-	//当たり判定(未完成)(橋本君のプログラムをちょっと手を加えたらワープクナイできそうなのでそちらを使ってください)
-//for (int i = 0; i < SHOT_MAX; i++) {
-//	if (shot_flg[i] == 1) {
-//	if (shot_x[i] > enemy_x + 80.0f || shot_x[i] + 139.0f < enemy_x ||
-//		shot_y[i] > enemy_y + 31.0f || shot_y[i] + 69.0f < enemy_y) {
-//			// 当たっていない
-//		}
-//		else {
-//			// 当たっている
-//			hit_state = 1;
-//		}
-//	}
-//}
-
-
-// ジャンプ
-	if (jump_state == 0) {
-		if (Key_buf.IsPressed(Keys_Up)) {
+	// ジャンプ
+	/*if (jump_state == 0) {
+		if (Key_buf.IsPressed(Keys_W)) {
 
 			zahyou = chara_y;
 			jumpspeed = 25;
@@ -219,8 +202,6 @@ void GameMain::MainPlayer()
 			jump_state = 1;
 		}
 	}
-
-
 	if (jump_state == 1) {
 		zahyou = chara_y;
 		jumpspeed += 0.1;
@@ -230,7 +211,6 @@ void GameMain::MainPlayer()
 			jump_state = 1;
 		}
 	}
-
 	if (jump_state == 1) {
 		jumptime = jumptime + 0.25;
 
@@ -240,8 +220,8 @@ void GameMain::MainPlayer()
 			chara_y = 580;
 			jump_state = 0;
 		}
-	}
-
+	}*/
+	//ここまで2と4ステ
 }
 /// <summary>
 /// This is called when the game should draw itself.

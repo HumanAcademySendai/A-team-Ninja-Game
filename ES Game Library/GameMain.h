@@ -71,7 +71,7 @@ private:
 	float  floor2_1x;
 
 	// ŠÖ”éŒ¾
-	void MainPlayer();
+	
 	void MainPlayer_2_4();
 	void Initialize_2_4();
 	void Draw_2_4();
