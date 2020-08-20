@@ -39,6 +39,9 @@ void GameMain::Initialize_2_4()
 	enemy_y = 530.0f;
 	speed = 2.0f;
 	enemy_move_flg = false;
+
+	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
+
 	//ここまで2と4ステ
 }
 /// <summary>
@@ -120,12 +123,12 @@ void GameMain::MainPlayer_2_4()
 		chara_x = 0;
 	}
 	//武器(攻撃用クナイ)
-	if (Key_buf.IsPressed(Keys_Z)) {
+	if (Key_buf.IsPressed(Keys_Space)) {
 		if (kunai_flag == false) {
 			kunai_flag = true;
 		}
 	}
-	if (Key_buf.IsReleased(Keys_Z)) {
+	if (Key_buf.IsReleased(Keys_Space)) {
 		if (kunai_flag == true) {
 			kunai_flag = false;
 		}
@@ -190,7 +193,7 @@ void GameMain::MainPlayer_2_4()
 				jumpspeed = 80;
 			}
 		}
-		//jumpspeed -= 2;
+		
 		jumptime = jumptime + 0.25;
 
 		chara_y -= jumpspeed;
