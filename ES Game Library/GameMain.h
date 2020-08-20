@@ -77,9 +77,12 @@ private:
 	float frame;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
+	float floor1_0x,floor1_1x, floor1_2x, kaidan1_x;
+	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
 	float floor1_1x,floor1_1y;
 	float floor2_0x, floor2_1x, floor2_2x;
 	float kaidan1_x, kaidan1_y, kaidan2_x, kaidan2_y;
+
 	enum { SHOT_MAX = 1 };
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];

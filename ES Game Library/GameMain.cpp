@@ -11,12 +11,41 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("ES Game Library"));
+	floor = GraphicsDevice.CreateSpriteFromFile(_T("floor.png"));
+	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("kaidan.png"));
+	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
+	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
+	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
+	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
+
+
+	chara_x = 0; chara_y = 514;
+	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
+
+	chara_x = 0; chara_y = 550;
+	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
+	kunai2_x = chara_x, kunai2_y = chara_y;
+	floor1_0x = -1280.0f; floor1_1x = 0; floor1_2x = 1280.0f; kaidan1_x = 1280.0f * 2;//背景のスクロール
+
+	player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
+	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
+
+	enemy_x = 1100.0f;
+	enemy_y = 530.0f;
+	speed = 2.0f;
+
+	enemy_move_flg = false;
+
+	//ワープクナイ初期位置
+	for (int i = 0; i < SHOT_MAX; i++)
+
 	//1と3
 
 
 	Game_scene_flg = false;
 
 	if (Game_scene_flg = true)
+
 	{
        Initialize_1_3();
 	}
@@ -29,36 +58,6 @@ bool GameMain::Initialize()
 	return true;
 }
 
-//1と3ステ
-void GameMain::Initialize_1_3()
-{ //1と3ステ
-		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
-		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-		player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-		leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
-		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
-
-		chara_x = 0; chara_y = 550; time = 0; frame = 0;
-		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
-		kunai2_x = chara_x, kunai2_y = chara_y;
-		floor1_1x = 0;//背景のスクロール
-		floor1_1y = 0; kaidan1_x = 1000;
-		player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
-		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
-
-		enemy_x = 1100.0f;
-		enemy_y = 530.0f;
-		speed = 2.0f;
-
-		text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
-
-		enemy_move_flg = false;
-		//ここまで1と3ステ
-	}
-
-	return true;
-}
 
 void GameMain::steage2()
 {
@@ -254,6 +253,34 @@ void GameMain::steage2()
 		}
 	}
 }
+
+//1と3ステ
+void GameMain::Initialize_1_3()
+{ //1と3ステ
+		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
+		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
+		player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
+		leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
+		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
+		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
+
+		chara_x = 0; chara_y = 550; time = 0; frame = 0;
+		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
+		kunai2_x = chara_x, kunai2_y = chara_y;
+		floor1_1x = 0;//背景のスクロール
+		floor1_1y = 0; kaidan1_x = 1000;
+		player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
+		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
+
+		enemy_x = 1100.0f;
+		enemy_y = 530.0f;
+		speed = 2.0f;
+
+		text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
+
+		enemy_move_flg = false;
+		//ここまで1と3ステ
+	}
 
 /// <summary>
 /// Finalize will be called once per game and is the place to release
