@@ -42,6 +42,8 @@ bool GameMain::Initialize()
 	GameOver = GraphicsDevice.CreateSpriteFromFile(_T("ゲームオーバー.png"));
 	Last = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
 	hp1 = GraphicsDevice.CreateSpriteFromFile(_T("HPアイコン (1).png"));
+	
+	
 
 	//ワープクナイ初期位置
 	for (int i = 0; i < SHOT_MAX; i++)

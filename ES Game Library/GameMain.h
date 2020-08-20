@@ -68,6 +68,11 @@ private:
 	SPRITE Last;
 	SPRITE hp1;
 
+	SOUND se_End;
+	SOUND se_Attack;
+	SOUND se_start1;
+	SOUND se_start2;
+
 	float hp_x;
 	float hp_count;
 	int enemyhit_count;
