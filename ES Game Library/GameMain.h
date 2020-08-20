@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "ESGLib.h"
@@ -59,18 +58,28 @@ private:
 	// 変数宣言
 	SPRITE night;
 	SPRITE enemy;
+	SPRITE  player, leftplayer;
+	SPRITE	kunai, kunai2;
+	SPRITE floor, kaidan;
+	FONT text;
 	float enemy_x, enemy_y;
 	float speed;
 	int enemy_move_flg;
+	int Game_Main_1_3_flg;
+	int Game_scene_flg;
+	int Game_scene_flg2;
 
 
-	SPRITE  player, leftplayer, kunai, kunai2, floor, kaidan;
+
 	float  chara_x, chara_y;
-	int player_state, jump_state, hit_state, shot_count, kunai_flag;
+	int player_state, jump_state, hit_state, shot_count, kunai_flag,game_scene;
+	float time;
+	float frame;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
-	float floor1_0x,floor1_1x, floor1_2x, kaidan1_x;
-	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
+	float floor1_1x,floor1_1y;
+	float floor2_0x, floor2_1x, floor2_2x;
+	float kaidan1_x, kaidan1_y, kaidan2_x, kaidan2_y;
 	enum { SHOT_MAX = 1 };
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
@@ -78,4 +87,8 @@ private:
 	// 関数宣言
 	void MainPlayer();
 	void steage2();
+	void MainPlayer_1_3();
+	void Initialize_1_3();
+	void Draw_1_3();
+	
 };
