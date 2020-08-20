@@ -11,7 +11,7 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("ES Game Library"));
-	_2F = GraphicsDevice.CreateSpriteFromFile(_T("2,4F.png"));
+	floor = GraphicsDevice.CreateSpriteFromFile(_T("2,4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
@@ -39,8 +39,7 @@ bool GameMain::Initialize()
 void GameMain::Initialize_2_4()
 {//2と4ステ
 
-	floor = GraphicsDevice.CreateSpriteFromFile(_T("floor.png"));
-	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("kaidan2.png"));
+	floor = GraphicsDevice.CreateSpriteFromFile(_T("3,4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
@@ -50,7 +49,7 @@ void GameMain::Initialize_2_4()
 	chara_x = 1100; chara_y = 550;
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
-	floor2_0x = 1280.0f; floor2_1x = 0; floor2_2x = -1280.0f; kaidan2_x = -1280.0f * 2;//背景のスクロール
+	 floor2_1x = 0; //背景のスクロール
 
 	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -125,18 +124,16 @@ void GameMain::MainPlayer_2_4()
 	if (Key.IsKeyDown(Keys_A)) {
 		player_state = 1;
 		chara_x -= 6.0f;
-		floor2_0x += 6.0f;
 		floor2_1x += 6.0f;
-		floor2_2x += 6.0f;
-		kaidan2_x += 6.0f;
+
 	}
 
 	//背景移動制限
 	if (kaidan2_x < -1280 * 2) {
-		floor2_0x = 1280.0f; floor2_1x = 0.0f; floor2_2x = -1280.0f;  kaidan2_x = -1280 * 2;
+		 floor2_1x = 0.0f;
 	}
 	if (kaidan2_x > 0) {
-		floor2_0x = 1280 * 3;	floor2_1x = 1280 * 2; floor2_2x = 1280; kaidan2_x = 0.0f;
+		floor2_1x = 1280 * 2; 
 	}
 	//武器(攻撃用クナイ)
 	if (Key_buf.IsPressed(Keys_Z)) {
@@ -242,7 +239,7 @@ void GameMain::Draw()
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
-	SpriteBatch.Draw(*_2F, Vector3(floor2_1x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0.0f));
 
 
 	if (enemy_move_flg == false && hit_state == 0)
@@ -266,18 +263,18 @@ void GameMain::Draw_2_4()
 	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
 
 
-	for (int i = 0; i < SHOT_MAX; i++)
-	{
-		if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
-		if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
-	}
+	//for (int i = 0; i < SHOT_MAX; i++)
+	//{
+	//	if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
+	//	if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
+	//}
 
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
-	SpriteBatch.Draw(*floor, Vector3(floor2_0x, 0.0f, 0.0f));
+
 	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0.0f));
-	SpriteBatch.Draw(*floor, Vector3(floor2_2x, 0.0f, 0.0f));
+
 
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
