@@ -81,6 +81,15 @@ int GameMain::Update()
 		if (enemy_x > 1200) { enemy_x = 1200; enemy_move_flg = false; }
 	}
 
+	//タイム(カウントアップ)
+	if (time < 10000) {
+		frame += 1;
+		if (frame >= 60) {
+			time += 1;
+			frame = 0;
+		}
+	}
+
 //プレイヤー移動制限
 	if (chara_x < 0) {
 		chara_x = 0;
@@ -109,15 +118,6 @@ void GameMain::MainPlayer_2_4()
 		chara_x -= 6.0f;
 		floor2_1x += 6.0f;
 
-	}
-
-	//タイム(カウントアップ)
-	if (time < 10000) {
-		frame += 1;
-		if (frame >= 60) {
-			time += 1;
-			frame = 0;
-		}
 	}
 
 	//背景移動制限
