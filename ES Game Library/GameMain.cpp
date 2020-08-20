@@ -51,9 +51,6 @@ void GameMain::Initialize_1_3()
 		 enemy_x2 = 850.0f;
 		enemy_y2 = 530.0f;
 
-		enemy_x3 = 1150.0f;
-		enemy_y3 = 530.0f;
-
 		speed = 0.5f;
 
 		text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
@@ -145,19 +142,19 @@ void GameMain::MainPlayer_1_3()
 			if (Key_buf.IsPressed(Keys_Up)) {
 
 				zahyou = chara_y;
-				jumpspeed = 80;
+				jumpspeed = 70;
 				jumptime = 0;
 				jump_state = 1;
 			}
 		}
 		if (jump_state == 1) {
 			if (Key.IsKeyDown(Keys_Up)) {
-				if (jumpspeed >= 80) {
-					jumpspeed = 80;
+				if (jumpspeed >= 70) {
+					jumpspeed = 70;
 				}
 			}
 			//jumpspeed -= 2;
-			jumptime = jumptime + 0.25;
+			jumptime = jumptime + 0.15;
 
 			chara_y -= jumpspeed;
 
@@ -216,6 +213,28 @@ void GameMain::MainPlayer_1_3()
 		}
 		if (kunai2_x > enemy_x + 52.0f || kunai2_x + 8.0f < enemy_x ||
 			kunai2_y > enemy_y + 73.0f || kunai2_y + 5.0f < enemy_y) {
+			// 当たっていない
+		}
+		else {
+			// 当たっている
+			if (Key.IsKeyDown(Keys_Space)) {
+				hit_state = 1;
+			}
+
+		}
+		//敵　―　攻撃用クナイ
+		if (kunai_x > enemy_x2 + 52.0f || kunai_x + 8.0f < enemy_x2 ||
+			kunai_y > enemy_y2 + 73.0f || kunai_y + 5.0f < enemy_y2) {
+			// 当たっていない
+		}
+		else {
+			// 当たっている
+			if (Key.IsKeyDown(Keys_Space)) {
+				hit_state = 1;
+			}
+		}
+		if (kunai2_x > enemy_x2 + 52.0f || kunai2_x + 8.0f < enemy_x2 ||
+			kunai2_y > enemy_y2 + 73.0f || kunai2_y + 5.0f < enemy_y2) {
 			// 当たっていない
 		}
 		else {
@@ -329,7 +348,7 @@ void GameMain::Draw_1_3()
 		{
 			SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
 		}
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x3, enemy_y3, -1.0f));
+		
 
 		//ここまで1と3ステ
 	}

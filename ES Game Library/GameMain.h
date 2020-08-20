@@ -64,7 +64,7 @@ private:
 	FONT text;
 	float enemy_x, enemy_y;
 	float enemy_x2, enemy_y2;
-	float enemy_x3, enemy_y3;
+
 	float speed;
 	int enemy_move_flg;
 	int enemy_move_flg2;
