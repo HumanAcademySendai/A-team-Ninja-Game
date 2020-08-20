@@ -58,13 +58,19 @@ private:
 	// •Ï”éŒ¾
 	SPRITE night;
 	SPRITE enemy;
+	SPRITE  player, leftplayer;
+	SPRITE	kunai, kunai2;
+	SPRITE floor, kaidan;
 	FONT text;
 	float enemy_x, enemy_y;
 	float speed;
 	int enemy_move_flg;
 	int Game_Main_1_3_flg;
+	int Game_scene_flg;
+	int Game_scene_flg2;
 
-	SPRITE  player, leftplayer, kunai, kunai2, floor, kaidan;
+
+
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_state, shot_count, kunai_flag,game_scene;
 	float time;
