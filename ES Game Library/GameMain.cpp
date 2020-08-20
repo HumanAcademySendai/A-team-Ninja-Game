@@ -20,14 +20,14 @@ bool GameMain::Initialize()
 void GameMain::Initialize_2_4()
 {//2と4ステ
 
-	floor = GraphicsDevice.CreateSpriteFromFile(_T("2,4F.png"));
+	floor = GraphicsDevice.CreateSpriteFromFile(_T("2_4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-	chara_x = 1100; chara_y = 550;
+	chara_x = 1100; chara_y = 550; frame = 0; time = 0;//前ステージの秒数を引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
 	floor2_1x = 2560; floor2_1y = 0;//背景のスクロール
@@ -109,6 +109,15 @@ void GameMain::MainPlayer_2_4()
 		chara_x -= 6.0f;
 		floor2_1x += 6.0f;
 
+	}
+
+	//タイム(カウントアップ)
+	if (time < 10000) {
+		frame += 1;
+		if (frame >= 60) {
+			time += 1;
+			frame = 0;
+		}
 	}
 
 	//背景移動制限
@@ -239,10 +248,10 @@ void GameMain::Draw()
 
 	GraphicsDevice.EndScene();
 
-}//2と4ステ
+}
+//2と4ステ
 void GameMain::Draw_2_4()
 {//2と4ステ
-	if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
 	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
 
 
@@ -252,11 +261,10 @@ void GameMain::Draw_2_4()
 	//	if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
 	//}
 
-	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
 
-	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, -1.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0));
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
 
