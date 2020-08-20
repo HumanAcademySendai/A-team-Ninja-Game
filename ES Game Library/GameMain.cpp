@@ -440,37 +440,3 @@ void GameMain::Draw_1_3()
 		//ここまで1と3ステ
 	}
 
-//2と4ステ
-void GameMain::Draw_2_4()
-{//2と4ステ
-		if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
-		if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
-
-
-		for (int i = 0; i < SHOT_MAX; i++)
-		{
-			if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
-			if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
-		}
-
-		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
-		if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
-
-		SpriteBatch.Draw(*floor, Vector3(floor2_0x, 0.0f, 0.0f));
-		SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0.0f));
-		SpriteBatch.Draw(*floor, Vector3(floor2_2x, 0.0f, 0.0f));
-	
-
-		SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
-
-		if (enemy_move_flg == false && hit_state == 0)
-		{
-			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
-		}
-		if (enemy_move_flg == true && hit_state == 0)
-		{
-			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
-		}
-		//ここまで2と4ステ
-	}
-
