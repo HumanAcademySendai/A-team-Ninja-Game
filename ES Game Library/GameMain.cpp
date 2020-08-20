@@ -22,7 +22,6 @@ bool GameMain::Initialize()
 	}
 	
 	    
-	//２と４
 
 	
 	/*Game_scene_flg2 = false;*/
@@ -47,13 +46,20 @@ void GameMain::Initialize_1_3()
 		player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
 		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
-		enemy_x = 1100.0f;
+		enemy_x = 500.0f;
 		enemy_y = 530.0f;
-		speed = 2.0f;
+		 enemy_x2 = 850.0f;
+		enemy_y2 = 530.0f;
+
+		enemy_x3 = 1150.0f;
+		enemy_y3 = 530.0f;
+
+		speed = 0.5f;
 
 		text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 
 		enemy_move_flg = false;
+		enemy_move_flg2 = false;
 		//ここまで1と3ステ
 	}
 
@@ -91,25 +97,25 @@ int GameMain::Update()
 	if (enemy_move_flg == false)
 	{
 		enemy_x = enemy_x - speed;
-		if (enemy_x < 450) { enemy_x = 450; enemy_move_flg = true; }
+		if (enemy_x < 300) { enemy_x =300; enemy_move_flg = true; }
 
 	}
 	if (enemy_move_flg == true)
 	{
 		enemy_x = enemy_x + speed;
-		if (enemy_x > 1200) { enemy_x = 1200; enemy_move_flg = false; }
+		if (enemy_x > 500) { enemy_x = 500; enemy_move_flg = false; }
+	}
+	if (enemy_move_flg2 == false)
+	{
+		enemy_x2 = enemy_x2 - speed;
+		if (enemy_x2 < 650) { enemy_x2 = 650; enemy_move_flg2 = true; }
+	}
+	if (enemy_move_flg2 == true)
+	{
+		enemy_x2 = enemy_x2 + speed;
+		if (enemy_x2 > 850) { enemy_x2 = 850; enemy_move_flg2 = false; }
 	}
 
-
-	if (chara_x < 0) {
-		chara_x = 0;
-	}
-	if (chara_x > 1150) {
-		chara_x = 1150;
-	}
-	if (chara_y > 550) {
-		chara_y = 550;
-	}
 	//プレイヤー&&プレイヤー移動制限
 
 	MainPlayer_1_3();
@@ -315,6 +321,16 @@ void GameMain::Draw_1_3()
 		{
 			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
 		}
+		if (enemy_move_flg2 == false && hit_state == 0 || 1)
+		{
+			SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+		}
+		if (enemy_move_flg2 == true && hit_state == 0 || 1)
+		{
+			SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+		}
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x3, enemy_y3, -1.0f));
+
 		//ここまで1と3ステ
 	}
 
