@@ -27,10 +27,10 @@ void GameMain::Initialize_2_4()
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-	chara_x = 1100; chara_y = 550; frame = 0; time = 0;//前ステージの秒数を引き継ぐ
+	chara_x = 1000; chara_y = 400; frame = 0; time = 0;//前ステージの秒数を引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
-	floor2_1x = -1280; floor2_1y = 0;//背景のスクロール
+	floor2_1x = -2560; floor2_1y = 0;//背景のスクロール
 
 	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -126,12 +126,13 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//階段当たり判定
-	if (chara_x > floor2_1x + 450.0f || chara_x + 96.0f - 30.0f < floor2_1x + 0.0f ||
-		chara_y > floor2_1y + 550.0f || chara_y + 100.0f - 30.0f < floor2_1y) {
+	if (chara_x > floor2_1x + 1235.0f || chara_x + 96.0f - 30.0f < floor2_1x + 0.0f ||
+		chara_y > floor2_1y + 700.0f || chara_y + 100.0f - 30.0f < floor2_1y) {
 
 	}
 	else {
-		chara_y  = 1.4f * chara_x + 100;
+		chara_y  = - 1.8f * chara_x + 140;
+
 		if (chara_x < 200.0f && chara_y < 150.0f) {
 
 
@@ -198,26 +199,26 @@ void GameMain::MainPlayer_2_4()
 		if (Key_buf.IsPressed(Keys_Up)) {
 
 			zahyou = chara_y;
-			jumpspeed = 70;
+			jumpspeed = 60;
 			jumptime = 0;
 			jump_state = 1;
 		}
 	}
 	if (jump_state == 1) {
 		if (Key.IsKeyDown(Keys_Up)) {
-			if (jumpspeed >= 70) {
-				jumpspeed = 70;
+			if (jumpspeed >= 60) {
+				jumpspeed = 60;
 			}
 		}
 		
-		jumptime = jumptime + 0.25;
+		jumptime = jumptime + 0.15;
 
 		chara_y -= jumpspeed;
 
 		chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
 
-		if (chara_y > 550) {
-			chara_y = 550;
+		if (chara_y > 400) {
+			chara_y = 400;
 			jump_state = 0;
 		}
 	}
