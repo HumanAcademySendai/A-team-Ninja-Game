@@ -10,7 +10,7 @@
 bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
-	WindowTitle(_T("ES Game Library"));
+	WindowTitle(_T("îEé“Å@îÚâe"));
 	//1Ç∆3
 
 
