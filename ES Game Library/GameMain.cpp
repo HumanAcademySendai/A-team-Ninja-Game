@@ -49,6 +49,7 @@ void GameMain::Initialize_LastStage()
 
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 
+	clear_flag = false;
 	enemy_move_flg = false;
 	enemy_move_flg2 = false;
 	//ここまで1と3ステ
@@ -108,24 +109,6 @@ void GameMain::MainPlayer_LastStage()
 		floor3_1x -= 12.0f;
 	}
 
-	//大広間移動
-	if (ohiroma_flag == true) {
-		if (Key.IsKeyDown(Keys_Up)) {
-			chara_y -= 3.0f;
-		}
-		if (Key.IsKeyDown(Keys_Down)) {
-			chara_y += 3.0f;
-		}
-
-		if (Key.IsKeyDown(Keys_Right)) {
-			player_state = 0;
-			chara_x += 3.0f;
-		}
-		if (Key.IsKeyDown(Keys_Left)) {
-			player_state = 1;
-			chara_x -= 3.0f;
-		}
-	}
 
 	// ジャンプ
 	if (ohiroma_flag == false) {
@@ -159,7 +142,7 @@ void GameMain::MainPlayer_LastStage()
 	}
 
 	//タイム(カウントアップ)
-	if (time < 10000) {
+	if (clear_flag == false && time < 10000) {
 		frame += 1;
 		if (frame >= 60) {
 			time += 1;
@@ -168,7 +151,7 @@ void GameMain::MainPlayer_LastStage()
 	}
 
 	//大広間突入
-	if ( chara_x == 1000) {
+	if (chara_x == 1000) {
 		ohiroma_flag = true;
 		chara_x = 0;
 		chara_y = 550;
@@ -194,12 +177,42 @@ void GameMain::MainPlayer_LastStage()
 			chara_x = 1000;
 		}
 	}
+
+	//大広間移動
+	if (ohiroma_flag == true && clear_flag == false) {
+		if (Key.IsKeyDown(Keys_Up)) {
+			chara_y -= 3.0f;
+		}
+		if (Key.IsKeyDown(Keys_Down)) {
+			chara_y += 3.0f;
+		}
+
+		if (Key.IsKeyDown(Keys_Right)) {
+			player_state = 0;
+			chara_x += 3.0f;
+		}
+		if (Key.IsKeyDown(Keys_Left)) {
+			player_state = 1;
+			chara_x -= 3.0f;
+		}
+	}
+
 	//大広間移動制限
-	if (ohiroma_flag == true) {
+	if (ohiroma_flag == true && clear_flag == false) {
 		if (chara_x < 0) { chara_x = 0; }
 		if (chara_x > 1150) { chara_x = 1150; }
 		if (chara_y < 400) { chara_y = 400; }
 		if (chara_y > 580) { chara_y = 580; }
+
+		//巻物ープレイヤーの当たり判定
+		if (chara_x > makimono_x + 136.0f  || chara_x + 128.0f - 50.0f < makimono_x ||
+			chara_y > makimono_y + 184.0f  || chara_y + 128.0f         < makimono_y) {
+			// 当たっていない
+		}
+		else {
+			// 当たっている
+			clear_flag = true;
+		}
 	}
 }
 //ここまで1と3ステ
@@ -234,8 +247,13 @@ void GameMain::Draw()
 
 	//Paint paint;
 	//paint.SetPaintColor(Color_Yellow);
-	//canvas.DrawRect(Rect(floor1_1x + 2300,floor1_1y + 0,floor1_1x + 2560,floor1_1y + 500), paint);
-
+	//if (ohiroma_flag == true) {
+	//	canvas.DrawRect(Rect(makimono_x + 20, makimono_y + 0, makimono_x + 136, makimono_y + 184), paint);
+	//}
+	//paint.SetColor(Color_Blue);
+	//if (ohiroma_flag == true) {
+	//	canvas.DrawRect(Rect(chara_x + 0, chara_y + 0, chara_x + 128, chara_y + 128), paint);
+	//}
 
 	//GraphicsDevice.UnlockCanvas();
 }
@@ -251,11 +269,12 @@ void GameMain::Draw_LastStage()
 
 	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
-	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*smallnin, Vector3(chara_x,chara_y, -1)); }
+	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*smallnin, Vector3(chara_x, chara_y, -1)); }
 	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*smallnin2, Vector3(chara_x, chara_y, -1)); }
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*makimono, Vector3(makimono_x, makimono_y, 0)); }
 
-	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
+	if (clear_flag == false){SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);}
+	if(clear_flag == true){ SpriteBatch.DrawString(text, Vector2(620, 600), Color_White, _T("クリア条件達成")); }
 
 
 	//ここまで1と3ステ

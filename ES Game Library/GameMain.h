@@ -83,7 +83,7 @@ private:
 	float kunai_x, kunai_y;//攻撃用クナイ
 	float floor3_1x;
 	float makimono_x, makimono_y;
-	int ohiroma_flag;
+	int ohiroma_flag, clear_flag;
 
 
 	// 関数宣言
