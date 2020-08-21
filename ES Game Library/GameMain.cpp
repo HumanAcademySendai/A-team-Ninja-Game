@@ -34,13 +34,11 @@ void GameMain::Initialize_1_3()
 		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 		player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-		leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-		chara_x = 0; chara_y = 550; time = 0; frame = 0;
+		chara_x = 0; chara_y = 400; time = 0; frame = 0;
 		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
-		kunai2_x = chara_x, kunai2_y = chara_y;
 		floor1_1x = 0;//背景のスクロール
 		floor1_1y = 0; kaidan1_x = 1000;
 		player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
@@ -142,15 +140,15 @@ void GameMain::MainPlayer_1_3()
 			if (Key_buf.IsPressed(Keys_Up)) {
 
 				zahyou = chara_y;
-				jumpspeed = 70;
+				jumpspeed = 60;
 				jumptime = 0;
 				jump_state = 1;
 			}
 		}
 		if (jump_state == 1) {
 			if (Key.IsKeyDown(Keys_Up)) {
-				if (jumpspeed >= 70) {
-					jumpspeed = 70;
+				if (jumpspeed >= 60) {
+					jumpspeed = 60;
 				}
 			}
 			//jumpspeed -= 2;
@@ -160,8 +158,8 @@ void GameMain::MainPlayer_1_3()
 
 			chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
 
-			if (chara_y > 550) {
-				chara_y = 550;
+			if (chara_y > 400) {
+				chara_y = 400;
 				jump_state = 0;
 			}
 		}
@@ -179,8 +177,8 @@ void GameMain::MainPlayer_1_3()
 		if (chara_x < 0) {
 			floor1_1x = 0;
 		}
-		if (floor1_1x < -1280) {
-			floor1_1x = -1280;
+		if (floor1_1x < -2560) {
+			floor1_1x = -2560;
 		}
 		if (floor1_1x > -5) {
 			chara_x = 0;
@@ -198,8 +196,7 @@ void GameMain::MainPlayer_1_3()
 			}
 		}
 		//攻撃用クナイ座標
-		kunai_x = chara_x + 80, kunai_y = chara_y + 50;
-		kunai2_x = chara_x - 10, kunai2_y = chara_y + 50;
+		kunai_x = chara_x + 200, kunai_y = chara_y + 150;
 		//敵　―　攻撃用クナイ
 		if (kunai_x > enemy_x + 52.0f || kunai_x + 8.0f < enemy_x ||
 			kunai_y > enemy_y + 73.0f || kunai_y + 5.0f < enemy_y) {
@@ -211,17 +208,7 @@ void GameMain::MainPlayer_1_3()
 				hit_state = 1;
 			}
 		}
-		if (kunai2_x > enemy_x + 52.0f || kunai2_x + 8.0f < enemy_x ||
-			kunai2_y > enemy_y + 73.0f || kunai2_y + 5.0f < enemy_y) {
-			// 当たっていない
-		}
-		else {
-			// 当たっている
-			if (Key.IsKeyDown(Keys_Space)) {
-				hit_state = 1;
-			}
 
-		}
 		//敵　―　攻撃用クナイ
 		if (kunai_x > enemy_x2 + 52.0f || kunai_x + 8.0f < enemy_x2 ||
 			kunai_y > enemy_y2 + 73.0f || kunai_y + 5.0f < enemy_y2) {
@@ -233,18 +220,9 @@ void GameMain::MainPlayer_1_3()
 				hit_state = 1;
 			}
 		}
-		if (kunai2_x > enemy_x2 + 52.0f || kunai2_x + 8.0f < enemy_x2 ||
-			kunai2_y > enemy_y2 + 73.0f || kunai2_y + 5.0f < enemy_y2) {
-			// 当たっていない
-		}
-		else {
-			// 当たっている
-			if (Key.IsKeyDown(Keys_Space)) {
-				hit_state = 1;
-			}
 
-		}
 		//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)(その時はforで処理をする)
+		//画像変更のため当たり判定修正必要
 		if (hit_state == 0) {
 			if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 96.0f - 30.0f < enemy_x ||
 				chara_y > enemy_y + 130.0f - 21.0f || chara_y + 100.0f - 30.0f < enemy_y) {
@@ -257,12 +235,12 @@ void GameMain::MainPlayer_1_3()
 		}
 
 		//階段当たり判定
-		if (chara_x > floor1_1x + 2560.0f || chara_x + 96.0f - 30.0f < floor1_1x + 2100||
+		if (chara_x > floor1_1x + 3440.0f || chara_x + 96.0f - 30.0f < floor1_1x + 2600||
 			chara_y > floor1_1y + 550.0f || chara_y + 100.0f - 30.0f < floor1_1y) {
 
 		}
 		else {
-			chara_y = -1.4f * chara_x + 1500;
+			chara_y = -1.3f * chara_x + 1300;
 			if (chara_y < 100.0f) {
 				Game_scene_flg = false;
 			
@@ -323,10 +301,9 @@ void GameMain::Draw_1_3()
 		for (int i = 0; i < SHOT_MAX; i++)
 		{
 			if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
-			if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
 		}
 		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
-		if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
+
 
 		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
 

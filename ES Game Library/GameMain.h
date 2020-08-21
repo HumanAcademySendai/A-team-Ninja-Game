@@ -79,7 +79,7 @@ private:
 	float time;
 	float frame;
 	float jumpspeed, jumptime, zahyou;
-	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
+	float kunai_x, kunai_y;//攻撃用クナイ
 	float floor1_1x,floor1_1y;
 	float floor2_0x, floor2_1x, floor2_2x;
 	float kaidan1_x, kaidan1_y, kaidan2_x, kaidan2_y;
