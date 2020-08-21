@@ -45,9 +45,9 @@ void GameMain::Initialize_1_3()
 		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
 		enemy_x = 500.0f;
-		enemy_y = 530.0f;
+		enemy_y = 500.0f;
 		 enemy_x2 = 850.0f;
-		enemy_y2 = 530.0f;
+		enemy_y2 = 500.0f;
 
 		speed = 0.5f;
 
@@ -222,21 +222,20 @@ void GameMain::MainPlayer_1_3()
 		}
 
 		//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)(その時はforで処理をする)
-		//画像変更のため当たり判定修正必要
 		if (hit_state == 0) {
-			if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 96.0f - 30.0f < enemy_x ||
-				chara_y > enemy_y + 130.0f - 21.0f || chara_y + 100.0f - 30.0f < enemy_y) {
+			if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 200.0f - 70.0f < enemy_x ||
+				chara_y > enemy_y + 130.0f - 21.0f || chara_y + 250.0f - 10.0f < enemy_y) {
 				// 当たっていない
 			}
 			else {
 				// 当たっている
-
+		
 			}
 		}
 
 		//階段当たり判定
-		if (chara_x > floor1_1x + 3440.0f || chara_x + 96.0f - 30.0f < floor1_1x + 2600||
-			chara_y > floor1_1y + 550.0f || chara_y + 100.0f - 30.0f < floor1_1y) {
+		if (chara_x > floor1_1x + 3440.0f || chara_x + 200.0f - 70.0f < floor1_1x + 2600||
+			chara_y > floor1_1y + 550.0f || chara_y + 250.0f - 10.0f < floor1_1y) {
 
 		}
 		else {
@@ -286,7 +285,7 @@ void GameMain::Draw()
 
 	//Paint paint;
 	//paint.SetPaintColor(Color_Yellow);
-	//canvas.DrawRect(Rect(floor1_1x + 2300,floor1_1y + 0,floor1_1x + 2560,floor1_1y + 500), paint);
+	//canvas.DrawRect(Rect(chara_x + 70 ,chara_y + 10, chara_x + 200.0f, chara_y + 250.0f), paint);
 
 
 	//GraphicsDevice.UnlockCanvas();
