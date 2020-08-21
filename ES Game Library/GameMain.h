@@ -56,7 +56,34 @@ private:
 
 private:
 	// 変数宣言
+	SPRITE night;
+	SPRITE enemy;
+	SPRITE  player, leftplayer;
+	SPRITE	kunai, kunai2;
+	SPRITE floor, kaidan;
+	FONT text;
+
+	float speed;
+	int enemy_move_flg;
+	int enemy_move_flg2;
+	int Game_Main_1_3_flg;
+	int Game_scene_flg;
+	int Game_scene_flg2;
+
+
+
+	float  chara_x, chara_y;
+	int player_state, jump_state, kunai_flag;
+	float time;
+	float frame;
+	float jumpspeed, jumptime, zahyou;
+	float kunai_x, kunai_y;//攻撃用クナイ
+	float floor3_1x;
+
 
 	// 関数宣言
+	void MainPlayer_LastStage();
+	void Initialize_LastStage();
+	void Draw_LastStage();
 
 };
