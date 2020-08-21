@@ -10,7 +10,7 @@
 bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
-	WindowTitle(_T("ES Game Library"));
+	WindowTitle(_T("îEé“Å@îÚâe"));
 
 	Initialize_2_4();
 
@@ -131,8 +131,7 @@ void GameMain::MainPlayer_2_4()
 
 	}
 	else {
-		//chara_y  = - 1.8f * chara_x + 140;
-		chara_y = 1.4f * chara_x - 130;
+		chara_y = 0.566802 * chara_x;
 
 		if (chara_x < 200.0f && chara_y < 150.0f) {
 
