@@ -36,7 +36,7 @@ void GameMain::Initialize_2_4()
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
 	enemy_x = 1100.0f;
-	enemy_y = 530.0f;
+	enemy_y = 500.0f;
 	speed = 2.0f;
 	enemy_move_flg = false;
 
@@ -97,8 +97,8 @@ int GameMain::Update()
 	if (chara_x > 1150) {
 		chara_x = 1150;
 	}
-	if (chara_y > 550){
-		chara_y = 550;
+	if (chara_y > 400){
+		chara_y = 400;
 	}
 	//プレイヤー
 	{
@@ -126,12 +126,13 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//階段当たり判定
-	if (chara_x > floor2_1x + 1235.0f || chara_x + 96.0f - 30.0f < floor2_1x + 0.0f ||
-		chara_y > floor2_1y + 700.0f || chara_y + 100.0f - 30.0f < floor2_1y) {
+	if (chara_x > floor2_1x + 1235.0f || chara_x + 200.0f - 70.0f < floor2_1x  ||
+		chara_y > floor2_1y + 700.0f || chara_y + 250.0f - 10.0f < floor2_1y) {
 
 	}
 	else {
-		chara_y  = - 1.8f * chara_x + 140;
+		//chara_y  = - 1.8f * chara_x + 140;
+		chara_y = 1.4f * chara_x - 130;
 
 		if (chara_x < 200.0f && chara_y < 150.0f) {
 
@@ -151,8 +152,7 @@ void GameMain::MainPlayer_2_4()
 		}
 	}
 	//攻撃用クナイ座標
-	kunai_x = chara_x + 80, kunai_y = chara_y + 50;
-	kunai2_x = chara_x - 10, kunai2_y = chara_y + 50;
+	kunai2_x = chara_x - 10, kunai2_y = chara_y + 150;
 	if (chara_x < 0) {
 		chara_x = 0;
 	}
@@ -182,10 +182,10 @@ void GameMain::MainPlayer_2_4()
 		}
 
 	}
-	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)(その時はforで処理をする)
+	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
 	if (hit_state == 0) {
-		if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 96.0f - 30.0f < enemy_x ||
-			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 100.0f - 30.0f < enemy_y) {
+		if (chara_x > enemy_x + 70.0f - 30.0f  || chara_x + 200.0f - 70.0f < enemy_x ||
+			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 250.0f - 10.0f < enemy_y) {
 			// 当たっていない
 		}
 		else {
