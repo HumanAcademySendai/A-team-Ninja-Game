@@ -63,8 +63,11 @@ private:
 	SPRITE floor, kaidan;
 	FONT text;
 	float enemy_x, enemy_y;
+	float enemy_x2, enemy_y2;
+
 	float speed;
 	int enemy_move_flg;
+	int enemy_move_flg2;
 	int Game_Main_1_3_flg;
 	int Game_scene_flg;
 	int Game_scene_flg2;
