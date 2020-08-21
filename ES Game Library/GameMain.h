@@ -57,6 +57,9 @@ private:
 private:
 	// 変数宣言
 	SPRITE night;
+	SPRITE ohiroma;
+	SPRITE smallnin,smallnin2;
+	SPRITE makimono;
 	SPRITE enemy;
 	SPRITE  player, leftplayer;
 	SPRITE	kunai, kunai2;
@@ -79,6 +82,8 @@ private:
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y;//攻撃用クナイ
 	float floor3_1x;
+	float makimono_x, makimono_y;
+	int ohiroma_flag;
 
 
 	// 関数宣言

@@ -33,12 +33,17 @@ void GameMain::Initialize_LastStage()
 { //1と3ステ
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("5F.png"));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-
-	chara_x = 0; chara_y = 400; time = 0; frame = 0; //前のタイムを引き継ぐ
+	smallnin = GraphicsDevice.CreateSpriteFromFile(_T("smallnin.png"));
+	smallnin2 = GraphicsDevice.CreateSpriteFromFile(_T("smallnin2.png"));
+	makimono = GraphicsDevice.CreateSpriteFromFile(_T("巻物.png"));
+	ohiroma = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
+	chara_x = 0; chara_y = 400; makimono_x = 620; makimono_y = 500;
+	time = 0; frame = 0; //前のタイムを引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	floor3_1x = 0;//背景のスクロール
 	player_state = 0, jump_state = 0; 
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
+	ohiroma_flag = false;
 
 	speed = 0.5f;
 
@@ -96,40 +101,60 @@ void GameMain::MainPlayer_LastStage()
 	//移動
 
 
-
-	if (Key.IsKeyDown(Keys_Right)) {
+	
+	if (ohiroma_flag == false && Key.IsKeyDown(Keys_Right)) {
 		player_state = 0;
 		chara_x += 3.0f;
 		floor3_1x -= 12.0f;
+	}
 
+	//大広間移動
+	if (ohiroma_flag == true) {
+		if (Key.IsKeyDown(Keys_Up)) {
+			chara_y -= 3.0f;
+		}
+		if (Key.IsKeyDown(Keys_Down)) {
+			chara_y += 3.0f;
+		}
+
+		if (Key.IsKeyDown(Keys_Right)) {
+			player_state = 0;
+			chara_x += 3.0f;
+		}
+		if (Key.IsKeyDown(Keys_Left)) {
+			player_state = 1;
+			chara_x -= 3.0f;
+		}
 	}
 
 	// ジャンプ
-	if (jump_state == 0) {
-		if (Key_buf.IsPressed(Keys_Up)) {
+	if (ohiroma_flag == false) {
+		if (jump_state == 0) {
+			if (Key_buf.IsPressed(Keys_Up)) {
 
-			zahyou = chara_y;
-			jumpspeed = 60;
-			jumptime = 0;
-			jump_state = 1;
-		}
-	}
-	if (jump_state == 1) {
-		if (Key.IsKeyDown(Keys_Up)) {
-			if (jumpspeed >= 60) {
+				zahyou = chara_y;
 				jumpspeed = 60;
+				jumptime = 0;
+				jump_state = 1;
 			}
 		}
-		//jumpspeed -= 2;
-		jumptime = jumptime + 0.15;
+		if (jump_state == 1) {
+			if (Key.IsKeyDown(Keys_Up)) {
+				if (jumpspeed >= 60) {
+					jumpspeed = 60;
+				}
+			}
+		
+			jumptime = jumptime + 0.15;
 
-		chara_y -= jumpspeed;
+			chara_y -= jumpspeed;
 
-		chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
+			chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
 
-		if (chara_y > 400) {
-			chara_y = 400;
-			jump_state = 0;
+			if (chara_y > 400) {
+				chara_y = 400;
+				jump_state = 0;
+			}
 		}
 	}
 
@@ -142,23 +167,39 @@ void GameMain::MainPlayer_LastStage()
 		}
 	}
 
+	//大広間突入
+	if ( chara_x == 1000) {
+		ohiroma_flag = true;
+		chara_x = 0;
+		chara_y = 550;
+	}
+
 	//背景移動制限
-	if (chara_x < 0) {
-		floor3_1x = 0;
-	}
-	if (floor3_1x < -2560) {
-		floor3_1x = -2560;
-	}
-	if (floor3_1x > -5) {
-		chara_x = 0;
-	}
+	if (ohiroma_flag == false) {
+		if (chara_x < 0) {
+			floor3_1x = 0;
+		}
+		if (floor3_1x < -2560) {
+			floor3_1x = -2560;
+		}
+		if (floor3_1x > -5) {
+			chara_x = 0;
+		}
 
 
-	if (chara_x < 0) {
-		chara_x = 0;
+		if (chara_x < 0) {
+			chara_x = 0;
+		}
+		if (chara_x > 1000) {
+			chara_x = 1000;
+		}
 	}
-	if (chara_x > 1000) {
-		chara_x = 1000;
+	//大広間移動制限
+	if (ohiroma_flag == true) {
+		if (chara_x < 0) { chara_x = 0; }
+		if (chara_x > 1150) { chara_x = 1150; }
+		if (chara_y < 400) { chara_y = 400; }
+		if (chara_y > 580) { chara_y = 580; }
 	}
 }
 //ここまで1と3ステ
@@ -203,13 +244,16 @@ void GameMain::Draw()
 void GameMain::Draw_LastStage()
 {  //1と3ステ
 
-	if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
-	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
+	if (player_state == 0 && ohiroma_flag == false) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
 
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 
 
 	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
+	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
+	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*smallnin, Vector3(chara_x,chara_y, -1)); }
+	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*smallnin2, Vector3(chara_x, chara_y, -1)); }
+	if (ohiroma_flag == true) { SpriteBatch.Draw(*makimono, Vector3(makimono_x, makimono_y, 0)); }
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
 
