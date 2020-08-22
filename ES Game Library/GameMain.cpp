@@ -259,7 +259,7 @@ void GameMain::Draw_2_4()
 
 	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0));
 
-	SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f•b"), time);
+	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f•b"), time);
 
 	if (enemy_move_flg == false && hit_enemy_state == 0)
 	{
