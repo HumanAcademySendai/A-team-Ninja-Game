@@ -26,7 +26,10 @@ void GameMain::Initialize_2_4()
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
-
+	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
+	Left = GraphicsDevice.CreateSpriteFromFile(_T("移動(左).png"));
+	Space = GraphicsDevice.CreateSpriteFromFile(_T("攻撃(Space).png"));
+	
 	chara_x = 1150; chara_y = 530; frame = 0; time = 0;//前ステージの秒数を引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
@@ -256,6 +259,7 @@ void GameMain::Draw_2_4()
 
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -2)); }
 
+	SpriteBatch.Draw(*Space, Vector3(1000, 250,-2));
 
 	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0));
 
