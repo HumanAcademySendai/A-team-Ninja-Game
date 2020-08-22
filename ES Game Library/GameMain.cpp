@@ -35,6 +35,8 @@ void GameMain::Initialize_LastStage()
 	clear = GraphicsDevice.CreateSpriteFromFile(_T("clear.png"));
 	smallnin = GraphicsDevice.CreateSpriteFromFile(_T("smallnin.png"));
 	smallnin2 = GraphicsDevice.CreateSpriteFromFile(_T("smallnin2.png"));
+	Right = GraphicsDevice.CreateSpriteFromFile(_T("移動(右).png"));
+	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
 	makimono = GraphicsDevice.CreateSpriteFromFile(_T("巻物.png"));
 	ohiroma = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
 	chara_x = 0; chara_y = 530; makimono_x = 700; makimono_y = 470;
@@ -45,13 +47,11 @@ void GameMain::Initialize_LastStage()
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 	ohiroma_flag = false;
 
-	speed = 0.5f;
-
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
+	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 30);
 
 	clear_flag = false;
-	enemy_move_flg = false;
-	enemy_move_flg2 = false;
+
 	//ここまで1と3ステ
 }
 
@@ -266,6 +266,12 @@ void GameMain::Draw_LastStage()
 
 	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 
+
+	SpriteBatch.Draw(*Right, Vector3(50, 140, -1));
+	//SpriteBatch.DrawString(text2, Vector2(100, 100), Color_White, _T("・・・移動"));
+
+	SpriteBatch.Draw(*Up, Vector3(50, 225, -1));
+	//SpriteBatch.DrawString(text2, Vector2(300, 160), Color_White, _T("・・・ジャンプ"));
 
 	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }

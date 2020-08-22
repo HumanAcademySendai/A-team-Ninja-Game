@@ -64,11 +64,10 @@ private:
 	SPRITE  player, leftplayer;
 	SPRITE	kunai, kunai2;
 	SPRITE floor, kaidan;
-	FONT text;
+	SPRITE Right, Up;
+	FONT text,text2;
 
-	float speed;
-	int enemy_move_flg;
-	int enemy_move_flg2;
+
 	int Game_Main_1_3_flg;
 	int Game_scene_flg;
 	int Game_scene_flg2;
