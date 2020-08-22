@@ -32,11 +32,11 @@ void GameMain::Initialize_2_4()
 	kunai2_x = chara_x, kunai2_y = chara_y;
 	floor2_1x = -2560; floor2_1y = 0;//背景のスクロール
 
-	player_state = 1, jump_state = 0; hit_state = 0; shot_count = 0;
+	player_state = 1, jump_state = 0; hit_enemy_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
 	enemy_x = 1100.0f;
-	enemy_y = 500.0f;
+	enemy_y = 530.0f;
 	speed = 2.0f;
 	enemy_move_flg = false;
 
@@ -78,7 +78,7 @@ int GameMain::Update()
 	if (enemy_move_flg == true)
 	{
 		enemy_x = enemy_x + speed;
-		if (enemy_x > 1200) { enemy_x = 1200; enemy_move_flg = false; }
+		if (enemy_x > 800) { enemy_x = 800; enemy_move_flg = false; }
 	}
 
 	//タイム(カウントアップ)
@@ -167,7 +167,7 @@ void GameMain::MainPlayer_2_4()
 	else {
 		// 当たっている
 		if (Key.IsKeyDown(Keys_Space)) {
-			hit_state = 1;
+			hit_enemy_state = 1;
 		}
 	}
 	if (kunai2_x > enemy_x + 52.0f || kunai2_x + 8.0f < enemy_x ||
@@ -177,12 +177,11 @@ void GameMain::MainPlayer_2_4()
 	else {
 		// 当たっている
 		if (Key.IsKeyDown(Keys_Space)) {
-			hit_state = 1;
+			hit_enemy_state = 1;
 		}
 
 	}
 	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
-	if (hit_state == 0) {
 		if (chara_x > enemy_x + 70.0f - 30.0f  || chara_x + 128.0f - 70.0f < enemy_x ||
 			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y) {
 			// 当たっていない
@@ -191,7 +190,7 @@ void GameMain::MainPlayer_2_4()
 			// 当たっている
 
 		}
-	}
+	
 
 	// ジャンプ
 	if (jump_state == 0) {
@@ -262,11 +261,11 @@ void GameMain::Draw_2_4()
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
 
-	if (enemy_move_flg == false && hit_state == 0)
+	if (enemy_move_flg == false && hit_enemy_state == 0)
 	{
 		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
 	}
-	if (enemy_move_flg == true && hit_state == 0)
+	if (enemy_move_flg == true && hit_enemy_state == 0)
 	{
 		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
 	}
