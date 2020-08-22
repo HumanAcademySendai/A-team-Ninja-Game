@@ -56,7 +56,7 @@ private:
 
 private:
 	// •Ï”éŒ¾
-	SPRITE night;
+	SPRITE clear;
 	SPRITE ohiroma;
 	SPRITE smallnin,smallnin2;
 	SPRITE makimono;
