@@ -75,7 +75,8 @@ private:
 
 
 	float  chara_x, chara_y;
-	int player_state, jump_state, hit_state, shot_count, kunai_flag,game_scene;
+	int player_state, jump_state, hit_enemy_state,hit_enemy2_state, shot_count, kunai_flag,game_scene;
+	int player_hit_state; //“G‚Æ“–‚½‚Á‚½‚Ìˆ—
 	float time;
 	float frame;
 	float jumpspeed, jumptime, zahyou;
