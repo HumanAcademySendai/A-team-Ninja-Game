@@ -37,7 +37,7 @@ void GameMain::Initialize_1_3()
 		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-		chara_x = 0; chara_y = 400; time = 0; frame = 0;
+		chara_x = 0; chara_y = 530; time = 0; frame = 0;
 		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 		floor1_1x = 0;//背景のスクロール
 		floor1_1y = 0; kaidan1_x = 1000;
@@ -152,14 +152,14 @@ void GameMain::MainPlayer_1_3()
 				}
 			}
 			//jumpspeed -= 2;
-			jumptime = jumptime + 0.15;
+			jumptime = jumptime + 0.25;
 
 			chara_y -= jumpspeed;
 
 			chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
 
-			if (chara_y > 400) {
-				chara_y = 400;
+			if (chara_y > 530) {
+				chara_y = 530;
 				jump_state = 0;
 			}
 		}
@@ -239,7 +239,7 @@ void GameMain::MainPlayer_1_3()
 
 		}
 		else {
-			chara_y = -1.3f * chara_x + 1300;
+			chara_y = -1.4f * chara_x + 1600;
 			if (chara_y < 100.0f) {
 				Game_scene_flg = false;
 			
