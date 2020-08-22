@@ -45,12 +45,12 @@ void GameMain::Initialize_1_3()
 		jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 		player_hit_state = 0;
 
-		enemy_x = 500.0f;
+		enemy_x =  400.0f;
 		enemy_y = 530.0f;
 		 enemy_x2 = 850.0f;
 		enemy_y2 = 530.0f;
 
-		speed = 0.5f;
+		speed = 1.0f;
 
 		text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 
@@ -99,7 +99,7 @@ int GameMain::Update()
 	if (enemy_move_flg == true)
 	{
 		enemy_x = enemy_x + speed;
-		if (enemy_x > 500) { enemy_x = 500; enemy_move_flg = false; }
+		if (enemy_x > 400) { enemy_x = 400; enemy_move_flg = false; }
 	}
 	if (enemy_move_flg2 == false)
 	{
@@ -109,7 +109,7 @@ int GameMain::Update()
 	if (enemy_move_flg2 == true)
 	{
 		enemy_x2 = enemy_x2 + speed;
-		if (enemy_x2 > 850) { enemy_x2 = 850; enemy_move_flg2 = false; }
+		if (enemy_x2 > 750) { enemy_x2 = 750; enemy_move_flg2 = false; }
 	}
 
 	//プレイヤー&&プレイヤー移動制限
