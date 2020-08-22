@@ -151,7 +151,7 @@ void GameMain::MainPlayer_2_4()
 		}
 	}
 	//攻撃用クナイ座標
-	kunai2_x = chara_x - 10, kunai2_y = chara_y + 150;
+	kunai2_x = chara_x - 10, kunai2_y = chara_y + 60;
 	if (chara_x < 0) {
 		chara_x = 0;
 	}
@@ -183,8 +183,8 @@ void GameMain::MainPlayer_2_4()
 	}
 	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
 	if (hit_state == 0) {
-		if (chara_x > enemy_x + 70.0f - 30.0f  || chara_x + 200.0f - 70.0f < enemy_x ||
-			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 250.0f - 10.0f < enemy_y) {
+		if (chara_x > enemy_x + 70.0f - 30.0f  || chara_x + 128.0f - 70.0f < enemy_x ||
+			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y) {
 			// 当たっていない
 		}
 		else {
