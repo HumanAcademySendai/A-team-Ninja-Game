@@ -196,7 +196,7 @@ void GameMain::MainPlayer_1_3()
 			}
 		}
 		//攻撃用クナイ座標
-		kunai_x = chara_x + 200, kunai_y = chara_y + 150;
+		kunai_x = chara_x + 100, kunai_y = chara_y + 50;
 		//敵　―　攻撃用クナイ
 		if (kunai_x > enemy_x + 52.0f || kunai_x + 8.0f < enemy_x ||
 			kunai_y > enemy_y + 73.0f || kunai_y + 5.0f < enemy_y) {
