@@ -44,6 +44,7 @@ void GameMain::Initialize_2_4()
 	enemy_move_flg = false;
 
 	text = GraphicsDevice.CreateSpriteFont(_T("Ÿà–¾’© Demibold"), 60);
+	text2 = GraphicsDevice.CreateSpriteFont(_T("Ÿà–¾’© Demibold"), 30);
 
 	//‚±‚±‚Ü‚Å2‚Æ4ƒXƒe
 }
@@ -259,7 +260,11 @@ void GameMain::Draw_2_4()
 
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -2)); }
 
-	SpriteBatch.Draw(*Space, Vector3(1000, 250,-2));
+	SpriteBatch.Draw(*Left, Vector3(1000, 100, -2));
+
+	SpriteBatch.Draw(*Up, Vector3(1000, 160, -2));
+
+	SpriteBatch.Draw(*Space, Vector3(1000, 225,-2));
 
 	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0));
 
