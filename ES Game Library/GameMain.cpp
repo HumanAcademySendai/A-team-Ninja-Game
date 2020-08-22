@@ -27,7 +27,7 @@ void GameMain::Initialize_2_4()
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-	chara_x = 1000; chara_y = 400; frame = 0; time = 0;//前ステージの秒数を引き継ぐ
+	chara_x = 1150; chara_y = 530; frame = 0; time = 0;//前ステージの秒数を引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
 	floor2_1x = -2560; floor2_1y = 0;//背景のスクロール
@@ -97,8 +97,8 @@ int GameMain::Update()
 	if (chara_x > 1150) {
 		chara_x = 1150;
 	}
-	if (chara_y > 400){
-		chara_y = 400;
+	if (chara_y > 530){
+		chara_y = 530;
 	}
 	//プレイヤー
 	{
@@ -210,14 +210,14 @@ void GameMain::MainPlayer_2_4()
 			}
 		}
 		
-		jumptime = jumptime + 0.15;
+		jumptime = jumptime + 0.25;
 
 		chara_y -= jumpspeed;
 
 		chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
 
-		if (chara_y > 400) {
-			chara_y = 400;
+		if (chara_y > 530) {
+			chara_y = 530;
 			jump_state = 0;
 		}
 	}
