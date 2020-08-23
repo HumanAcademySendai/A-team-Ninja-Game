@@ -353,7 +353,6 @@ void GameMain::Draw_1_3()
 		SpriteBatch.Draw(*Space, Vector3(50, 225, -1));
 
 
-
 		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
 
 		SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f•b"), time);
