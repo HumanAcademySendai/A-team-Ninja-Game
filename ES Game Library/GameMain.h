@@ -60,7 +60,6 @@ private:
 	SPRITE ohiroma;
 	SPRITE jump;
 	SPRITE nin2, nin2Left;
-	SPRITE makimono;
 	SPRITE enemy;
 	SPRITE  player, leftplayer;
 	SPRITE	kunai, kunai2;

@@ -38,15 +38,15 @@ void GameMain::Initialize_LastStage()
 	nin2Left = GraphicsDevice.CreateSpriteFromFile(_T("nin2Left.png"),Color(255,255,255));
 	Right = GraphicsDevice.CreateSpriteFromFile(_T("移動(右).png"));
 	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
-	makimono = GraphicsDevice.CreateSpriteFromFile(_T("巻物.png"));
 	ohiroma = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
 	open = SoundDevice.CreateSoundFromFile(_T("open.wav"));
 	close = SoundDevice .CreateSoundFromFile(_T("close.wav"));
 	endtaiko = SoundDevice.CreateSoundFromFile(_T("clear.wav"));
-	chara_x = 0; chara_y = 530; makimono_x = 700; makimono_y = 470;
+	chara_x = 0; chara_y = 530;
 	time = 0; frame = 0; //前のタイムを引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	floor3_1x = 0;//背景のスクロール
+	makimono_x = 750; makimono_y = 480;
 	player_state = 0, jump_state = 0; player_frame = 0.0f;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 	ohiroma_flag = false;
@@ -290,9 +290,11 @@ void GameMain::Draw_LastStage()
 
 	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
+
+	KeyboardState Key = Keyboard->GetState();
+
 	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
 	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*nin2, Vector3(chara_x, chara_y, -1)); }
-	if (ohiroma_flag == true) { SpriteBatch.Draw(*makimono, Vector3(makimono_x, makimono_y, 0)); }
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
 	if (clear_flag == true) { SpriteBatch.Draw(*clear, Vector3(250, 100, 0)); }
