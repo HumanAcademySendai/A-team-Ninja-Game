@@ -286,6 +286,7 @@ void GameMain::MainPlayer_1_3()
 			kunai_flag = false;
 			chara_y = -1.4f * chara_x + 1600;
 			if (chara_y < 100.0f) {
+				//シーン遷移するプログラム
 				Game_scene_flg = false;
 			
 			}
@@ -347,10 +348,10 @@ void GameMain::Draw_1_3()
 
 		SpriteBatch.Draw(*Right, Vector3(50, 100, -1));
 
-		SpriteBatch.Draw(*Up, Vector3(50,160, -1));
+		SpriteBatch.Draw(*Up, Vector3(50,175, -1));
 
 
-		SpriteBatch.Draw(*Space, Vector3(50, 225, -1));
+		SpriteBatch.Draw(*Space, Vector3(50, 250, -1));
 
 
 		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
