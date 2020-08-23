@@ -26,7 +26,7 @@ void GameMain::Initialize_2_4()
 	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
-	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
+	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"),Color(255,255,255));
 	Left = GraphicsDevice.CreateSpriteFromFile(_T("移動(左).png"));
 	Space = GraphicsDevice.CreateSpriteFromFile(_T("攻撃(Space).png"));
 	
@@ -263,7 +263,7 @@ void GameMain::Draw_2_4()
 
 	SpriteBatch.Draw(*Up, Vector3(1000, 160, -2));
 
-	SpriteBatch.Draw(*Space, Vector3(1000, 225,-2));
+	SpriteBatch.Draw(*Space, Vector3(1000, 200,-2));
 
 	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0));
 
