@@ -44,7 +44,7 @@ void GameMain::Initialize_1_3()
 		chara_x = 0; chara_y = 530; time = 0; frame = 0;
 		kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 		floor1_1x = 0;//背景のスクロール
-		floor1_1y = 0; kaidan1_x = 1000;
+		floor1_1y = 0; kaidan1_x = 1000; 
 		player_state = 0, jump_state = 0; hit_enemy_state = 0; hit_enemy2_state = 0; jump_enemy_state = 0;
 		jumpspeed = 0; jumptime = 0; zahyou = 0;  kunai_flag = false;
 		enemy_jumpspeed = 0; enemy_jumptime = 0; enemy_zahyou = 0;
@@ -58,7 +58,7 @@ void GameMain::Initialize_1_3()
 		speed = 1.0f;
 
 		text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
-		text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 30);
+		text2 = GraphicsDevice.CreateSpriteFont(_T("ＭＳ Ｐ明朝"), 40);
 
 		enemy_move_flg = false;
 		enemy_move_flg2 = false;
@@ -172,11 +172,11 @@ void GameMain::MainPlayer_1_3()
 			}
 		}
 
-		// ジャンプ
+		// 敵ジャンプ
 		if (jump_enemy_state == 0) {
 			if (Key_buf.IsPressed(Keys_Up)) {
 
-				enemy_zahyou = enemy_y;
+				enemy_zahyou = enemy_y2;
 				enemy_jumpspeed = 60;
 				enemy_jumptime = 0;
 				jump_enemy_state = 1;
@@ -188,15 +188,15 @@ void GameMain::MainPlayer_1_3()
 					enemy_jumpspeed = 60;
 				}
 			}
-			//jumpspeed -= 2;
+		
 			enemy_jumptime = enemy_jumptime + 0.25;
 
-			enemy_y -= enemy_jumpspeed;
+			enemy_y2 -= enemy_jumpspeed;
 
-			enemy_y = zahyou - (enemy_jumpspeed * enemy_jumptime - 0.5 * 9.80665 * enemy_jumptime * enemy_jumptime);
+			enemy_y2 = zahyou - (enemy_jumpspeed * enemy_jumptime - 0.5 * 9.80665 * enemy_jumptime * enemy_jumptime);
 
-			if (enemy_y > 530) {
-				enemy_y = 530;
+			if (enemy_y2 > 530) {
+				enemy_y2 = 530;
 				jump_enemy_state = 0;
 			}
 		}
@@ -283,6 +283,7 @@ void GameMain::MainPlayer_1_3()
 
 		}
 		else {
+			kunai_flag = false;
 			chara_y = -1.4f * chara_x + 1600;
 			if (chara_y < 100.0f) {
 				Game_scene_flg = false;
@@ -342,16 +343,15 @@ void GameMain::Draw_1_3()
 		if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
 		if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -1)); }
 
-		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
+		if (player_state == 0 && kunai_flag == true && floor) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 
 		SpriteBatch.Draw(*Right, Vector3(50, 100, -1));
-		//SpriteBatch.DrawString(text2, Vector2(100, 100), Color_White, _T("・・・移動"));
 
 		SpriteBatch.Draw(*Up, Vector3(50,160, -1));
-		//SpriteBatch.DrawString(text2, Vector2(300, 160), Color_White, _T("・・・ジャンプ"));
+
 
 		SpriteBatch.Draw(*Space, Vector3(50, 225, -1));
-		//SpriteBatch.DrawString(text, Vector2(300, 225), Color_Black, _T("・・・攻撃"));
+
 
 
 		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
