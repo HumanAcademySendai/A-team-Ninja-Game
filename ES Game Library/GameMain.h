@@ -58,7 +58,7 @@ private:
 	// •Ï”éŒ¾
 	SPRITE Space, Right, Up;
 	SPRITE enemy;
-	SPRITE  player, leftplayer;
+	SPRITE  player, jump;
 	SPRITE	kunai, kunai2;
 	SPRITE floor, kaidan;
 	FONT text,text2;

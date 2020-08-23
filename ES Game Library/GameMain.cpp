@@ -33,7 +33,8 @@ void GameMain::Initialize_1_3()
 { //1と3ステ
 		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-		player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
+		player = GraphicsDevice.CreateSpriteFromFile(_T("nin2Left.png"), Color(255, 255, 255));
+		jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_jump.png"), Color(255, 255, 255));
 		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 		Space = GraphicsDevice.CreateSpriteFromFile(_T("攻撃(Space).png"));
@@ -338,7 +339,8 @@ void GameMain::Draw()
 void GameMain::Draw_1_3()
 {  //1と3ステ
 	
-		if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
+		if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
+		if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -1)); }
 
 		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 
