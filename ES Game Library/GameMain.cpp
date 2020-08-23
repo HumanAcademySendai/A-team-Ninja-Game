@@ -26,7 +26,7 @@ void GameMain::Initialize_2_4()
 	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
-	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"),Color(255,255,255));
+	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
 	Left = GraphicsDevice.CreateSpriteFromFile(_T("移動(左).png"));
 	Space = GraphicsDevice.CreateSpriteFromFile(_T("攻撃(Space).png"));
 	
@@ -250,20 +250,13 @@ void GameMain::Draw_2_4()
 	if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -2)); }
 	if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -2)); }
 
-
-	//for (int i = 0; i < SHOT_MAX; i++)
-	//{
-	//	if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
-	//	if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
-	//}
-
 	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -2)); }
 
 	SpriteBatch.Draw(*Left, Vector3(1000, 100, -2));
 
-	SpriteBatch.Draw(*Up, Vector3(1000, 160, -2));
+	SpriteBatch.Draw(*Up, Vector3(1000, 175, -2));
 
-	SpriteBatch.Draw(*Space, Vector3(1000, 200,-2));
+	SpriteBatch.Draw(*Space, Vector3(1000, 250,-2));
 
 	SpriteBatch.Draw(*floor, Vector3(floor2_1x, 0.0f, 0));
 
