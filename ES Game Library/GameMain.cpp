@@ -109,11 +109,7 @@ void GameMain::MainPlayer_LastStage()
 	
 	if (ohiroma_flag == false && Key.IsKeyDown(Keys_Right)) {
 		player_state = 0;
-		player_frame -= 1.0f;
-		if (player_frame == 0.0f) {
-			player_frame += 25.0f;
-		}
-		chara_x += 3.0f;
+		chara_x += 4.0f;
 		floor3_1x -= 12.0f;
 	}
 
@@ -191,19 +187,21 @@ void GameMain::MainPlayer_LastStage()
 	//大広間移動
 	if (ohiroma_flag == true && clear_flag == false) {
 		if (Key.IsKeyDown(Keys_Up)) {
-			chara_y -= 3.0f;
+			player_state = 0;
+			chara_y -= 4.0f;
 		}
 		if (Key.IsKeyDown(Keys_Down)) {
-			chara_y += 3.0f;
+			player_state = 0;
+			chara_y += 4.0f;
 		}
 
 		if (Key.IsKeyDown(Keys_Right)) {
 			player_state = 0;
-			chara_x += 3.0f;
+			chara_x += 4.0f;
 		}
 		if (Key.IsKeyDown(Keys_Left)) {
 			player_state = 1;
-			chara_x -= 3.0f;
+			chara_x -= 4.0f;
 		}
 	}
 
@@ -284,7 +282,7 @@ void GameMain::Draw_LastStage()
 	if (ohiroma_flag == false) { SpriteBatch.Draw(*Right, Vector3(50, 140, -1)); }
 	//SpriteBatch.DrawString(text2, Vector2(100, 100), Color_White, _T("・・・移動"));
 
-	if (ohiroma_flag == false) {SpriteBatch.Draw(*Up, Vector3(50, 225, -1));
+	if (ohiroma_flag == false) {SpriteBatch.Draw(*Up, Vector3(50, 250, -1));
 	}
 	//SpriteBatch.DrawString(text2, Vector2(300, 160), Color_White, _T("・・・ジャンプ"));
 
