@@ -58,7 +58,8 @@ private:
 	// 変数宣言
 	SPRITE clear;
 	SPRITE ohiroma;
-	SPRITE smallnin,smallnin2;
+	SPRITE jump;
+	SPRITE nin2, nin2Left;
 	SPRITE makimono;
 	SPRITE enemy;
 	SPRITE  player, leftplayer;
@@ -66,6 +67,7 @@ private:
 	SPRITE floor, kaidan;
 	SPRITE Right, Up;
 	FONT text,text2;
+	SOUND open,close, endtaiko;
 
 
 	int Game_Main_1_3_flg;
@@ -77,6 +79,7 @@ private:
 	float  chara_x, chara_y;
 	int player_state, jump_state, kunai_flag;
 	float time;
+	float player_frame;
 	float frame;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y;//攻撃用クナイ

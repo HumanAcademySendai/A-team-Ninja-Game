@@ -33,17 +33,21 @@ void GameMain::Initialize_LastStage()
 { //1と3ステ
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("5F.png"));
 	clear = GraphicsDevice.CreateSpriteFromFile(_T("clear.png"));
-	smallnin = GraphicsDevice.CreateSpriteFromFile(_T("smallnin.png"));
-	smallnin2 = GraphicsDevice.CreateSpriteFromFile(_T("smallnin2.png"));
+	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"),Color(255,255,255));
+	nin2 = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"),Color(255,255,255));
+	nin2Left = GraphicsDevice.CreateSpriteFromFile(_T("nin2Left.png"),Color(255,255,255));
 	Right = GraphicsDevice.CreateSpriteFromFile(_T("移動(右).png"));
 	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
 	makimono = GraphicsDevice.CreateSpriteFromFile(_T("巻物.png"));
 	ohiroma = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
+	open = SoundDevice.CreateSoundFromFile(_T("open.wav"));
+	close = SoundDevice .CreateSoundFromFile(_T("close.wav"));
+	endtaiko = SoundDevice.CreateSoundFromFile(_T("clear.wav"));
 	chara_x = 0; chara_y = 530; makimono_x = 700; makimono_y = 470;
 	time = 0; frame = 0; //前のタイムを引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	floor3_1x = 0;//背景のスクロール
-	player_state = 0, jump_state = 0; 
+	player_state = 0, jump_state = 0; player_frame = 0.0f;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 	ohiroma_flag = false;
 
@@ -105,6 +109,10 @@ void GameMain::MainPlayer_LastStage()
 	
 	if (ohiroma_flag == false && Key.IsKeyDown(Keys_Right)) {
 		player_state = 0;
+		player_frame -= 1.0f;
+		if (player_frame == 0.0f) {
+			player_frame += 25.0f;
+		}
 		chara_x += 3.0f;
 		floor3_1x -= 12.0f;
 	}
@@ -152,6 +160,7 @@ void GameMain::MainPlayer_LastStage()
 
 	//大広間突入
 	if (chara_x == 1150) {
+		close->Play();
 		ohiroma_flag = true;
 		chara_x = 0;
 		chara_y = 550;
@@ -175,6 +184,7 @@ void GameMain::MainPlayer_LastStage()
 		}
 		if (chara_x > 1150) {
 			chara_x = 1150;
+			open->Play();
 		}
 	}
 
@@ -212,6 +222,10 @@ void GameMain::MainPlayer_LastStage()
 		else {
 			// 当たっている
 			clear_flag = true;
+		}
+
+		if (clear_flag == true) {
+			endtaiko->Play();
 		}
 	}
 }
@@ -262,21 +276,22 @@ void GameMain::Draw()
 void GameMain::Draw_LastStage()
 {  //1と3ステ
 
-	if (player_state == 0 && ohiroma_flag == false) { SpriteBatch.Draw(*smallnin, Vector3(chara_x, chara_y, -1)); }
+	if (player_state == 0 && jump_state == 0 && ohiroma_flag == false) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
 
-	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
+	if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -1)); }
 
 
-	SpriteBatch.Draw(*Right, Vector3(50, 140, -1));
+	if (ohiroma_flag == false) { SpriteBatch.Draw(*Right, Vector3(50, 140, -1)); }
 	//SpriteBatch.DrawString(text2, Vector2(100, 100), Color_White, _T("・・・移動"));
 
-	SpriteBatch.Draw(*Up, Vector3(50, 225, -1));
+	if (ohiroma_flag == false) {SpriteBatch.Draw(*Up, Vector3(50, 225, -1));
+	}
 	//SpriteBatch.DrawString(text2, Vector2(300, 160), Color_White, _T("・・・ジャンプ"));
 
 	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
-	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*smallnin, Vector3(chara_x, chara_y, -1)); }
-	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*smallnin2, Vector3(chara_x, chara_y, -1)); }
+	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
+	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*nin2, Vector3(chara_x, chara_y, -1)); }
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*makimono, Vector3(makimono_x, makimono_y, 0)); }
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
