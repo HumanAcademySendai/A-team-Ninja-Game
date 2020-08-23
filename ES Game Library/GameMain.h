@@ -62,7 +62,7 @@ private:
 	int enemy_move_flg;
 
 
-	SPRITE  player, leftplayer, kunai, kunai2, floor;
+	SPRITE  player,jump, kunai, kunai2, floor;
 	SPRITE Up, Left, Space;
 	FONT text,text2;
 	float  chara_x, chara_y;

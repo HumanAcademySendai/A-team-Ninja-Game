@@ -22,8 +22,8 @@ void GameMain::Initialize_2_4()
 
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("2_4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
+	player = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
+	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
@@ -135,12 +135,10 @@ void GameMain::MainPlayer_2_4()
 
 	}
 	else {
-		chara_y = 0.566802 * chara_x;
+		//chara_y = 0.566802 * chara_x;
 
-		if (chara_x < 200.0f && chara_y < 150.0f) {
+		//接触したら最終ステージに移動するプログラム
 
-
-		}
 	}
 
 	//武器(攻撃用クナイ)
@@ -249,7 +247,8 @@ void GameMain::Draw()
 //2と4ステ
 void GameMain::Draw_2_4()
 {//2と4ステ
-	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -2)); }
+	if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -2)); }
+	if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -2)); }
 
 
 	//for (int i = 0; i < SHOT_MAX; i++)
