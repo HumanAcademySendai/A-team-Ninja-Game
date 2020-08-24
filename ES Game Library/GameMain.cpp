@@ -72,7 +72,7 @@ bool GameMain::Initialize()
 		shot_y[i] = 0.0f;
 	}
 
-	gamescene == 1;
+	gamescene == 0;
 
 	return true;
 }
@@ -525,7 +525,14 @@ void GameMain::MainPlayer()
 
 void GameMain::scene_change()
 {
+	KeyboardState Key = Keyboard->GetState();
+	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
+	if (gamescene == 0) {
+		if (Key.IsKeyDown(Keys_Enter)) {
+			gamescene = 1;
+		}
+	}
 }
 /// <summary>
 /// This is called when the game should draw itself.
@@ -536,13 +543,15 @@ void GameMain::Draw()
 	GraphicsDevice.Clear(Color_CornflowerBlue);
 
 	GraphicsDevice.BeginScene();
-	player->SetPosition(chara_x, chara_y, 0);
-	player->Draw();
-	player->AdvanceTime(GameTimer.GetElapsedSecond());
-	GraphicsDevice.SetCamera(camera);
+	if (gamescene == 1) {
+		player->SetPosition(chara_x, chara_y, 0);
+		player->Draw();
+		player->AdvanceTime(GameTimer.GetElapsedSecond());
+		GraphicsDevice.SetCamera(camera);
+	}
 
 	SpriteBatch.Begin();
-	if (gamescene = 1) {
+	if (gamescene == 1) {
 		
 	/*	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }*/
 
@@ -571,13 +580,13 @@ void GameMain::Draw()
 			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
 		}
 	}
-	if (gamescene = 0) {
+	if (gamescene == 0) {
 		SpriteBatch.Draw(*Title, Vector3(0, 0, 0));
 	}
-	if (gamescene = 2) {
+	if (gamescene == 2) {
 		SpriteBatch.Draw(*GameOver, Vector3(0, 0, 0));
 	}
-	if (gamescene = 3) {
+	if (gamescene == 3) {
 		SpriteBatch.Draw(*Last, Vector3(0, 0, 0));
 	}
 
