@@ -69,6 +69,7 @@ private:
 	float speed;
 	int enemy_move_flg;
 	int enemy_move_flg2;
+	int clear_flag;
 
 
 
