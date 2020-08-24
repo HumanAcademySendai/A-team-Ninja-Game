@@ -25,7 +25,8 @@ bool GameMain::Initialize()
 void GameMain::Initialize_1_3()
 { //1ステ
 		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
-		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
+		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"),Color(255,255,255));
+		ene_nin = GraphicsDevice.CreateSpriteFromFile(_T("ene_nin.png"),Color(255,255,255));
 		player = GraphicsDevice.CreateSpriteFromFile(_T("nin2Left.png"), Color(255, 255, 255));
 		jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_jump.png"), Color(255, 255, 255));
 		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
@@ -229,8 +230,8 @@ void GameMain::MainPlayer_1_3()
 		//攻撃用クナイ座標
 		kunai_x = chara_x + 100, kunai_y = chara_y + 50;
 		//敵　―　攻撃用クナイ
-		if (kunai_x > enemy_x + 52.0f || kunai_x + 8.0f < enemy_x ||
-			kunai_y > enemy_y + 73.0f || kunai_y + 5.0f < enemy_y) {
+		if (kunai_x > enemy_x + 100.0f - 20.0f || kunai_x + 8.0f < enemy_x ||
+			kunai_y > enemy_y + 120.0f - 50.0f || kunai_y + 5.0f < enemy_y) {
 			// 当たっていない
 		}
 		else {
@@ -241,8 +242,8 @@ void GameMain::MainPlayer_1_3()
 		}
 
 		//敵　―　攻撃用クナイ
-		if (kunai_x > enemy_x2 + 70.0f - 30.0f || kunai_x + 8.0f < enemy_x2 ||
-			kunai_y > enemy_y2 + 130.0f - 21.0f || kunai_y + 5.0f < enemy_y2) {
+		if (kunai_x > enemy_x2 + 60.0f - 10.0f || kunai_x + 8.0f < enemy_x2 ||
+			kunai_y > enemy_y2 + 110.0f - 10.0f || kunai_y + 5.0f < enemy_y2) {
 			// 当たっていない
 		}
 		else {
@@ -254,8 +255,8 @@ void GameMain::MainPlayer_1_3()
 
 		//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
 		if (hit_enemy_state == 0) {
-			if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 80.0f - 30.0f < enemy_x ||
-				chara_y > enemy_y + 130.0f - 21.0f || chara_y + 110.0f - 10.0f < enemy_y) {
+			if (chara_x > enemy_x + 100.0f - 20.0f || chara_x + 80.0f - 30.0f < enemy_x ||
+				chara_y > enemy_y + 120.0f - 50.0f || chara_y + 110.0f - 10.0f < enemy_y) {
 				// 当たっていない
 			}
 			else {
@@ -265,8 +266,8 @@ void GameMain::MainPlayer_1_3()
 		}
 
 		if (hit_enemy2_state == 0) {
-			if (chara_x > enemy_x2 + 70.0f - 30.0f || chara_x + 80.0f - 30.0f < enemy_x2 ||
-				chara_y > enemy_y2 + 130.0f - 21.0f || chara_y + 110.0f - 10.0f < enemy_y2) {
+			if (chara_x > enemy_x2 + 60.0f - 10.0f || chara_x + 80.0f - 30.0f < enemy_x2 ||
+				chara_y > enemy_y2 + 110.0f - 10.0f || chara_y + 110.0f - 10.0f < enemy_y2) {
 				// 当たっていない
 			}
 			else {
@@ -329,8 +330,10 @@ void GameMain::Draw()
 
 	//Paint paint;
 	//paint.SetPaintColor(Color_Yellow);
-	//canvas.DrawRect(Rect(kunai_x + 0 ,kunai_y + 0, kunai_x + 52.0f, kunai_y + 100.0f), paint);
+	//canvas.DrawRect(Rect(enemy_x + 50 , enemy_y + 20, enemy_x + 100.0f, enemy_y + 120.0f), paint);
 
+	//paint.SetPaintColor(Color_Yellow);
+	//canvas.DrawRect(Rect(enemy_x2 + 10, enemy_y2 + 10, enemy_x2 + 60.0f, enemy_y2 + 110.0f), paint);
 
 	//GraphicsDevice.UnlockCanvas();
 }
@@ -366,11 +369,11 @@ void GameMain::Draw_1_3()
 		}
 		if (enemy_move_flg2 == false && hit_enemy2_state == 0)
 		{
-			SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+			SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
 		}
 		if (enemy_move_flg2 == true && hit_enemy2_state == 0)
 		{
-			SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+			SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
 		}
 		
 		//敵とプレイヤーが当たった時の処理

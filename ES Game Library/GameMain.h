@@ -59,6 +59,7 @@ private:
 	SPRITE Space, Right, Up;
 	SPRITE enemy;
 	SPRITE  player, jump;
+	SPRITE ene_nin;
 	SPRITE	kunai, kunai2;
 	SPRITE floor, kaidan;
 	FONT text,text2;
