@@ -48,7 +48,7 @@ void GameMain::Initialize_1_3()
 		player_state = 0, jump_state = 0; hit_enemy_state = 0; hit_enemy2_state = 0; jump_enemy_state = 0;
 		jumpspeed = 0; jumptime = 0; zahyou = 0;  kunai_flag = false;
 		enemy_jumpspeed = 0; enemy_jumptime = 0; enemy_zahyou = 0;
-		player_hit_state = 0;
+		enemyhit_count = 0;
 
 		enemy_x =  400.0f;
 		enemy_y = 530.0f;
@@ -266,7 +266,7 @@ void GameMain::MainPlayer_1_3()
 			}
 			else {
 				// “–‚½‚Á‚Ä‚¢‚é
-				player_hit_state = 1;
+				enemyhit_count = 1;
 			}
 		}
 
@@ -277,7 +277,7 @@ void GameMain::MainPlayer_1_3()
 			}
 			else {
 				// “–‚½‚Á‚Ä‚¢‚é
-				player_hit_state = 1;
+				enemyhit_count = 1;
 			}
 		}
 
@@ -380,9 +380,9 @@ void GameMain::Draw_1_3()
 		}
 		
 		//“G‚ÆƒvƒŒƒCƒ„[‚ª“–‚½‚Á‚½‚Ìˆ—
-		if (player_hit_state == 1) {
+		if (enemyhit_count == 1) {
 		
-			player_hit_state = 0;
+			enemyhit_count = 0;
 		}
 
 

@@ -78,7 +78,7 @@ private:
 	int player_state, jump_state, shot_count, kunai_flag,game_scene;
 	int  hit_enemy_state, hit_enemy2_state;//0・・当たってない	1・・当たってる
 	int jump_enemy_state;
-	int player_hit_state; //敵と当たった時の処理
+	int enemyhit_count; //敵と当たった時の処理
 	float time;
 	float frame;
 	float jumpspeed, jumptime, zahyou;
