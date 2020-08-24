@@ -11,15 +11,15 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("忍者　飛影"));
-
+	game_scene = 2;
 	if (game_scene == 2) {
 		Initialize_2_4();
 	}
 	return true;
 }
-//2と4ステ
+//2ステ
 void GameMain::Initialize_2_4()
-{//2と4ステ
+{//2ステ
 
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("2_4F.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
@@ -60,7 +60,7 @@ void GameMain::Initialize_2_4()
 
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 
-	//ここまで2と4ステ
+	//ここまで2ステ
 }
 /// <summary>
 /// Finalize will be called once per game and is the place to release
@@ -163,9 +163,9 @@ int GameMain::Update()
 	}
 	return 0;
 }
-//2と4ステ
+//2ステ
 void GameMain::MainPlayer_2_4()
-{//2と4ステ
+{//2ステ
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 	//移動
@@ -431,7 +431,7 @@ void GameMain::MainPlayer_2_4()
 			}
 		}
 	}
-	//ここまで2と4ステ
+	//ここまで2ステ
 }
 /// <summary>
 /// This is called when the game should draw itself.
@@ -455,9 +455,9 @@ void GameMain::Draw()
 	GraphicsDevice.EndScene();
 
 }
-//2と4ステ
+//2ステ
 void GameMain::Draw_2_4()
-{//2と4ステ
+{//2ステ
 	if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -2)); }
 	if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -2)); }
 
@@ -515,6 +515,6 @@ void GameMain::Draw_2_4()
 		enemyhit_count = 0;
 	}
 
-	//ここまで2と4ステ
+	//ここまで2ステ
 }
 
