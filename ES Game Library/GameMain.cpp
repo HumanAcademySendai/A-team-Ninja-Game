@@ -186,7 +186,7 @@ void GameMain::MainPlayer_2_4()
 	}
 	else {
 		//jump_enemy_state = 1, jump_enemy2_state = 1, jump_enemy3_state = 1;
-		kunai_flag = false;
+
 		jump_state = 0;
 		chara_y = 1.3 * chara_x;
 
@@ -349,15 +349,15 @@ void GameMain::MainPlayer_2_4()
 			if (Key_buf.IsPressed(Keys_Up)) {
 
 				enemy_zahyou = enemy_y2;
-				enemy_jumpspeed = 40;
+				enemy_jumpspeed = 50;
 				enemy_jumptime = 0;
 				jump_enemy_state = 1;
 			}
 		}
 		if (jump_enemy_state == 1) {
 			if (Key.IsKeyDown(Keys_Up)) {
-				if (enemy_jumpspeed >= 40) {
-					enemy_jumpspeed = 40;
+				if (enemy_jumpspeed >= 50) {
+					enemy_jumpspeed = 50;
 				}
 			}
 
@@ -377,21 +377,21 @@ void GameMain::MainPlayer_2_4()
 			if (Key_buf.IsPressed(Keys_Up)) {
 
 				enemy2_zahyou = enemy_y3;
-				enemy2_jumpspeed = 60;
+				enemy2_jumpspeed = 40;
 				enemy2_jumptime = 0;
 				jump_enemy2_state = 1;
 			}
 		}
 		if (jump_enemy2_state == 1) {
 			if (Key.IsKeyDown(Keys_Up)) {
-				if (enemy2_jumpspeed >= 60) {
-					enemy2_jumpspeed = 60;
+				if (enemy2_jumpspeed >= 40) {
+					enemy2_jumpspeed = 40;
 				}
 			}
 
 			enemy2_jumptime = enemy2_jumptime + 0.25;
 
-			enemy_y3 -= enemy_jumpspeed;
+			enemy_y3 -= enemy2_jumpspeed;
 
 			enemy_y3 = enemy2_zahyou - (enemy2_jumpspeed * enemy2_jumptime - 0.5 * 9.80665 * enemy2_jumptime * enemy2_jumptime);
 
