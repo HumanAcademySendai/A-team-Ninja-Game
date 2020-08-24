@@ -222,8 +222,8 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//敵　―　攻撃用クナイ
-	if (kunai2_x > enemy_x + 70.0f - 30.0f || kunai2_x + 8.0f < enemy_x ||
-		kunai2_y > enemy_y + 130.0f - 21.0f || kunai2_y + 5.0f < enemy_y) {
+	if (kunai2_x > enemy_x + 100.0f - 20.0f || kunai2_x + 8.0f < enemy_x ||
+		kunai2_y > enemy_y + 120.0f - 50.0f || kunai2_y + 5.0f < enemy_y) {
 		// 当たっていない
 	}
 	else {
@@ -234,8 +234,8 @@ void GameMain::MainPlayer_2_4()
 
 	}
 
-	if (kunai2_x > enemy_x2 + 70.0f - 30.0f || kunai2_x + 8.0f < enemy_x2 ||
-		kunai2_y > enemy_y2 + 130.0f - 21.0f || kunai2_y + 5.0f < enemy_y2) {
+	if (kunai2_x > enemy_x2 + 60.0f - 10.0f || kunai2_x + 8.0f < enemy_x2 ||
+		kunai2_y > enemy_y2 + 110.0f - 10.0f || kunai2_y + 5.0f < enemy_y2) {
 		// 当たっていない
 	}
 	else {
@@ -246,8 +246,8 @@ void GameMain::MainPlayer_2_4()
 
 	}
 
-	if (kunai2_x > enemy_x3 + 70.0f - 30.0f || kunai2_x + 8.0f < enemy_x3 ||
-		kunai2_y > enemy_y3 + 130.0f - 21.0f || kunai2_y + 5.0f < enemy_y3) {
+	if (kunai2_x > enemy_x3 + 60.0f - 10.0f || kunai2_x + 8.0f < enemy_x3 ||
+		kunai2_y > enemy_y3 + 110.0f - 10.0f || kunai2_y + 5.0f < enemy_y3) {
 		// 当たっていない
 	}
 	else {
@@ -258,8 +258,8 @@ void GameMain::MainPlayer_2_4()
 
 	}
 	
-	if (kunai2_x > enemy_x4 + 70.0f - 30.0f || kunai2_x + 8.0f < enemy_x4 ||
-		kunai2_y > enemy_y4 + 130.0f - 21.0f || kunai2_y + 5.0f < enemy_y4) {
+	if (kunai2_x > enemy_x4 + 60.0f - 10.0f || kunai2_x + 8.0f < enemy_x4 ||
+		kunai2_y > enemy_y4 + 110.0f - 10.0f || kunai2_y + 5.0f < enemy_y4) {
 		// 当たっていない
 	}
 	else {
@@ -272,8 +272,8 @@ void GameMain::MainPlayer_2_4()
 
 	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
 	if (hit_enemy_state == 0){
-		if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x ||
-			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y) {
+		if (chara_x > enemy_x + 100.0f - 20.0f || chara_x + 128.0f - 70.0f < enemy_x ||
+			chara_y > enemy_y + 120.0f - 50.0f || chara_y + 128.0f - 10.0f < enemy_y) {
 			// 当たっていない
 		}
 		else {
@@ -284,8 +284,8 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	if (hit_enemy2_state == 0) {
-		if (chara_x > enemy_x2 + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x2 ||
-			chara_y > enemy_y2 + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y2) {
+		if (chara_x > enemy_x2 + 60.0f - 10.0f || chara_x + 128.0f - 70.0f < enemy_x2 ||
+			chara_y > enemy_y2 + 110.0f - 10.0f || chara_y + 128.0f - 10.0f < enemy_y2) {
 			// 当たっていない
 		}
 		else {
@@ -296,8 +296,8 @@ void GameMain::MainPlayer_2_4()
 	}
 	
 	if (hit_enemy3_state == 0) {
-		if (chara_x > enemy_x3 + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x3 ||
-			chara_y > enemy_y3 + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y3) {
+		if (chara_x > enemy_x3 + 60.0f - 10.0f || chara_x + 128.0f - 70.0f < enemy_x3 ||
+			chara_y > enemy_y3 + 110.0f - 10.0f || chara_y + 128.0f - 10.0f < enemy_y3) {
 			// 当たっていない
 		}
 		else {
@@ -308,8 +308,8 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	if (hit_enemy4_state == 0) {
-		if (chara_x > enemy_x4 + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x4 ||
-			chara_y > enemy_y4 + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y4) {
+		if (chara_x > enemy_x4 + 60.0f - 10.0f || chara_x + 128.0f - 70.0f < enemy_x4 ||
+			chara_y > enemy_y4 + 110.0f - 10.0f || chara_y + 128.0f - 10.0f < enemy_y4) {
 			// 当たっていない
 		}
 		else {
