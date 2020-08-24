@@ -12,7 +12,7 @@ bool GameMain::Initialize()
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("îEé“Å@îÚâe"));
 	//1ÉXÉe
-
+	game_scene = 1;
 	if (game_scene == 1)
 	{
        Initialize_1_3();
