@@ -326,16 +326,6 @@ void GameMain::Draw()
 
 	GraphicsDevice.EndScene();
 
-	//Canvas canvas = GraphicsDevice.LockCanvas();
-
-	//Paint paint;
-	//paint.SetPaintColor(Color_Yellow);
-	//canvas.DrawRect(Rect(enemy_x + 50 , enemy_y + 20, enemy_x + 100.0f, enemy_y + 120.0f), paint);
-
-	//paint.SetPaintColor(Color_Yellow);
-	//canvas.DrawRect(Rect(enemy_x2 + 10, enemy_y2 + 10, enemy_x2 + 60.0f, enemy_y2 + 110.0f), paint);
-
-	//GraphicsDevice.UnlockCanvas();
 }
 
 //1ÉXÉe
