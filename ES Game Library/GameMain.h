@@ -57,22 +57,22 @@ private:
 private:
 	// 変数宣言
 	SPRITE enemy;
-	float enemy_x, enemy_y;
+	float enemy_x, enemy_y,enemy_x2,enemy_y2,enemy_x3,enemy_y3,enemy_x4,enemy_y4;
 	float speed;
-	int enemy_move_flg;
+	int enemy_move_flg,enemy_move_flg2,enemy_move_flg3,enemy_move_flg4;
 
 
 	SPRITE  player,jump, kunai, kunai2, floor;
 	SPRITE Up, Left, Space;
 	FONT text;
 	float  chara_x, chara_y;
-	int player_state, jump_state, hit_enemy_state, shot_count, kunai_flag;
-	//int  hit_enemy_state, hit_enemy2_state, jump_enemy_state;
-	//float enemy_jumpspeed, enemy_jumptime, enemy_zahyou;
+	int player_state, jump_state, kunai_flag;
+	int  hit_enemy_state, hit_enemy2_state,hit_enemy3_state,hit_enemy4_state, jump_enemy_state, jump_enemy2_state, jump_enemy3_state;
+	float enemy_jumpspeed, enemy_jumptime, enemy_zahyou, enemy2_jumpspeed, enemy2_jumptime, enemy2_zahyou, enemy3_jumpspeed, enemy3_jumptime, enemy3_zahyou;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
 	float  floor2_1x,floor2_1y;
-	float player_hit_state; //0・・当たってない	1・・当たってる
+	float enemyhit_count;
 	float frame, time;
 
 	// 関数宣言

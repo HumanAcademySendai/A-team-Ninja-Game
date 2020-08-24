@@ -34,15 +34,28 @@ void GameMain::Initialize_2_4()
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
 	floor2_1x = -2560; floor2_1y = 0;//背景のスクロール
-	player_hit_state = 0;
-	player_state = 1, jump_state = 0; hit_enemy_state = 0; shot_count = 0;
+	enemyhit_count = 0;
+	player_state = 1, jump_state = 0;
+	hit_enemy_state = 0; hit_enemy2_state = 0; hit_enemy3_state = 0; hit_enemy4_state = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
-	hit_enemy_state = 0;
+	
+	enemy_jumpspeed = 0, enemy_jumptime = 0, enemy_zahyou = 0, enemy2_jumpspeed = 0, enemy2_jumptime = 0, enemy2_zahyou = 0;
+	enemy3_jumpspeed = 0, enemy3_jumptime = 0, enemy3_zahyou = 0;
+	jump_enemy_state = 0, jump_enemy2_state = 0, jump_enemy3_state = 0;
 
 	enemy_x = 1000.0f;
 	enemy_y = 530.0f;
+	enemy_x2 = 800.0f;
+	enemy_y2 = 530.0f;
+	enemy_x3 = 600.0f;
+	enemy_y3 = 530.0f;
+	enemy_x4 = 400.0f;
+	enemy_y4 = 530.0f;
 	speed = 2.0f;
 	enemy_move_flg = false;
+	enemy_move_flg2 = false;
+	enemy_move_flg3 = false;
+	enemy_move_flg4 = false;
 
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 
@@ -83,6 +96,43 @@ int GameMain::Update()
 	{
 		enemy_x = enemy_x + speed;
 		if (enemy_x > 1000) { enemy_x = 1000; enemy_move_flg = false; }
+	}
+
+	if (enemy_move_flg2 == false)
+	{
+		enemy_x2 = enemy_x2 - speed;
+		if (enemy_x2 < 750) { enemy_x2 = 750; enemy_move_flg2 = true; }
+
+	}
+
+	if (enemy_move_flg2 == true)
+	{
+		enemy_x2 = enemy_x2 + speed;
+		if (enemy_x2 > 800) { enemy_x2 = 800; enemy_move_flg2 = false; }
+	}
+
+	if (enemy_move_flg3 == false)
+	{
+		enemy_x3 = enemy_x3 - speed;
+		if (enemy_x3 < 400) { enemy_x3 = 400; enemy_move_flg3 = true; }
+
+	}
+	if (enemy_move_flg3 == true)
+	{
+		enemy_x3 = enemy_x3 + speed;
+		if (enemy_x3 > 500) { enemy_x3 = 500; enemy_move_flg3 = false; }
+	}
+
+	if (enemy_move_flg4 == false)
+	{
+		enemy_x4 = enemy_x4 - speed;
+		if (enemy_x4 < 200) { enemy_x4 = 200; enemy_move_flg4 = true; }
+
+	}
+	if (enemy_move_flg4 == true)
+	{
+		enemy_x4 = enemy_x4 + speed;
+		if (enemy_x4 > 300) { enemy_x4 = 300; enemy_move_flg4 = false; }
 	}
 
 	//タイム(カウントアップ)
@@ -179,6 +229,43 @@ void GameMain::MainPlayer_2_4()
 		}
 
 	}
+
+	if (kunai2_x > enemy_x2 + 52.0f || kunai2_x + 8.0f < enemy_x2 ||
+		kunai2_y > enemy_y2 + 73.0f || kunai2_y + 5.0f < enemy_y2) {
+		// 当たっていない
+	}
+	else {
+		// 当たっている
+		if (Key.IsKeyDown(Keys_Space)) {
+			hit_enemy2_state = 1;
+		}
+
+	}
+
+	if (kunai2_x > enemy_x3 + 52.0f || kunai2_x + 8.0f < enemy_x3 ||
+		kunai2_y > enemy_y3 + 73.0f || kunai2_y + 5.0f < enemy_y3) {
+		// 当たっていない
+	}
+	else {
+		// 当たっている
+		if (Key.IsKeyDown(Keys_Space)) {
+			hit_enemy3_state = 1;
+		}
+
+	}
+	
+	if (kunai2_x > enemy_x4 + 52.0f || kunai2_x + 8.0f < enemy_x4 ||
+		kunai2_y > enemy_y4 + 73.0f || kunai2_y + 5.0f < enemy_y4) {
+		// 当たっていない
+	}
+	else {
+		// 当たっている
+		if (Key.IsKeyDown(Keys_Space)) {
+			hit_enemy4_state = 1;
+		}
+
+	}
+
 	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
 	if (hit_enemy_state == 0){
 		if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x ||
@@ -187,11 +274,46 @@ void GameMain::MainPlayer_2_4()
 		}
 		else {
 			// 当たっている
-			player_hit_state = 1;
+			enemyhit_count = 1;
+
+		}
+	}
+
+	if (hit_enemy2_state == 0) {
+		if (chara_x > enemy_x2 + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x2 ||
+			chara_y > enemy_y2 + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y2) {
+			// 当たっていない
+		}
+		else {
+			// 当たっている
+			enemyhit_count  = 1;
 
 		}
 	}
 	
+	if (hit_enemy3_state == 0) {
+		if (chara_x > enemy_x3 + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x3 ||
+			chara_y > enemy_y3 + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y3) {
+			// 当たっていない
+		}
+		else {
+			// 当たっている
+			enemyhit_count = 1;
+
+		}
+	}
+
+	if (hit_enemy4_state == 0) {
+		if (chara_x > enemy_x4 + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x4 ||
+			chara_y > enemy_y4 + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y4) {
+			// 当たっていない
+		}
+		else {
+			// 当たっている
+			enemyhit_count = 1;
+
+		}
+	}
 
 	// ジャンプ
 	if (jump_state == 0) {
@@ -219,6 +341,91 @@ void GameMain::MainPlayer_2_4()
 		if (chara_y > 530) {
 			chara_y = 530;
 			jump_state = 0;
+		}
+
+		// 敵ジャンプ
+		if (jump_enemy_state == 0) {
+			if (Key_buf.IsPressed(Keys_Up)) {
+
+				enemy_zahyou = enemy_y2;
+				enemy_jumpspeed = 60;
+				enemy_jumptime = 0;
+				jump_enemy_state = 1;
+			}
+		}
+		if (jump_enemy_state == 1) {
+			if (Key.IsKeyDown(Keys_Up)) {
+				if (enemy_jumpspeed >= 60) {
+					enemy_jumpspeed = 60;
+				}
+			}
+
+			enemy_jumptime = enemy_jumptime + 0.25;
+
+			enemy_y2 -= enemy_jumpspeed;
+
+			enemy_y2 = zahyou - (enemy_jumpspeed * enemy_jumptime - 0.5 * 9.80665 * enemy_jumptime * enemy_jumptime);
+
+			if (enemy_y2 > 530) {
+				enemy_y2 = 530;
+				jump_enemy_state = 0;
+			}
+		}
+
+		if (jump_enemy2_state == 0) {
+			if (Key_buf.IsPressed(Keys_Up)) {
+
+				enemy2_zahyou = enemy_y3;
+				enemy2_jumpspeed = 60;
+				enemy2_jumptime = 0;
+				jump_enemy2_state = 1;
+			}
+		}
+		if (jump_enemy2_state == 1) {
+			if (Key.IsKeyDown(Keys_Up)) {
+				if (enemy2_jumpspeed >= 60) {
+					enemy2_jumpspeed = 60;
+				}
+			}
+
+			enemy2_jumptime = enemy2_jumptime + 0.25;
+
+			enemy_y3 -= enemy_jumpspeed;
+
+			enemy_y3 = enemy2_zahyou - (enemy2_jumpspeed * enemy2_jumptime - 0.5 * 9.80665 * enemy2_jumptime * enemy2_jumptime);
+
+			if (enemy_y3 > 530) {
+				enemy_y3 = 530;
+				jump_enemy2_state = 0;
+			}
+		}
+
+		if (jump_enemy3_state == 0) {
+			if (Key_buf.IsPressed(Keys_Up)) {
+
+				enemy3_zahyou = enemy_y4;
+				enemy3_jumpspeed = 60;
+				enemy3_jumptime = 0;
+				jump_enemy3_state = 1;
+			}
+		}
+		if (jump_enemy3_state == 1) {
+			if (Key.IsKeyDown(Keys_Up)) {
+				if (enemy3_jumpspeed >= 60) {
+					enemy3_jumpspeed = 60;
+				}
+			}
+
+			enemy3_jumptime = enemy3_jumptime + 0.25;
+
+			enemy_y4 -= enemy3_jumpspeed;
+
+			enemy_y4 = enemy3_zahyou - (enemy3_jumpspeed * enemy3_jumptime - 0.5 * 9.80665 * enemy3_jumptime * enemy3_jumptime);
+
+			if (enemy_y4 > 530) {
+				enemy_y4 = 530;
+				jump_enemy3_state = 0;
+			}
 		}
 	}
 	//ここまで2と4ステ
@@ -268,6 +475,33 @@ void GameMain::Draw_2_4()
 	if (enemy_move_flg == true && hit_enemy_state == 0)
 	{
 		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
+	}
+
+	if (enemy_move_flg2 == false && hit_enemy2_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+	}
+	if (enemy_move_flg2 == true && hit_enemy2_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+	}
+
+	if (enemy_move_flg3 == false && hit_enemy3_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x3, enemy_y3, -1.0f));
+	}
+	if (enemy_move_flg3 == true && hit_enemy3_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x3, enemy_y3, -1.0f));
+	}
+
+	if (enemy_move_flg4 == false && hit_enemy4_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x4, enemy_y4, -1.0f));
+	}
+	if (enemy_move_flg4 == true && hit_enemy4_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x4, enemy_y4, -1.0f));
 	}
 	//ここまで2と4ステ
 }
