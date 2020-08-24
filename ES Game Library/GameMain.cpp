@@ -72,7 +72,7 @@ bool GameMain::Initialize()
 		shot_y[i] = 0.0f;
 	}
 
-	gamescene == 0;
+	gamescene == 1;
 
 	return true;
 }
