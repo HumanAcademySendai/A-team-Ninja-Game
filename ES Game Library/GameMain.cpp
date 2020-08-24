@@ -14,11 +14,30 @@ bool GameMain::Initialize()
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("階段3.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
-	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
+	player = GraphicsDevice.CreateAnimationModelFromFile(_T("nin3_walk.0001.png"));
+	leftplayer = GraphicsDevice.CreateAnimationModelFromFile(_T("nin3_walk.0001.png"));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
+	player_jump = GraphicsDevice.CreateModelFromFile(_T("nin_Jump.png"));
 
+	player->SetScale(1, -1, 1);
 	chara_x = 0; chara_y = 514;
+	player->SetPosition(chara_x, chara_y, 0);
+	leftplayer->SetScale(1, -1, 1);
+	leftplayer->SetPosition(chara2_x, chara2_y, 0);
+	leftplayer->SetRotation(90, 0, 0);
+
+	camera->SetView(Vector3(0, 0, -10), Vector3(0, 0, 0));
+	camera->SetOrthographicOffCenter(0, 1280, 720, 0, -10000, 10000);
+	GraphicsDevice.SetCamera(camera);
+
+	Light light;
+	light.Type = Light_Directional;
+	light.Direction = Vector3(0, 1, 1);
+	light.Ambient = Color(1.0f, 1.0f, 1.0f);
+	light.Diffuse = Color(1.0f, 1.0f, 1.0f);
+	light.Specular = Color(1.0f, 1.0f, 1.0f);
+	GraphicsDevice.SetLight(light);
+
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
 	chara_x = 0; chara_y = 550;
@@ -87,7 +106,7 @@ void GameMain::steage2()
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
 	//移動
-	if (Key.IsKeyDown(Keys_A)) {
+	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 1;
 		chara_x -= 6.0f;
 		floor2_0x += 6.0f;
@@ -95,7 +114,7 @@ void GameMain::steage2()
 		floor2_2x += 6.0f;
 		kaidan2_x += 6.0f;
 	}
-	if (Key.IsKeyDown(Keys_D)) {
+	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 0;
 		chara_x += 6.0f;
 		floor2_0x -= 6.0f;
@@ -113,12 +132,12 @@ void GameMain::steage2()
 	}
 
 	//武器(攻撃用クナイ)
-	if (Key_buf.IsPressed(Keys_Z)) {
+	if (Key_buf.IsPressed(Keys_Space)) {
 		if (kunai_flag == false) {
 			kunai_flag = true;
 		}
 	}
-	if (Key_buf.IsReleased(Keys_Z)) {
+	if (Key_buf.IsReleased(Keys_Space)) {
 		if (kunai_flag == true) {
 			kunai_flag = false;
 		}
@@ -137,7 +156,7 @@ void GameMain::steage2()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 	}
@@ -148,7 +167,7 @@ void GameMain::steage2()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 
@@ -200,12 +219,24 @@ void GameMain::steage2()
 
 // ジャンプ
 	if (jump_state == 0) {
-		if (Key_buf.IsPressed(Keys_W)) {
+		if (Key_buf.IsPressed(Keys_Up)) {
 
 			zahyou = chara_y;
 			jumpspeed = 25;
 			jumptime = 0;
 			jump_state = 1;
+			
+		}
+	}
+	if (player_jump_flg == false) {
+		player_jump->Rotation(90, 0, 0);
+		if (Key.IsKeyDown(Keys_Left)) {
+			player_jump_flg = true;
+		}
+	}
+	if (player_jump_flg == true) {
+		if (Key.IsKeyDown(Keys_Right)) {
+			player_jump_flg = false;
 		}
 	}
 
@@ -314,7 +345,7 @@ void GameMain::MainPlayer()
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
 	//移動
-	if (Key.IsKeyDown(Keys_A)) {
+	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 1;
 		chara_x -= 6.0f;
 		floor1_0x += 6.0f;
@@ -322,7 +353,7 @@ void GameMain::MainPlayer()
 		floor1_2x += 6.0f;
 		kaidan1_x += 6.0f;
 	}
-	if (Key.IsKeyDown(Keys_D)) {
+	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 0;
 		chara_x += 6.0f;
 		floor1_0x -= 6.0f;
@@ -340,12 +371,12 @@ void GameMain::MainPlayer()
 	}
 
 	//武器(攻撃用クナイ)
-	if (Key_buf.IsPressed(Keys_Z)) {
+	if (Key_buf.IsPressed(Keys_Space)) {
 		if (kunai_flag == false) {
 			kunai_flag = true;
 		}
 	}
-	if (Key_buf.IsReleased(Keys_Z)) {
+	if (Key_buf.IsReleased(Keys_Space)) {
 		if (kunai_flag == true) {
 			kunai_flag = false;
 		}
@@ -364,7 +395,7 @@ void GameMain::MainPlayer()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 	}
@@ -375,7 +406,7 @@ void GameMain::MainPlayer()
 	}
 	else {
 		// 当たっている
-		if (Key.IsKeyDown(Keys_Z)) {
+		if (Key.IsKeyDown(Keys_Space)) {
 			hit_state = 1;
 		}
 
@@ -429,12 +460,23 @@ void GameMain::MainPlayer()
 
 // ジャンプ
 	if (jump_state == 0) {
-		if (Key_buf.IsPressed(Keys_W)) {
+		if (Key_buf.IsPressed(Keys_Up)) {
 
 			zahyou = chara_y;
 			jumpspeed = 25;
 			jumptime = 0;
 			jump_state = 1;
+			if (player_jump_flg == false) {
+				player_jump->Rotation(90, 0, 0);
+				if (Key.IsKeyDown(Keys_Left) && (Key.IsKeyDown(Keys_Up))) {
+					player_jump_flg = true;
+				}
+			}
+			if (player_jump_flg == true) {
+				if (Key.IsKeyDown(Keys_Right) && (Key.IsKeyDown(Keys_Up))) {
+					player_jump_flg = false;
+				}
+			}
 		}
 	}
 
@@ -495,12 +537,15 @@ void GameMain::Draw()
 	GraphicsDevice.Clear(Color_CornflowerBlue);
 
 	GraphicsDevice.BeginScene();
-
+	player->SetPosition(chara_x, chara_y, 0);
+	player->Draw();
+	player->AdvanceTime(GameTimer.GetElapsedSecond());
+	GraphicsDevice.SetCamera(camera);
 
 	SpriteBatch.Begin();
 	if (gamescene = 1) {
-		if (player_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
-		if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }
+		
+	/*	if (player_state == 1) { SpriteBatch.Draw(*leftplayer, Vector3(chara_x, chara_y, -1)); }*/
 
 		SpriteBatch.Draw(*hp1, Vector3(hp_x, 0, 0), RectWH(0, 0, hp_count, 60));
 

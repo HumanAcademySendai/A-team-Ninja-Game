@@ -78,18 +78,27 @@ private:
 	int enemyhit_count;
 	int gamescene;
 
-	SPRITE  player, leftplayer, kunai, kunai2, floor, kaidan;
+	SPRITE  kunai, kunai2, floor, kaidan;
 	float  chara_x, chara_y;
+	float  chara2_x, chara2_y;
 	int player_state, jump_state, hit_state, shot_count, kunai_flag;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
 	float floor1_0x,floor1_1x, floor1_2x, kaidan1_x;
 	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
 
+	ANIMATIONMODEL player;
+	ANIMATIONMODEL leftplayer;
+	MODEL player_jump;
+	int player_jump_flg;
+
+	CAMERA camera;
+
 	enum { SHOT_MAX = 1 };
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
 	float shot_y[SHOT_MAX];
+
 	// 関数宣言
 	void MainPlayer();
 	void steage2();
