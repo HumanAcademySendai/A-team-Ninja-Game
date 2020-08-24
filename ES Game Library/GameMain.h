@@ -68,9 +68,6 @@ private:
 	float speed;
 	int enemy_move_flg;
 	int enemy_move_flg2;
-	int Game_Main_1_3_flg;
-	int Game_scene_flg;
-	int Game_scene_flg2;
 
 
 

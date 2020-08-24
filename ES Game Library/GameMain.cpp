@@ -11,26 +11,19 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("忍者　飛影"));
-	//1と3
+	//1ステ
 
-
-	Game_scene_flg = false;
-
-	if (Game_scene_flg = true)
+	if (game_scene == 1)
 	{
        Initialize_1_3();
 	}
 	
-	    
-
-	
-	/*Game_scene_flg2 = false;*/
 	return true;
 }
 
-//1と3ステ
+//1ステ
 void GameMain::Initialize_1_3()
-{ //1と3ステ
+{ //1ステ
 		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
 		player = GraphicsDevice.CreateSpriteFromFile(_T("nin2Left.png"), Color(255, 255, 255));
@@ -62,7 +55,7 @@ void GameMain::Initialize_1_3()
 
 		enemy_move_flg = false;
 		enemy_move_flg2 = false;
-		//ここまで1と3ステ
+		//ここまで1ステ
 	}
 
 
@@ -95,40 +88,41 @@ void GameMain::Finalize()
 int GameMain::Update()
 {
 	// TODO: Add your update logic here
-	//敵往復移動
-	if (enemy_move_flg == false)
-	{
-		enemy_x = enemy_x - speed;
-		if (enemy_x < 300) { enemy_x =300; enemy_move_flg = true; }
 
-	}
-	if (enemy_move_flg == true)
-	{
-		enemy_x = enemy_x + speed;
-		if (enemy_x > 400) { enemy_x = 400; enemy_move_flg = false; }
-	}
-	if (enemy_move_flg2 == false)
-	{
-		enemy_x2 = enemy_x2 - speed;
-		if (enemy_x2 < 650) { enemy_x2 = 650; enemy_move_flg2 = true; }
-	}
-	if (enemy_move_flg2 == true)
-	{
-		enemy_x2 = enemy_x2 + speed;
-		if (enemy_x2 > 750) { enemy_x2 = 750; enemy_move_flg2 = false; }
-	}
-	
+	if (game_scene == 1) {
+		//敵往復移動
+		if (enemy_move_flg == false)
+		{
+			enemy_x = enemy_x - speed;
+			if (enemy_x < 300) { enemy_x = 300; enemy_move_flg = true; }
 
-	//プレイヤー&&プレイヤー移動制限
+		}
+		if (enemy_move_flg == true)
+		{
+			enemy_x = enemy_x + speed;
+			if (enemy_x > 400) { enemy_x = 400; enemy_move_flg = false; }
+		}
+		if (enemy_move_flg2 == false)
+		{
+			enemy_x2 = enemy_x2 - speed;
+			if (enemy_x2 < 650) { enemy_x2 = 650; enemy_move_flg2 = true; }
+		}
+		if (enemy_move_flg2 == true)
+		{
+			enemy_x2 = enemy_x2 + speed;
+			if (enemy_x2 > 750) { enemy_x2 = 750; enemy_move_flg2 = false; }
+		}
 
-	MainPlayer_1_3();
-	
 
+		//プレイヤー&&プレイヤー移動制限
+
+		MainPlayer_1_3();
+	}
 	return 0;
 }
-//1と3ステ
+//1ステ
 void GameMain::MainPlayer_1_3()
-{   //1と3ステ
+{   //1ステ
 	
 		KeyboardState Key = Keyboard->GetState();
 		KeyboardBuffer Key_buf = Keyboard->GetBuffer();
@@ -159,7 +153,7 @@ void GameMain::MainPlayer_1_3()
 					jumpspeed = 60;
 				}
 			}
-			//jumpspeed -= 2;
+	
 			jumptime = jumptime + 0.25;
 
 			chara_y -= jumpspeed;
@@ -291,7 +285,7 @@ void GameMain::MainPlayer_1_3()
 			chara_y = -1.4f * chara_x + 1600;
 			if (chara_y < 100.0f) {
 				//シーン遷移するプログラム
-				Game_scene_flg = false;
+				game_scene = 2;
 			
 			}
 		}
@@ -303,7 +297,7 @@ void GameMain::MainPlayer_1_3()
 			chara_x = 1150;
 		}
 	}
-		//ここまで1と3ステ
+		//ここまで1ステ
 
 
 
@@ -321,7 +315,7 @@ void GameMain::Draw()
 
 
 	SpriteBatch.Begin();
-	if (Game_scene_flg == true)
+	if (game_scene == 1)
 	{
 	Draw_1_3();
     }
@@ -341,9 +335,9 @@ void GameMain::Draw()
 	//GraphicsDevice.UnlockCanvas();
 }
 
-//1と3ステ
+//1ステ
 void GameMain::Draw_1_3()
-{  //1と3ステ
+{  //1ステ
 	
 		if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
 		if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -1)); }
@@ -386,6 +380,6 @@ void GameMain::Draw_1_3()
 		}
 
 
-		//ここまで1と3ステ
+		//ここまで1ステ
 	}
 
