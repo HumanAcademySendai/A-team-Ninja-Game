@@ -120,7 +120,7 @@ void GameMain::MainPlayer_2_4()
 	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 1;
 		chara_x -= 6.0f;
-		floor2_1x += 6.0f;
+		floor2_1x += 12.0f;
 
 	}
 
@@ -130,14 +130,17 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//階段当たり判定
-	if (chara_x > floor2_1x + 1235.0f || chara_x + 200.0f - 70.0f < floor2_1x  ||
-		chara_y > floor2_1y + 700.0f || chara_y + 250.0f - 10.0f < floor2_1y) {
+	if (chara_x > floor2_1x + 1400.0f || chara_x + 200.0f - 70.0f < floor2_1x  ||
+		chara_y > floor2_1y + 770.0f || chara_y + 250.0f - 10.0f < floor2_1y) {
 
 	}
 	else {
-		//chara_y = 0.566802 * chara_x;
+		chara_y = 1.3 * chara_x ;
 
 		//接触したら最終ステージに移動するプログラム
+		if (chara_y < 50) {
+			
+		}
 
 	}
 
