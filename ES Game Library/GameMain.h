@@ -64,7 +64,7 @@ private:
 
 	SPRITE  player,jump, kunai, kunai2, floor;
 	SPRITE Up, Left, Space;
-	FONT text,text2;
+	FONT text;
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_enemy_state, shot_count, kunai_flag;
 	float jumpspeed, jumptime, zahyou;

@@ -44,7 +44,6 @@ void GameMain::Initialize_2_4()
 	enemy_move_flg = false;
 
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
-	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 30);
 
 	//ここまで2と4ステ
 }
@@ -155,6 +154,7 @@ void GameMain::MainPlayer_2_4()
 			kunai_flag = false;
 		}
 	}
+
 	//攻撃用クナイ座標
 	kunai2_x = chara_x - 10, kunai2_y = chara_y + 60;
 	if (chara_x < 0) {
