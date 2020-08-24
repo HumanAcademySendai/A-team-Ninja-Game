@@ -180,11 +180,12 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//ŠK’i“–‚½‚è”»’è
-	if (chara_x > floor2_1x + 1400.0f || chara_x + 200.0f - 70.0f < floor2_1x ||
+	if (chara_x > floor2_1x + 1300.0f || chara_x + 200.0f - 70.0f < floor2_1x ||
 		chara_y > floor2_1y + 770.0f || chara_y + 250.0f - 10.0f < floor2_1y) {
 
 	}
 	else {
+		//jump_enemy_state = 1, jump_enemy2_state = 1, jump_enemy3_state = 1;
 		kunai_flag = false;
 		jump_state = 0;
 		chara_y = 1.3 * chara_x;
@@ -348,15 +349,15 @@ void GameMain::MainPlayer_2_4()
 			if (Key_buf.IsPressed(Keys_Up)) {
 
 				enemy_zahyou = enemy_y2;
-				enemy_jumpspeed = 60;
+				enemy_jumpspeed = 40;
 				enemy_jumptime = 0;
 				jump_enemy_state = 1;
 			}
 		}
 		if (jump_enemy_state == 1) {
 			if (Key.IsKeyDown(Keys_Up)) {
-				if (enemy_jumpspeed >= 60) {
-					enemy_jumpspeed = 60;
+				if (enemy_jumpspeed >= 40) {
+					enemy_jumpspeed = 40;
 				}
 			}
 
@@ -364,7 +365,7 @@ void GameMain::MainPlayer_2_4()
 
 			enemy_y2 -= enemy_jumpspeed;
 
-			enemy_y2 = zahyou - (enemy_jumpspeed * enemy_jumptime - 0.5 * 9.80665 * enemy_jumptime * enemy_jumptime);
+			enemy_y2 = enemy_zahyou - (enemy_jumpspeed * enemy_jumptime - 0.5 * 9.80665 * enemy_jumptime * enemy_jumptime);
 
 			if (enemy_y2 > 530) {
 				enemy_y2 = 530;
