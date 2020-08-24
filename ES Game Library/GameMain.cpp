@@ -109,7 +109,7 @@ void GameMain::MainPlayer_LastStage()
 	
 	if (ohiroma_flag == false && Key.IsKeyDown(Keys_Right)) {
 		player_state = 0;
-		chara_x += 4.0f;
+		chara_x += 3.0f;
 		floor3_1x -= 12.0f;
 	}
 
