@@ -64,6 +64,7 @@ private:
 
 	SPRITE  player,jump, kunai, kunai2, floor;
 	SPRITE Up, Left, Space;
+	SPRITE ene_nin;
 	FONT text;
 	float  chara_x, chara_y;
 	int player_state, jump_state, kunai_flag;

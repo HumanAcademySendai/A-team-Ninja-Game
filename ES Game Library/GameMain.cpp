@@ -22,7 +22,8 @@ void GameMain::Initialize_2_4()
 {//2ステ
 
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("2_4F.png"));
-	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
+	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"),Color(255,255,255));
+	ene_nin = GraphicsDevice.CreateSpriteFromFile(_T("ene_nin.png"), Color(255, 255, 255));
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
@@ -485,29 +486,29 @@ void GameMain::Draw_2_4()
 
 	if (enemy_move_flg2 == false && hit_enemy2_state == 0)
 	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
 	}
 	if (enemy_move_flg2 == true && hit_enemy2_state == 0)
 	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x2, enemy_y2, -1.0f));
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
 	}
 
 	if (enemy_move_flg3 == false && hit_enemy3_state == 0)
 	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x3, enemy_y3, -1.0f));
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x3, enemy_y3, -1.0f));
 	}
 	if (enemy_move_flg3 == true && hit_enemy3_state == 0)
 	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x3, enemy_y3, -1.0f));
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x3, enemy_y3, -1.0f));
 	}
 
 	if (enemy_move_flg4 == false && hit_enemy4_state == 0)
 	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x4, enemy_y4, -1.0f));
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x4, enemy_y4, -1.0f));
 	}
 	if (enemy_move_flg4 == true && hit_enemy4_state == 0)
 	{
-		SpriteBatch.Draw(*enemy, Vector3(enemy_x4, enemy_y4, -1.0f));
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x4, enemy_y4, -1.0f));
 	}
 
 	//敵とプレイヤーが当たった時の処理
