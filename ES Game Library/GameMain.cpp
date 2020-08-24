@@ -17,14 +17,12 @@ bool GameMain::Initialize()
 	player = GraphicsDevice.CreateSpriteFromFile(_T("nin.png"), Color(255, 255, 255));
 	leftplayer = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"), Color(255, 255, 255));
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-
-
-	chara_x = 0; chara_y = 514;
 	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
 	chara_x = 0; chara_y = 550;
 	kunai_x = chara_x, kunai_y = chara_y; //UŒ‚—pƒNƒiƒC‚Ì‰ŠúÀ•W
 	kunai2_x = chara_x, kunai2_y = chara_y;
+	floor3_0x = -1280.0f; floor3_1x = 0; floor3_2x = 1280.0f; kaidan3_x = 1280.0f * 2;//”wŒi‚ÌƒXƒNƒ[ƒ‹
 	floor1_0x = -1280.0f; floor1_1x = 0; floor1_2x = 1280.0f; kaidan1_x = 1280.0f * 2;//”wŒi‚ÌƒXƒNƒ[ƒ‹
 
 	player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
@@ -61,6 +59,8 @@ bool GameMain::Initialize()
 
 void GameMain::steage2()
 {
+	// TODO: Add your update logic here
+	//“G‰•œˆÚ“®
 	if (enemy_move_flg == false)
 	{
 		enemy_x = enemy_x - speed;
@@ -83,6 +83,10 @@ void GameMain::steage2()
 	if (chara_y > 550) {
 		chara_y = 550;
 	}
+	//ƒvƒŒƒCƒ„[
+	{
+		MainPlayer();
+	}
 
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
@@ -95,6 +99,10 @@ void GameMain::steage2()
 		floor2_1x += 6.0f;
 		floor2_2x += 6.0f;
 		kaidan2_x += 6.0f;
+		floor3_0x += 6.0f;
+		floor3_1x += 6.0f;
+		floor3_2x += 6.0f;
+		kaidan3_x += 6.0f;
 	}
 	if (Key.IsKeyDown(Keys_D)) {
 		player_state = 0;
@@ -104,6 +112,10 @@ void GameMain::steage2()
 		floor2_2x -= 6.0f;
 		kaidan2_x -= 6.0f;
 
+		floor3_0x -= 6.0f;
+		floor3_1x -= 6.0f;
+		floor3_2x -= 6.0f;
+		kaidan3_x -= 6.0f;
 	}
 	//”wŒiˆÚ“®§ŒÀ
 	if (kaidan2_x < -1280 * 2) {
@@ -111,6 +123,14 @@ void GameMain::steage2()
 	}
 	if (kaidan2_x > 0) {
 		floor2_0x = 1280 * 3;	floor2_1x = 1280 * 2; floor2_2x = 1280; kaidan2_x = 0.0f;
+	}
+
+	//”wŒiˆÚ“®§ŒÀ
+	if (chara_x < 0) {
+		floor3_0x = -1280;	floor3_1x = 0; floor3_2x = 1280; kaidan3_x = 2560;
+	}
+	if (kaidan3_x < 0) {
+		floor3_0x = -1280.0f * 3; floor3_1x = -1280.0f * 2; floor3_2x = -1280.0f;  kaidan3_x = 0;
 	}
 
 	//•Ší(UŒ‚—pƒNƒiƒC)
@@ -523,8 +543,13 @@ void GameMain::Draw_1_3()
 		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 		if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
-		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
+	if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
+	if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 
+	SpriteBatch.Draw(*floor, Vector3(floor3_0x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*floor, Vector3(floor3_2x, 0.0f, 0.0f));
+	SpriteBatch.Draw(*kaidan, Vector3(kaidan3_x, 0.0f, 0.0f));
 		SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f•b"), time);
 
 		if (enemy_move_flg == false && hit_state == 0)
@@ -537,4 +562,3 @@ void GameMain::Draw_1_3()
 		}
 		//‚±‚±‚Ü‚Å1‚Æ3ƒXƒe
 	}
-

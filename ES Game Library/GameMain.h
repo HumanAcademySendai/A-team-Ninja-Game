@@ -69,8 +69,6 @@ private:
 	int Game_scene_flg;
 	int Game_scene_flg2;
 
-
-
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_state, shot_count, kunai_flag,game_scene;
 	float time;
@@ -80,7 +78,7 @@ private:
 	float floor1_0x,floor1_1x, floor1_2x, kaidan1_x;
 	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
 	float floor1_1y;
-
+	float floor3_0x, floor3_1x, floor3_2x, kaidan3_x;
 	enum { SHOT_MAX = 1 };
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
