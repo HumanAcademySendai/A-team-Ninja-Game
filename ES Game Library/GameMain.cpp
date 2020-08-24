@@ -177,15 +177,15 @@ void GameMain::MainPlayer_1_3()
 			if (Key_buf.IsPressed(Keys_Up)) {
 
 				enemy_zahyou = enemy_y2;
-				enemy_jumpspeed = 60;
+				enemy_jumpspeed = 70;
 				enemy_jumptime = 0;
 				jump_enemy_state = 1;
 			}
 		}
 		if (jump_enemy_state == 1) {
 			if (Key.IsKeyDown(Keys_Up)) {
-				if (enemy_jumpspeed >= 60) {
-					enemy_jumpspeed = 60;
+				if (enemy_jumpspeed >= 70) {
+					enemy_jumpspeed = 70;
 				}
 			}
 		
