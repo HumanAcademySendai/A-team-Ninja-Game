@@ -259,6 +259,7 @@ void GameMain::MainPlayer_1_3()
 		}
 
 		//“G@\@ƒvƒŒƒCƒ„[“–‚½‚è”»’è(“G‚ğ•¡”•\¦‚·‚é—\’èB)
+		if (hit_enemy_state == 0) {
 			if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 80.0f - 30.0f < enemy_x ||
 				chara_y > enemy_y + 130.0f - 21.0f || chara_y + 110.0f - 10.0f < enemy_y) {
 				// “–‚½‚Á‚Ä‚¢‚È‚¢
@@ -267,7 +268,9 @@ void GameMain::MainPlayer_1_3()
 				// “–‚½‚Á‚Ä‚¢‚é
 				player_hit_state = 1;
 			}
+		}
 
+		if (hit_enemy2_state == 0) {
 			if (chara_x > enemy_x2 + 70.0f - 30.0f || chara_x + 80.0f - 30.0f < enemy_x2 ||
 				chara_y > enemy_y2 + 130.0f - 21.0f || chara_y + 110.0f - 10.0f < enemy_y2) {
 				// “–‚½‚Á‚Ä‚¢‚È‚¢
@@ -275,7 +278,8 @@ void GameMain::MainPlayer_1_3()
 			else {
 				// “–‚½‚Á‚Ä‚¢‚é
 				player_hit_state = 1;
-			}	
+			}
+		}
 
 		//ŠK’i“–‚½‚è”»’è
 		if (chara_x > floor1_1x + 3440.0f || chara_x + 200.0f - 70.0f < floor1_1x + 2600||
