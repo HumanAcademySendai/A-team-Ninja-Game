@@ -68,15 +68,9 @@ private:
 	FONT text,text2;
 	SOUND open,close, endtaiko;
 
-
-	int Game_Main_1_3_flg;
-	int Game_scene_flg;
-	int Game_scene_flg2;
-
-
-
 	float  chara_x, chara_y;
 	int player_state, jump_state, kunai_flag;
+	int game_scene;
 	float time;
 	float player_frame;
 	float frame;

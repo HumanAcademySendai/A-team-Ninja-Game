@@ -11,12 +11,8 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("忍者　飛影"));
-	//1と3
-
-
-	Game_scene_flg = false;
-
-	if (Game_scene_flg = true)
+	
+	if (game_scene == 3)
 	{
 		Initialize_LastStage();
 	}
@@ -28,9 +24,9 @@ bool GameMain::Initialize()
 	return true;
 }
 
-//1と3ステ
+//最終ステージ
 void GameMain::Initialize_LastStage()
-{ //1と3ステ
+{ //最終ステージ
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("5F.png"));
 	clear = GraphicsDevice.CreateSpriteFromFile(_T("clear.png"));
 	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"),Color(255,255,255));
@@ -91,15 +87,15 @@ int GameMain::Update()
 	// TODO: Add your update logic here
 
 	//プレイヤー&&プレイヤー移動制限
-
-	MainPlayer_LastStage();
-
+	if (game_scene == 3) {
+		MainPlayer_LastStage();
+	}
 
 	return 0;
 }
-//1と3ステ
+//最終ステージ
 void GameMain::MainPlayer_LastStage()
-{   //1と3ステ
+{   //最終ステージ
 
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
@@ -227,7 +223,7 @@ void GameMain::MainPlayer_LastStage()
 		}
 	}
 }
-//ここまで1と3ステ
+//ここまで最終ステージ
 
 
 
@@ -245,7 +241,7 @@ void GameMain::Draw()
 
 
 	SpriteBatch.Begin();
-	if (Game_scene_flg == true)
+	if (game_scene == 3)
 	{
 		Draw_LastStage();
 	}
@@ -255,24 +251,11 @@ void GameMain::Draw()
 
 	GraphicsDevice.EndScene();
 
-	//Canvas canvas = GraphicsDevice.LockCanvas();
-
-	//Paint paint;
-	//paint.SetPaintColor(Color_Yellow);
-	//if (ohiroma_flag == true) {
-	//	canvas.DrawRect(Rect(makimono_x + 20, makimono_y + 0, makimono_x + 136, makimono_y + 184), paint);
-	//}
-	//paint.SetColor(Color_Blue);
-	//if (ohiroma_flag == true) {
-	//	canvas.DrawRect(Rect(chara_x + 0, chara_y + 0, chara_x + 128, chara_y + 128), paint);
-	//}
-
-	//GraphicsDevice.UnlockCanvas();
 }
 
-//1と3ステ
+//最終ステージ
 void GameMain::Draw_LastStage()
-{  //1と3ステ
+{  //最終ステージ
 
 	if (player_state == 0 && jump_state == 0 && ohiroma_flag == false) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
 
@@ -280,11 +263,7 @@ void GameMain::Draw_LastStage()
 
 
 	if (ohiroma_flag == false) { SpriteBatch.Draw(*Right, Vector3(50, 140, -1)); }
-	//SpriteBatch.DrawString(text2, Vector2(100, 100), Color_White, _T("・・・移動"));
-
-	if (ohiroma_flag == false) {SpriteBatch.Draw(*Up, Vector3(50, 250, -1));
-	}
-	//SpriteBatch.DrawString(text2, Vector2(300, 160), Color_White, _T("・・・ジャンプ"));
+	if (ohiroma_flag == false) {SpriteBatch.Draw(*Up, Vector3(50, 250, -1));}
 
 	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
 	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
@@ -298,5 +277,5 @@ void GameMain::Draw_LastStage()
 	if (clear_flag == true) { SpriteBatch.Draw(*clear, Vector3(250, 100, 0)); }
 
 
-	//ここまで1と3ステ
+	//ここまで最終ステージ
 }
