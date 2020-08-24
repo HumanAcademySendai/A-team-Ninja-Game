@@ -254,7 +254,7 @@ void GameMain::MainPlayer_1_3()
 		else {
 			// “–‚½‚Á‚Ä‚¢‚é
 			if (Key.IsKeyDown(Keys_Space)) {
-				hit_enemy2_state = 2;
+				hit_enemy2_state = 1;
 			}
 		}
 
@@ -344,7 +344,7 @@ void GameMain::Draw_1_3()
 		if (jump_state == 0) { SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1)); }
 		if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -1)); }
 
-		if (player_state == 0 && kunai_flag == true && floor) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
+		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 
 		SpriteBatch.Draw(*Right, Vector3(50, 100, -1));
 
