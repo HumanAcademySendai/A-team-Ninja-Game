@@ -12,8 +12,9 @@ bool GameMain::Initialize()
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("忍者　飛影"));
 
-	Initialize_2_4();
-
+	if (game_scene == 2) {
+		Initialize_2_4();
+	}
 	return true;
 }
 //2と4ステ
@@ -85,80 +86,81 @@ void GameMain::Finalize()
 int GameMain::Update()
 {
 	// TODO: Add your update logic here
-	//敵往復移動
-	if (enemy_move_flg == false)
-	{
-		enemy_x = enemy_x - speed;
-		if (enemy_x < 900) { enemy_x = 900; enemy_move_flg = true; }
+	if (game_scene == 2) {
+		//敵往復移動
+		if (enemy_move_flg == false)
+		{
+			enemy_x = enemy_x - speed;
+			if (enemy_x < 900) { enemy_x = 900; enemy_move_flg = true; }
 
-	}
-	if (enemy_move_flg == true)
-	{
-		enemy_x = enemy_x + speed;
-		if (enemy_x > 1000) { enemy_x = 1000; enemy_move_flg = false; }
-	}
+		}
+		if (enemy_move_flg == true)
+		{
+			enemy_x = enemy_x + speed;
+			if (enemy_x > 1000) { enemy_x = 1000; enemy_move_flg = false; }
+		}
 
-	if (enemy_move_flg2 == false)
-	{
-		enemy_x2 = enemy_x2 - speed;
-		if (enemy_x2 < 750) { enemy_x2 = 750; enemy_move_flg2 = true; }
+		if (enemy_move_flg2 == false)
+		{
+			enemy_x2 = enemy_x2 - speed;
+			if (enemy_x2 < 750) { enemy_x2 = 750; enemy_move_flg2 = true; }
 
-	}
+		}
 
-	if (enemy_move_flg2 == true)
-	{
-		enemy_x2 = enemy_x2 + speed;
-		if (enemy_x2 > 800) { enemy_x2 = 800; enemy_move_flg2 = false; }
-	}
+		if (enemy_move_flg2 == true)
+		{
+			enemy_x2 = enemy_x2 + speed;
+			if (enemy_x2 > 800) { enemy_x2 = 800; enemy_move_flg2 = false; }
+		}
 
-	if (enemy_move_flg3 == false)
-	{
-		enemy_x3 = enemy_x3 - speed;
-		if (enemy_x3 < 400) { enemy_x3 = 400; enemy_move_flg3 = true; }
+		if (enemy_move_flg3 == false)
+		{
+			enemy_x3 = enemy_x3 - speed;
+			if (enemy_x3 < 400) { enemy_x3 = 400; enemy_move_flg3 = true; }
 
-	}
-	if (enemy_move_flg3 == true)
-	{
-		enemy_x3 = enemy_x3 + speed;
-		if (enemy_x3 > 500) { enemy_x3 = 500; enemy_move_flg3 = false; }
-	}
+		}
+		if (enemy_move_flg3 == true)
+		{
+			enemy_x3 = enemy_x3 + speed;
+			if (enemy_x3 > 500) { enemy_x3 = 500; enemy_move_flg3 = false; }
+		}
 
-	if (enemy_move_flg4 == false)
-	{
-		enemy_x4 = enemy_x4 - speed;
-		if (enemy_x4 < 200) { enemy_x4 = 200; enemy_move_flg4 = true; }
+		if (enemy_move_flg4 == false)
+		{
+			enemy_x4 = enemy_x4 - speed;
+			if (enemy_x4 < 200) { enemy_x4 = 200; enemy_move_flg4 = true; }
 
-	}
-	if (enemy_move_flg4 == true)
-	{
-		enemy_x4 = enemy_x4 + speed;
-		if (enemy_x4 > 300) { enemy_x4 = 300; enemy_move_flg4 = false; }
-	}
+		}
+		if (enemy_move_flg4 == true)
+		{
+			enemy_x4 = enemy_x4 + speed;
+			if (enemy_x4 > 300) { enemy_x4 = 300; enemy_move_flg4 = false; }
+		}
 
-	//タイム(カウントアップ)
-	if (time < 10000) {
-		frame += 1;
-		if (frame >= 60) {
-			time += 1;
-			frame = 0;
+		//タイム(カウントアップ)
+		if (time < 10000) {
+			frame += 1;
+			if (frame >= 60) {
+				time += 1;
+				frame = 0;
+			}
+		}
+
+		//プレイヤー移動制限
+		if (chara_x < 20) {
+			chara_x = 20;
+		}
+		if (chara_x > 1150) {
+			chara_x = 1150;
+		}
+		if (chara_y > 530) {
+			chara_y = 530;
+		}
+		//プレイヤー
+		{
+			MainPlayer_2_4();
 		}
 	}
-
-//プレイヤー移動制限
-	if (chara_x < 20) {
-		chara_x = 20;
-	}
-	if (chara_x > 1150) {
-		chara_x = 1150;
-	}
-	if (chara_y > 530){
-		chara_y = 530;
-	}
-	//プレイヤー
-	{
-		MainPlayer_2_4();
-	}
-
 	return 0;
 }
 //2と4ステ
@@ -192,7 +194,7 @@ void GameMain::MainPlayer_2_4()
 
 		//接触したら最終ステージに移動するプログラム
 		if (chara_y < 50) {
-
+			game_scene = 3;
 		}
 
 	}
@@ -444,7 +446,9 @@ void GameMain::Draw()
 
 	SpriteBatch.Begin();
 
-	Draw_2_4();
+	if (game_scene == 2) {
+		Draw_2_4();
+	}
 
 	SpriteBatch.End();
 
@@ -504,6 +508,13 @@ void GameMain::Draw_2_4()
 	{
 		SpriteBatch.Draw(*enemy, Vector3(enemy_x4, enemy_y4, -1.0f));
 	}
+
+	//敵とプレイヤーが当たった時の処理
+	if (enemyhit_count == 1) {
+
+		enemyhit_count = 0;
+	}
+
 	//ここまで2と4ステ
 }
 

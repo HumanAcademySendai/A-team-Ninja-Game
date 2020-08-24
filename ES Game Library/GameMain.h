@@ -67,6 +67,7 @@ private:
 	FONT text;
 	float  chara_x, chara_y;
 	int player_state, jump_state, kunai_flag;
+	int game_scene;
 	int  hit_enemy_state, hit_enemy2_state,hit_enemy3_state,hit_enemy4_state, jump_enemy_state, jump_enemy2_state, jump_enemy3_state;
 	float enemy_jumpspeed, enemy_jumptime, enemy_zahyou, enemy2_jumpspeed, enemy2_jumptime, enemy2_zahyou, enemy3_jumpspeed, enemy3_jumptime, enemy3_zahyou;
 	float jumpspeed, jumptime, zahyou;
