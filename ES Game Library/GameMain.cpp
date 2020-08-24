@@ -466,20 +466,19 @@ void GameMain::MainPlayer()
 			jumpspeed = 25;
 			jumptime = 0;
 			jump_state = 1;
-			if (player_jump_flg == false) {
-				player_jump->Rotation(90, 0, 0);
-				if (Key.IsKeyDown(Keys_Left) && (Key.IsKeyDown(Keys_Up))) {
-					player_jump_flg = true;
-				}
-			}
-			if (player_jump_flg == true) {
-				if (Key.IsKeyDown(Keys_Right) && (Key.IsKeyDown(Keys_Up))) {
-					player_jump_flg = false;
-				}
-			}
 		}
 	}
-
+	if (player_jump_flg == false) {
+		player_jump->Rotation(90, 0, 0);
+		if (Key.IsKeyDown(Keys_Left)) {
+			player_jump_flg = true;
+		}
+	}
+	if (player_jump_flg == true) {
+		if (Key.IsKeyDown(Keys_Right)) {
+			player_jump_flg = false;
+		}
+	}
 
 	if (jump_state == 1) {
 		zahyou = chara_y;
