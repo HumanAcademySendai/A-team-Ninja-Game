@@ -11,7 +11,6 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("îEé“Å@îÚâe"));
-	
 	if (game_scene == 3)
 	{
 		Initialize_LastStage();
@@ -184,20 +183,20 @@ void GameMain::MainPlayer_LastStage()
 	if (ohiroma_flag == true && clear_flag == false) {
 		if (Key.IsKeyDown(Keys_Up)) {
 			player_state = 0;
-			chara_y -= 4.0f;
+			chara_y -= 3.0f;
 		}
 		if (Key.IsKeyDown(Keys_Down)) {
 			player_state = 0;
-			chara_y += 4.0f;
+			chara_y += 3.0f;
 		}
 
 		if (Key.IsKeyDown(Keys_Right)) {
 			player_state = 0;
-			chara_x += 4.0f;
+			chara_x += 3.0f;
 		}
 		if (Key.IsKeyDown(Keys_Left)) {
 			player_state = 1;
-			chara_x -= 4.0f;
+			chara_x -= 3.0f;
 		}
 	}
 
