@@ -247,8 +247,8 @@ void GameMain::MainPlayer_1_3()
 		}
 
 		//敵　―　攻撃用クナイ
-		if (kunai_x > enemy_x2 + 52.0f || kunai_x + 8.0f < enemy_x2 ||
-			kunai_y > enemy_y2 + 73.0f || kunai_y + 5.0f < enemy_y2) {
+		if (kunai_x > enemy_x2 + 70.0f - 30.0f || kunai_x + 8.0f < enemy_x2 ||
+			kunai_y > enemy_y2 + 130.0f - 21.0f || kunai_y + 5.0f < enemy_y2) {
 			// 当たっていない
 		}
 		else {
@@ -335,7 +335,7 @@ void GameMain::Draw()
 
 	//Paint paint;
 	//paint.SetPaintColor(Color_Yellow);
-	//canvas.DrawRect(Rect(kunai_x + 0 ,kunai_y + 0, kunai_x + 8.0f, kunai_y + 5.0f), paint);
+	//canvas.DrawRect(Rect(kunai_x + 0 ,kunai_y + 0, kunai_x + 52.0f, kunai_y + 100.0f), paint);
 
 
 	//GraphicsDevice.UnlockCanvas();
