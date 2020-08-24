@@ -37,8 +37,9 @@ void GameMain::Initialize_2_4()
 	player_hit_state = 0;
 	player_state = 1, jump_state = 0; hit_enemy_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
+	hit_enemy_state = 0;
 
-	enemy_x = 800.0f;
+	enemy_x = 1000.0f;
 	enemy_y = 530.0f;
 	speed = 2.0f;
 	enemy_move_flg = false;
@@ -75,13 +76,13 @@ int GameMain::Update()
 	if (enemy_move_flg == false)
 	{
 		enemy_x = enemy_x - speed;
-		if (enemy_x < 800) { enemy_x = 800; enemy_move_flg = true; }
+		if (enemy_x < 900) { enemy_x = 900; enemy_move_flg = true; }
 
 	}
 	if (enemy_move_flg == true)
 	{
 		enemy_x = enemy_x + speed;
-		if (enemy_x > 900) { enemy_x = 900; enemy_move_flg = false; }
+		if (enemy_x > 1000) { enemy_x = 1000; enemy_move_flg = false; }
 	}
 
 	//タイム(カウントアップ)
@@ -129,18 +130,18 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//階段当たり判定
-	if (chara_x > floor2_1x + 1400.0f || chara_x + 200.0f - 70.0f < floor2_1x  ||
+	if (chara_x > floor2_1x + 1400.0f || chara_x + 200.0f - 70.0f < floor2_1x ||
 		chara_y > floor2_1y + 770.0f || chara_y + 250.0f - 10.0f < floor2_1y) {
 
 	}
 	else {
 		kunai_flag = false;
 		jump_state = 0;
-		chara_y = 1.3 * chara_x ;
+		chara_y = 1.3 * chara_x;
 
 		//接触したら最終ステージに移動するプログラム
 		if (chara_y < 50) {
-			
+
 		}
 
 	}
@@ -167,16 +168,6 @@ void GameMain::MainPlayer_2_4()
 	}
 
 	//敵　―　攻撃用クナイ
-	if (kunai_x > enemy_x + 52.0f || kunai_x + 8.0f < enemy_x ||
-		kunai_y > enemy_y + 73.0f || kunai_y + 5.0f < enemy_y) {
-		// 当たっていない
-	}
-	else {
-		// 当たっている
-		if (Key.IsKeyDown(Keys_Space)) {
-			hit_enemy_state = 1;
-		}
-	}
 	if (kunai2_x > enemy_x + 52.0f || kunai2_x + 8.0f < enemy_x ||
 		kunai2_y > enemy_y + 73.0f || kunai2_y + 5.0f < enemy_y) {
 		// 当たっていない
@@ -189,14 +180,17 @@ void GameMain::MainPlayer_2_4()
 
 	}
 	//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
-		if (chara_x > enemy_x + 70.0f - 30.0f  || chara_x + 128.0f - 70.0f < enemy_x ||
+	if (hit_enemy_state == 0){
+		if (chara_x > enemy_x + 70.0f - 30.0f || chara_x + 128.0f - 70.0f < enemy_x ||
 			chara_y > enemy_y + 130.0f - 21.0f || chara_y + 128.0f - 10.0f < enemy_y) {
 			// 当たっていない
 		}
 		else {
 			// 当たっている
 			player_hit_state = 1;
+
 		}
+	}
 	
 
 	// ジャンプ

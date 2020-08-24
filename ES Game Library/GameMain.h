@@ -67,6 +67,8 @@ private:
 	FONT text;
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_enemy_state, shot_count, kunai_flag;
+	//int  hit_enemy_state, hit_enemy2_state, jump_enemy_state;
+	//float enemy_jumpspeed, enemy_jumptime, enemy_zahyou;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
 	float  floor2_1x,floor2_1y;
