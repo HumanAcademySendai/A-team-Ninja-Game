@@ -38,7 +38,7 @@ void GameMain::Initialize_2_4()
 	player_state = 1, jump_state = 0; hit_enemy_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
-	enemy_x = 1100.0f;
+	enemy_x = 800.0f;
 	enemy_y = 530.0f;
 	speed = 2.0f;
 	enemy_move_flg = false;
@@ -76,13 +76,13 @@ int GameMain::Update()
 	if (enemy_move_flg == false)
 	{
 		enemy_x = enemy_x - speed;
-		if (enemy_x < 450) { enemy_x = 450; enemy_move_flg = true; }
+		if (enemy_x < 800) { enemy_x = 800; enemy_move_flg = true; }
 
 	}
 	if (enemy_move_flg == true)
 	{
 		enemy_x = enemy_x + speed;
-		if (enemy_x > 800) { enemy_x = 800; enemy_move_flg = false; }
+		if (enemy_x > 900) { enemy_x = 900; enemy_move_flg = false; }
 	}
 
 	//タイム(カウントアップ)
