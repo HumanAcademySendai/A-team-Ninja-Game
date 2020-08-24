@@ -11,6 +11,7 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("忍者　飛影"));
+	game_scene = 3;
 	if (game_scene == 3)
 	{
 		Initialize_LastStage();
@@ -38,7 +39,6 @@ void GameMain::Initialize_LastStage()
 	close = SoundDevice .CreateSoundFromFile(_T("close.wav"));
 	endtaiko = SoundDevice.CreateSoundFromFile(_T("clear.wav"));
 	chara_x = 0; chara_y = 530;
-	time = 0; frame = 0; //前のタイムを引き継ぐ
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	floor3_1x = 0;//背景のスクロール
 	makimono_x = 750; makimono_y = 480;
@@ -47,7 +47,7 @@ void GameMain::Initialize_LastStage()
 	ohiroma_flag = false;
 
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
-	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 30);
+	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 40);
 
 	clear_flag = false;
 
@@ -100,7 +100,9 @@ void GameMain::MainPlayer_LastStage()
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 	//移動
 
-
+	if (clear_flag == true && Key_buf.IsPressed(Keys_Enter)) {
+		game_scene = 0;
+	}
 	
 	if (ohiroma_flag == false && Key.IsKeyDown(Keys_Right)) {
 		player_state = 0;
@@ -137,15 +139,6 @@ void GameMain::MainPlayer_LastStage()
 				chara_y = 530;
 				jump_state = 0;
 			}
-		}
-	}
-
-	//タイム(カウントアップ)
-	if (clear_flag == false && time < 10000) {
-		frame += 1;
-		if (frame >= 60) {
-			time += 1;
-			frame = 0;
 		}
 	}
 
@@ -220,6 +213,7 @@ void GameMain::MainPlayer_LastStage()
 		if (clear_flag == true) {
 			endtaiko->Play();
 		}
+
 	}
 }
 //ここまで最終ステージ
@@ -273,6 +267,7 @@ void GameMain::Draw_LastStage()
 	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*nin2, Vector3(chara_x, chara_y, -1)); }
 
 	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
+	if (clear_flag == true) { SpriteBatch.DrawString(text2, Vector2(200, 600), Color_White, _T("タイトルに戻るためEnterキーを押す")); }
 	if (clear_flag == true) { SpriteBatch.Draw(*clear, Vector3(250, 100, 0)); }
 
 
