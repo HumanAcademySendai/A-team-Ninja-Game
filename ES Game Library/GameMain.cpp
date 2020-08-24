@@ -34,7 +34,7 @@ void GameMain::Initialize_2_4()
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
 	floor2_1x = -2560; floor2_1y = 0;//背景のスクロール
-
+	player_hit_state = 0;
 	player_state = 1, jump_state = 0; hit_enemy_state = 0; shot_count = 0;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
@@ -134,6 +134,8 @@ void GameMain::MainPlayer_2_4()
 
 	}
 	else {
+		kunai_flag = false;
+		jump_state = 0;
 		chara_y = 1.3 * chara_x ;
 
 		//接触したら最終ステージに移動するプログラム
@@ -193,7 +195,7 @@ void GameMain::MainPlayer_2_4()
 		}
 		else {
 			// 当たっている
-
+			player_hit_state = 1;
 		}
 	
 

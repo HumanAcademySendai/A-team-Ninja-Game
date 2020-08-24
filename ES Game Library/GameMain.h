@@ -70,6 +70,7 @@ private:
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
 	float  floor2_1x,floor2_1y;
+	float player_hit_state; //0・・当たってない	1・・当たってる
 	float frame, time;
 
 	// 関数宣言
