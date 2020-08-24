@@ -385,11 +385,12 @@ void GameMain::MainPlayer_2_4()
 			}
 		}
 		if (jump_enemy2_state == 1) {
-			if (Key.IsKeyDown(Keys_Up)) {
+			 if (Key.IsKeyDown(Keys_Up)) {
 				if (enemy2_jumpspeed >= 40) {
 					enemy2_jumpspeed = 40;
 				}
-			}
+			 
+			 }
 
 			enemy2_jumptime = enemy2_jumptime + 0.25;
 
