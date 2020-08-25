@@ -100,7 +100,7 @@ void GameMain::Initialize_LastStage()
 	clear_flag = false;
 
 
-	return ;
+	return;
 }
 
 //最終ステージ
@@ -173,16 +173,17 @@ int GameMain::Update()
 		}
 
 
-		//プレイヤー&&プレイヤー移動制限
-		if (game_scene == 3) {
-			MainPlayer_LastStage();
-		}
 
 
 		//プレイヤー&&プレイヤー移動制限
 		if (game_scene == 1) {
 			MainPlayer_1_3();
 		}
+		//プレイヤー&&プレイヤー移動制限
+		if (game_scene == 3) {
+			MainPlayer_LastStage();
+		}
+
 	}
 	return 0;
 }
@@ -340,6 +341,7 @@ int GameMain::Update()
 			}
 		}
 	}
+
 //最終ステージ
 	void GameMain::MainPlayer_LastStage()
 	{   //最終ステージ
