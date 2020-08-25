@@ -14,18 +14,31 @@ bool GameMain::Initialize()
 	floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 	kaidan = GraphicsDevice.CreateSpriteFromFile(_T("階段3.png"));
 	enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-	/*player = GraphicsDevice.CreateAnimationModelFromFile(_T("nin3_walk.0001.png"));
-	leftplayer = GraphicsDevice.CreateAnimationModelFromFile(_T("nin3_walk.0001.png"));*/
 	kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
-	/*player_jump = GraphicsDevice.CreateModelFromFile(_T("nin_Jump.png"));*/
 	player = GraphicsDevice.CreateSpriteFromFile(_T("image1 (1) (1).png"));
+	Title = GraphicsDevice.CreateSpriteFromFile(_T("タイトル画面（修正）.png"));
+	GameOver = GraphicsDevice.CreateSpriteFromFile(_T("ゲームオーバー.png"));
+	Last = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
+	hp1 = GraphicsDevice.CreateSpriteFromFile(_T("HPアイコン (1).png"));
+	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
+	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
-	/*player->SetScale(1, -1, 1);
-	chara_x = 0; chara_y = 514;
-	player->SetPosition(chara_x, chara_y, 0);
-	leftplayer->SetScale(1, -1, 1);
-	leftplayer->SetPosition(chara2_x, chara2_y, 0);
-	leftplayer->SetRotation(90, 0, 0);*/
+	chara_x = 0; chara_y = 550;
+	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
+	kunai2_x = chara_x, kunai2_y = chara_y;
+	floor3_0x = -1280.0f; floor3_1x = 0; floor3_2x = 1280.0f; kaidan3_x = 1280.0f * 2;//背景のスクロール
+	floor1_0x = -1280.0f; floor1_1x = 0; floor1_2x = 1280.0f; kaidan1_x = 1280.0f * 2;//背景のスクロール
+
+	player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
+	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
+
+	enemy_x = 1100.0f;
+	enemy_y = 530.0f;
+	speed = 2.0f;
+	hp_x = 200;
+	hp_count = 192;
+	enemyhit_count == 0;
+	game_scene == 0;
 
 	camera->SetView(Vector3(0, 0, -10), Vector3(0, 0, 0));
 	camera->SetOrthographicOffCenter(0, 1280, 720, 0, -10000, 10000);
@@ -39,65 +52,8 @@ bool GameMain::Initialize()
 	light.Specular = Color(1.0f, 1.0f, 1.0f);
 	GraphicsDevice.SetLight(light);
 
-	kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
-
-	chara_x = 0; chara_y = 550;
-	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
-	kunai2_x = chara_x, kunai2_y = chara_y;
-	floor3_0x = -1280.0f; floor3_1x = 0; floor3_2x = 1280.0f; kaidan3_x = 1280.0f * 2;//背景のスクロール
-	floor1_0x = -1280.0f; floor1_1x = 0; floor1_2x = 1280.0f; kaidan1_x = 1280.0f * 2;//背景のスクロール
-
-	player_state = 0, jump_state = 0; hit_state = 0; shot_count = 0;
-	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
-	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
-
-	enemy_x = 1100.0f;
-	enemy_y = 530.0f;
-	speed = 2.0f;
-	hp_x = 200;
-	hp_count = 192;
-	enemyhit_count == 0;
-
-	enemy_move_flg = false;
-
-	Title = GraphicsDevice.CreateSpriteFromFile(_T("タイトル画面（修正）.png"));
-	GameOver = GraphicsDevice.CreateSpriteFromFile(_T("ゲームオーバー.png"));
-	Last = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
-	hp1 = GraphicsDevice.CreateSpriteFromFile(_T("HPアイコン (1).png"));
-	
-	
-
 	//ワープクナイ初期位置
 	for (int i = 0; i < SHOT_MAX; i++)
-
-	//1と3
-
-
-	Game_scene_flg = false;
-
-	if (Game_scene_flg = true)
-
-	{
-       Initialize_1_3();
-	}
-	
-	    
-	//２と４
-
-	
-	WindowTitle(_T("忍者　飛影"));
-	game_scene = 3;
-	if (game_scene == 3)
-	{
-		Initialize_LastStage();
-	}
-
-
-
-
-	/*Game_scene_flg2 = false;*/
-
-	game_scene == 0;
 
 	return true;
 }
@@ -337,8 +293,6 @@ void GameMain::Initialize_1_3()
 { //1と3ステ
 		floor = GraphicsDevice.CreateSpriteFromFile(_T("1,3F.png"));
 		enemy = GraphicsDevice.CreateSpriteFromFile(_T("samurai.png"));
-		/*player = GraphicsDevice.CreateAnimationModelFromFile(_T("nin3_walk.0001.png"));
-		leftplayer = GraphicsDevice.CreateAnimationModelFromFile(_T("nin3_walk.0001.png"));*/
 		kunai = GraphicsDevice.CreateSpriteFromFile(_T("kunai.png"), Color(255, 255, 255));
 		kunai2 = GraphicsDevice.CreateSpriteFromFile(_T("kunai2.png"), Color(255, 255, 255));
 
