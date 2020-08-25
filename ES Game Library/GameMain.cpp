@@ -11,15 +11,21 @@ bool GameMain::Initialize()
 {
 	// TODO: Add your initialization logic here
 	WindowTitle(_T("忍者　飛影"));
+
 	//1ステ
 	game_scene = 1;
 	if (game_scene == 1)
 	{
        Initialize_1_3();
 	}
-	
+		if (game_scene == 3)
+	{
+		Initialize_LastStage();
+	}
 	return true;
 }
+
+
 
 //1ステ
 void GameMain::Initialize_1_3()
@@ -60,6 +66,41 @@ void GameMain::Initialize_1_3()
 	}
 
 
+void GameMain::Initialize_LastStage()
+{ //最終ステージ
+	floor = GraphicsDevice.CreateSpriteFromFile(_T("5F.png"));
+	clear = GraphicsDevice.CreateSpriteFromFile(_T("clear.png"));
+	jump = GraphicsDevice.CreateSpriteFromFile(_T("nin_Jump.png"),Color(255,255,255));
+	nin2 = GraphicsDevice.CreateSpriteFromFile(_T("nin2.png"),Color(255,255,255));
+	nin2Left = GraphicsDevice.CreateSpriteFromFile(_T("nin2Left.png"),Color(255,255,255));
+	Right = GraphicsDevice.CreateSpriteFromFile(_T("移動(右).png"));
+	Up = GraphicsDevice.CreateSpriteFromFile(_T("ジャンプ(上).png"));
+	ohiroma = GraphicsDevice.CreateSpriteFromFile(_T("大広間.png"));
+	open = SoundDevice.CreateSoundFromFile(_T("open.wav"));
+	close = SoundDevice .CreateSoundFromFile(_T("close.wav"));
+	endtaiko = SoundDevice.CreateSoundFromFile(_T("clear.wav"));
+	chara_x = 0; chara_y = 530;
+	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
+	floor3_1x = 0;//背景のスクロール
+	makimono_x = 750; makimono_y = 480;
+	player_state = 0, jump_state = 0; player_frame = 0.0f;
+	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
+	ohiroma_flag = false;
+
+	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
+	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 40);
+
+	clear_flag = false;
+
+
+	return ;
+}
+
+//最終ステージ
+
+
+
+
 
 
 
@@ -90,6 +131,7 @@ int GameMain::Update()
 {
 	// TODO: Add your update logic here
 
+
 	if (game_scene == 1) {
 		//敵往復移動
 		if (enemy_move_flg == false)
@@ -115,22 +157,31 @@ int GameMain::Update()
 		}
 
 
-		//プレイヤー&&プレイヤー移動制限
 
-		MainPlayer_1_3();
+		//プレイヤー&&プレイヤー移動制限
+		if (game_scene == 3) {
+			MainPlayer_LastStage();
+		}
+
+
+		//プレイヤー&&プレイヤー移動制限
+		if (game_scene == 1) {
+			MainPlayer_1_3();
+		}
 	}
 	return 0;
 }
+
 //1ステ
-void GameMain::MainPlayer_1_3()
-{   //1ステ
-	
+	void GameMain::MainPlayer_1_3()
+	{   //1ステ
+
 		KeyboardState Key = Keyboard->GetState();
 		KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 		//移動
-		
 
-		
+
+
 		if (Key.IsKeyDown(Keys_Right)) {
 			player_state = 0;
 			chara_x += 6.0f;
@@ -154,7 +205,7 @@ void GameMain::MainPlayer_1_3()
 					jumpspeed = 60;
 				}
 			}
-	
+
 			jumptime = jumptime + 0.25;
 
 			chara_y -= jumpspeed;
@@ -183,7 +234,7 @@ void GameMain::MainPlayer_1_3()
 					enemy_jumpspeed = 70;
 				}
 			}
-		
+
 			enemy_jumptime = enemy_jumptime + 0.25;
 
 			enemy_y2 -= enemy_jumpspeed;
@@ -252,53 +303,183 @@ void GameMain::MainPlayer_1_3()
 				hit_enemy2_state = 1;
 			}
 		}
+	}
+//最終ステージ
+	void GameMain::MainPlayer_LastStage()
+	{   //最終ステージ
 
-		//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
-		if (hit_enemy_state == 0) {
-			if (chara_x > enemy_x + 100.0f - 20.0f || chara_x + 80.0f - 30.0f < enemy_x ||
-				chara_y > enemy_y + 120.0f - 50.0f || chara_y + 110.0f - 10.0f < enemy_y) {
-				// 当たっていない
-			}
-			else {
-				// 当たっている
-				enemyhit_count = 1;
-			}
+		KeyboardState Key = Keyboard->GetState();
+		KeyboardBuffer Key_buf = Keyboard->GetBuffer();
+		//移動
+
+		if (clear_flag == true && Key_buf.IsPressed(Keys_Enter)) {
+			game_scene = 0;
 		}
 
-		if (hit_enemy2_state == 0) {
-			if (chara_x > enemy_x2 + 60.0f - 10.0f || chara_x + 80.0f - 30.0f < enemy_x2 ||
-				chara_y > enemy_y2 + 110.0f - 10.0f || chara_y + 110.0f - 10.0f < enemy_y2) {
-				// 当たっていない
-			}
-			else {
-				// 当たっている
-				enemyhit_count = 1;
-			}
+		if (ohiroma_flag == false && Key.IsKeyDown(Keys_Right)) {
+			player_state = 0;
+			chara_x += 3.0f;
+			floor3_1x -= 12.0f;
 		}
 
-		//階段当たり判定
-		if (chara_x > floor1_1x + 3440.0f || chara_x + 200.0f - 70.0f < floor1_1x + 2600||
-			chara_y > floor1_1y + 550.0f || chara_y + 250.0f - 10.0f < floor1_1y) {
 
-		}
-		else {
-			kunai_flag = false;
-			chara_y = -1.4f * chara_x + 1600;
-			if (chara_y < 100.0f) {
-				//シーン遷移するプログラム
-				game_scene = 2;
-			
+		// ジャンプ
+		if (ohiroma_flag == false) {
+			if (jump_state == 0) {
+				if (Key_buf.IsPressed(Keys_Up)) {
+
+					zahyou = chara_y;
+					jumpspeed = 60;
+					jumptime = 0;
+					jump_state = 1;
+				}
 			}
-		}
+			if (jump_state == 1) {
+				if (Key.IsKeyDown(Keys_Up)) {
+					if (jumpspeed >= 60) {
+						jumpspeed = 60;
+					}
 
-		if (chara_x < 0) {
-			chara_x = 0;
-		}
-		if (chara_x > 1150) {
-			chara_x = 1150;
+				}
+
+				jumptime = jumptime + 0.25;
+
+
+				//敵　―　プレイヤー当たり判定(敵を複数表示する予定。)
+				if (hit_enemy_state == 0) {
+					if (chara_x > enemy_x + 100.0f - 20.0f || chara_x + 80.0f - 30.0f < enemy_x ||
+						chara_y > enemy_y + 120.0f - 50.0f || chara_y + 110.0f - 10.0f < enemy_y) {
+						// 当たっていない
+					}
+					else {
+						// 当たっている
+						enemyhit_count = 1;
+					}
+				}
+
+				if (hit_enemy2_state == 0) {
+					if (chara_x > enemy_x2 + 60.0f - 10.0f || chara_x + 80.0f - 30.0f < enemy_x2 ||
+						chara_y > enemy_y2 + 110.0f - 10.0f || chara_y + 110.0f - 10.0f < enemy_y2) {
+						// 当たっていない
+					}
+					else {
+						// 当たっている
+						enemyhit_count = 1;
+					}
+				}
+
+				//階段当たり判定
+				if (chara_x > floor1_1x + 3440.0f || chara_x + 200.0f - 70.0f < floor1_1x + 2600 ||
+					chara_y > floor1_1y + 550.0f || chara_y + 250.0f - 10.0f < floor1_1y) {
+
+				}
+				else {
+					kunai_flag = false;
+					chara_y = -1.4f * chara_x + 1600;
+					if (chara_y < 100.0f) {
+						//シーン遷移するプログラム
+						game_scene = 2;
+
+					}
+
+					chara_y -= jumpspeed;
+
+					chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
+
+					if (chara_y > 530) {
+						chara_y = 530;
+						jump_state = 0;
+					}
+				}
+			}
+
+			//大広間突入
+			if (chara_x == 1150) {
+				close->Play();
+				ohiroma_flag = true;
+				chara_x = 0;
+				chara_y = 550;
+			}
+
+			//背景移動制限
+			if (ohiroma_flag == false) {
+				if (chara_x < 0) {
+					floor3_1x = 0;
+				}
+				if (floor3_1x < -2560) {
+					floor3_1x = -2560;
+				}
+				if (floor3_1x > -5) {
+					chara_x = 0;
+				}
+
+
+				if (chara_x < 0) {
+					chara_x = 0;
+				}
+				if (chara_x > 1150) {
+					chara_x = 1150;
+					open->Play();
+
+				}
+
+				if (chara_x < 0) {
+					chara_x = 0;
+				}
+				if (chara_x > 1150) {
+					chara_x = 1150;
+				}
+			}
+			//ここまで1ステ
+
+
+		//大広間移動
+			if (ohiroma_flag == true && clear_flag == false) {
+				if (Key.IsKeyDown(Keys_Up)) {
+					player_state = 0;
+					chara_y -= 3.0f;
+				}
+				if (Key.IsKeyDown(Keys_Down)) {
+					player_state = 0;
+					chara_y += 3.0f;
+				}
+
+				if (Key.IsKeyDown(Keys_Right)) {
+					player_state = 0;
+					chara_x += 3.0f;
+				}
+				if (Key.IsKeyDown(Keys_Left)) {
+					player_state = 1;
+					chara_x -= 3.0f;
+				}
+			}
+
+			//大広間移動制限
+			if (ohiroma_flag == true && clear_flag == false) {
+				if (chara_x < 0) { chara_x = 0; }
+				if (chara_x > 1150) { chara_x = 1150; }
+				if (chara_y < 400) { chara_y = 400; }
+				if (chara_y > 580) { chara_y = 580; }
+
+				//巻物ープレイヤーの当たり判定
+				if (chara_x > makimono_x + 136.0f || chara_x + 128.0f - 80.0f < makimono_x ||
+					chara_y > makimono_y + 184.0f || chara_y + 128.0f < makimono_y) {
+					// 当たっていない
+				}
+				else {
+					// 当たっている
+					clear_flag = true;
+				}
+
+				if (clear_flag == true) {
+					endtaiko->Play();
+				}
+
+			}
 		}
 	}
-		//ここまで1ステ
+//ここまで最終ステージ
+
 
 
 
@@ -316,15 +497,26 @@ void GameMain::Draw()
 
 
 	SpriteBatch.Begin();
+
 	if (game_scene == 1)
 	{
 	Draw_1_3();
     }
-	
+
+		if (game_scene == 3)
+	{
+		Draw_LastStage();
+	}
+	SpriteBatch.End();
+
+
+
+
 	SpriteBatch.End();
 
 
 	GraphicsDevice.EndScene();
+
 
 }
 
@@ -344,35 +536,63 @@ void GameMain::Draw_1_3()
 
 		SpriteBatch.Draw(*Space, Vector3(50, 250, -1));
 
+	GraphicsDevice.EndScene();
 
-		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
+}
 
-		SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
+//最終ステージ
+void GameMain::Draw_LastStage()
+{  //最終ステージ
 
-		if (enemy_move_flg == false && hit_enemy_state == 0)
-		{
-			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
-		}
-		if (enemy_move_flg == true && hit_enemy_state == 0)
-		{
-			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
-		}
-		if (enemy_move_flg2 == false && hit_enemy2_state == 0)
-		{
-			SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
-		}
-		if (enemy_move_flg2 == true && hit_enemy2_state == 0)
-		{
-			SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
-		}
-		
-		//敵とプレイヤーが当たった時の処理
-		if (enemyhit_count == 1) {
-		
-			enemyhit_count = 0;
-		}
+	if (player_state == 0 && jump_state == 0 && ohiroma_flag == false) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
+
+	if (jump_state == 1) { SpriteBatch.Draw(*jump, Vector3(chara_x, chara_y, -1)); }
 
 
-		//ここまで1ステ
+	if (ohiroma_flag == false) { SpriteBatch.Draw(*Right, Vector3(50, 140, -1)); }
+	if (ohiroma_flag == false) { SpriteBatch.Draw(*Up, Vector3(50, 250, -1)); }
+
+	SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
+	if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
+
+	KeyboardState Key = Keyboard->GetState();
+
+	if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
+	if (ohiroma_flag == true && player_state == 1) { SpriteBatch.Draw(*nin2, Vector3(chara_x, chara_y, -1)); }
+
+
+	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
+	if (clear_flag == true) { SpriteBatch.DrawString(text2, Vector2(200, 600), Color_White, _T("タイトルに戻るためEnterキーを押す")); }
+	if (clear_flag == true) { SpriteBatch.Draw(*clear, Vector3(250, 100, 0)); }
+
+	SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
+
+	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
+
+	if (enemy_move_flg == false && hit_enemy_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
 	}
+	if (enemy_move_flg == true && hit_enemy_state == 0)
+	{
+		SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
+	}
+	if (enemy_move_flg2 == false && hit_enemy2_state == 0)
+	{
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
+	}
+	if (enemy_move_flg2 == true && hit_enemy2_state == 0)
+	{
+		SpriteBatch.Draw(*ene_nin, Vector3(enemy_x2, enemy_y2, -1.0f));
+	}
+
+	//敵とプレイヤーが当たった時の処理
+	if (enemyhit_count == 1) {
+
+		enemyhit_count = 0;
+	}
+}
+
+
+
 
