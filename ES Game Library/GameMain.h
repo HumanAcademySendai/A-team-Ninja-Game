@@ -73,6 +73,7 @@ private:
 	SPRITE ene_nin;
 	SPRITE	kunai, kunai2;
 	SPRITE floor,floor2, kaidan;
+	MUSIC music;
 	float enemy_x, enemy_y;
 	float enemy_x2, enemy_y2;
 

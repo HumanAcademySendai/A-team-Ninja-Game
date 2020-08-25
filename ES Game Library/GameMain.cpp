@@ -38,8 +38,11 @@ bool GameMain::Initialize()
 	endtaiko = SoundDevice.CreateSoundFromFile(_T("clear.wav"));
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 40);
+	music = SoundDevice.CreateMusicFromFile(_T("手裏剣ソード_第二版_.wav"));
 
 	hp_count = 192.0f;
+
+	music->Play();
 
 	if (game_scene == 1)
 	{
@@ -103,15 +106,6 @@ void GameMain::Initialize_LastStage()
 	return;
 }
 
-//最終ステージ
-
-
-
-
-
-
-
-
 
 /// <summary>
 /// Finalize will be called once per game and is the place to release
@@ -122,9 +116,6 @@ void GameMain::Finalize()
 	// TODO: Add your finalization logic here
 
 }
-
-
-
 
 
 /// <summary>
@@ -183,7 +174,9 @@ int GameMain::Update()
 		if (game_scene == 3) {
 			MainPlayer_LastStage();
 		}
-
+		if (game_scene == 4) {
+			music->Stop();
+		}
 	}
 	return 0;
 }
@@ -326,7 +319,9 @@ int GameMain::Update()
 			}
 			else {
 				// 当たっている
-				hp_count = hp_count - 62;
+				enemyhit_count += 1;
+				hp_count = hp_count - 62 * enemyhit_count;
+
 			}
 		}
 
@@ -337,7 +332,8 @@ int GameMain::Update()
 			}
 			else {
 				// 当たっている
-				hp_count = hp_count - 62;
+				enemyhit_count += 1;
+				hp_count = hp_count - 62 * enemyhit_count;
 			}
 		}
 	}
@@ -516,11 +512,6 @@ int GameMain::Update()
 			}
 		}
 	}
-//ここまで最終ステージ
-
-
-
-
 
 
 /// <summary>
@@ -566,7 +557,7 @@ void GameMain::Draw()
 
 }
 
-//1ステ
+
 void GameMain::Draw_1_3()
 {  //1ステ
 	
@@ -589,7 +580,7 @@ void GameMain::Draw_1_3()
 
 }
 
-//最終ステージ
+
 void GameMain::Draw_LastStage()
 {  //最終ステージ
 
