@@ -57,8 +57,8 @@ private:
 private:
 	// •Ï”éŒ¾
 	SPRITE night;
-	float enemy_x, enemy_y;
-	float speed;
+	float enemy_x, enemy_y, enemy2_x, enemy2_y;
+	float speed, speed2;
 	int enemy_move_flg;
 	int Game_Main_1_3_flg;
 	int Game_scene_flg;
@@ -70,7 +70,7 @@ private:
 	SPRITE enemy;
 	SPRITE  player, leftplayer;
 	SPRITE	kunai, kunai2;
-	SPRITE floor, kaidan;
+	SPRITE floor, floor2, kaidan;
 	SPRITE Right, Up;
 	FONT text,text2;
 	SOUND open,close, endtaiko;
@@ -119,15 +119,10 @@ private:
 
 
 	// ŠÖ”éŒ¾
-	void MainPlayer();
 	void steage2();
 	void MainPlayer_1_3();
-	void Initialize_1_3();
-	void Draw_1_3();
 	
 	void MainPlayer_LastStage();
-	void Initialize_LastStage();
-	void Draw_LastStage();
 
 	void scene_change();
 };
