@@ -33,10 +33,12 @@ bool GameMain::Initialize()
 	close = SoundDevice.CreateSoundFromFile(_T("close.wav"));
 	endtaiko = SoundDevice.CreateSoundFromFile(_T("clear.wav"));
 
+	music = SoundDevice.CreateMusicFromFile(_T("手裏剣ソード_第二版_.wav"));
+
 	text = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 60);
 	text2 = GraphicsDevice.CreateSpriteFont(_T("游明朝 Demibold"), 40);
 
-	chara_x = 0; chara_y = 550;
+	chara_x = 0; chara_y = 600;
 	kunai_x = chara_x, kunai_y = chara_y; //攻撃用クナイの初期座標
 	kunai2_x = chara_x, kunai2_y = chara_y;
 	floor3_0x = -1280.0f; floor3_1x = 0; floor3_2x = 1280.0f; kaidan3_x = 1280.0f * 2;//背景のスクロール
@@ -46,15 +48,14 @@ bool GameMain::Initialize()
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
 
 	enemy_x = 1100.0f;
-	enemy_y = 530.0f;
+	enemy_y = 600.0f;
 	speed = 2.0f;
 	hp_x = 200;
 	hp_count = 192;
 	enemyhit_count == 0;
-	game_scene == 0;
-	player_frame = 0;
+	player_frame == 0;
 
-	chara2_x = 0; chara2_y = 530;
+	chara2_x = 0; chara2_y = 600;
 	makimono_x = 750; makimono_y = 480;
 	player_state = 0, jump_state = 0; player_frame = 0.0f;
 	jumpspeed = 0; jumptime = 0; zahyou = 0; kunai_flag = false;
@@ -63,19 +64,11 @@ bool GameMain::Initialize()
 	enemy2_y = 530.0f;
 	speed2 = 2.0f;
 
+	game_scene = 0;
+
 	clear_flag = false;
 
-	camera->SetView(Vector3(0, 0, -10), Vector3(0, 0, 0));
-	camera->SetOrthographicOffCenter(0, 1280, 720, 0, -10000, 10000);
-	GraphicsDevice.SetCamera(camera);
-
-	Light light;
-	light.Type = Light_Directional;
-	light.Direction = Vector3(0, 1, 1);
-	light.Ambient = Color(1.0f, 1.0f, 1.0f);
-	light.Diffuse = Color(1.0f, 1.0f, 1.0f);
-	light.Specular = Color(1.0f, 1.0f, 1.0f);
-	GraphicsDevice.SetLight(light);
+	music->Play();
 
 	//ワープクナイ初期位置
 	for (int i = 0; i < SHOT_MAX; i++)
@@ -117,29 +110,14 @@ void GameMain::steage2()
 	//移動
 	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 1;
-		floor2_0x += 6.0f;
-		floor2_1x += 6.0f;
-		floor2_2x += 6.0f;
-		kaidan2_x += 6.0f;
-		floor3_1x += 6.0f;
-		kaidan3_x += 6.0f;
+		floor1_1x -= 6.0f;
+		chara_x -= 3.0f;
+
 	}
 	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 0;
-		floor2_0x -= 6.0f;
-		floor2_1x -= 6.0f;
-		floor2_2x -= 6.0f;
-		kaidan2_x -= 6.0f;
-
-		floor3_1x -= 6.0f;
-		kaidan3_x -= 6.0f;
-	}
-	//背景移動制限
-	if (kaidan2_x < -1280 * 2) {
-		floor2_0x = 1280.0f; floor2_1x = 0.0f; floor2_2x = -1280.0f;  kaidan2_x = -1280 * 2;
-	}
-	if (kaidan2_x > 0) {
-		floor2_0x = 1280 * 3;	floor2_1x = 1280 * 2; floor2_2x = 1280; kaidan2_x = 0.0f;
+		chara_x += 3.0f;
+		floor3_1x += 6.0f;
 	}
 
 	//背景移動制限
@@ -148,6 +126,12 @@ void GameMain::steage2()
 	}
 	if (kaidan3_x < 0) {
 		floor3_0x = -1280.0f * 3; floor3_1x = -1280.0f * 2; floor3_2x = -1280.0f;  kaidan3_x = 0;
+	}
+	if (chara_x < 0) {
+		floor1_1x = -1280;	floor1_1x = 0; floor1_1x = 1280; kaidan3_x = 2560;
+	}
+	if (kaidan3_x < 0) {
+		floor1_1x = -1280.0f * 3; floor1_1x = -1280.0f * 2; floor1_1x = -1280.0f;  kaidan3_x = 0;
 	}
 
 	//武器(攻撃用クナイ)
@@ -302,10 +286,14 @@ int GameMain::Update()
 	KeyboardState Key = Keyboard->GetState();
 	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
-	player_frame = player_frame + 258.0f;
+	player_frame = player_frame + 1.0f;
 
-	if (player_frame = 6400.0f) {
-		player_frame = 258.0f;
+	if (hp_count = 0.0f) {
+		game_scene = 5;
+	}
+
+	if (player_frame = 25.0f) {
+		player_frame = 0.0f;
 	}
 
 	if (game_scene == 0) {
@@ -339,10 +327,8 @@ int GameMain::Update()
 	//プレイヤー&&プレイヤー移動制限
 	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 1;
-		floor1_0x += 6.0f;
-		floor1_1x += 6.0f;
-		floor1_2x += 6.0f;
-		kaidan1_x += 6.0f;
+		chara_x -= 3.0f;
+		floor1_1x -= 6.0f;
 
 		if (clear_flag == true && Key_buf.IsPressed(Keys_Enter)) {
 			game_scene = 0;
@@ -594,19 +580,97 @@ void GameMain::Draw()
 	GraphicsDevice.BeginScene();
 
 	SpriteBatch.Begin();
-
-	SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
-	SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
-	SpriteBatch.Draw(*hp1, Vector3(hp_x, 0, 0), RectWH(0, 0, hp_count, 60));
-
+	if (game_scene == 0) {
+		SpriteBatch.Draw(*Title, Vector3(-300, 0, 0));
+	}
 	if (game_scene == 1) {
-		SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, 0.0f), RectWH(0, 0, player_frame, 254));
+
+		SpriteBatch.DrawString(text, Vector2(100, 10), Color_Black, _T("%.0f秒"), time);
+		SpriteBatch.DrawString(text, Vector2(100, 10), Color_White, _T("%.0f秒"), time);
+		SpriteBatch.Draw(*hp1, Vector3(hp_x, 0, -1.0f), RectWH(0, 0, hp_count, 60));
+
+		if ((int)player_frame == 1) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(0, 0, 258, 254));
+		}
+		if ((int)player_frame == 2) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(258, 0, 258, 254));
+		}
+		if ((int)player_frame == 3) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(516, 0, 258, 254));
+		}
+		if ((int)player_frame == 4) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(774, 0, 258, 254));
+		}
+		if ((int)player_frame == 5) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(1032, 0, 258, 254));
+		}
+		if ((int)player_frame == 6) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(1290, 0, 258, 254));
+		}
+		if ((int)player_frame == 7) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(1548, 0, 258, 254));
+		}
+		if ((int)player_frame == 8) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(1806, 0, 258, 254));
+		}
+		if ((int)player_frame == 9) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(2064, 0, 258, 254));
+		}
+		if ((int)player_frame == 10) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(2322, 0, 258, 254));
+		}
+		if ((int)player_frame == 11) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(2580, 0, 258, 254));
+		}
+		if ((int)player_frame == 12) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(2838, 0, 258, 254));
+		}
+		if ((int)player_frame == 13) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(3096, 0, 258, 254));
+		}
+		if ((int)player_frame == 14) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(3354, 0, 258, 254));
+		}
+		if ((int)player_frame == 15) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(3612, 0, 258, 254));
+		}
+		if ((int)player_frame == 16) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(3870, 0, 258, 254));
+		}
+		if ((int)player_frame == 17) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(4128, 0, 258, 254));
+		}
+		if ((int)player_frame == 18) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(4386, 0, 258, 254));
+		}
+		if ((int)player_frame == 19) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(4644, 0, 258, 254));
+		}
+		if ((int)player_frame == 20) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(4902, 0, 258, 254));
+		}
+		if ((int)player_frame == 21) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(5160, 0, 258, 254));
+		}
+		if ((int)player_frame == 22) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(5418, 0, 258, 254));
+		}
+		if ((int)player_frame == 23) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(5676, 0, 258, 254));
+		}
+		if ((int)player_frame == 24) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(5934, 0, 258, 254));
+		}
+		if ((int)player_frame == 25) {
+			SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, -1.0f), RectWH(6192, 0, 258, 254));
+		}
 
 		for (int i = 0; i < SHOT_MAX; i++)
 		{
 			if (shot_flg[i] == 1 && player_state == 0) { SpriteBatch.Draw(*kunai, Vector3(shot_x[i], shot_y[i], -1)); }
 			if (shot_flg[i] == 1 && player_state == 1) { SpriteBatch.Draw(*kunai2, Vector3(shot_x[i], shot_y[i], -1)); }
 		}
+
 		if (player_state == 0 && kunai_flag == true) { SpriteBatch.Draw(*kunai, Vector3(kunai_x, kunai_y, -1)); }
 		if (player_state == 1 && kunai_flag == true) { SpriteBatch.Draw(*kunai2, Vector3(kunai2_x, kunai2_y, -1)); }
 		
@@ -618,7 +682,6 @@ void GameMain::Draw()
 		if (ohiroma_flag == false) { SpriteBatch.Draw(*Right, Vector3(50, 140, -1)); }
 		if (ohiroma_flag == false) { SpriteBatch.Draw(*Up, Vector3(50, 250, -1)); }
 
-		SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
 		if (ohiroma_flag == true) { SpriteBatch.Draw(*ohiroma, Vector3(0, 0, 0)); }
 
 		if (ohiroma_flag == true && player_state == 0) { SpriteBatch.Draw(*nin2Left, Vector3(chara_x, chara_y, -1)); }
@@ -627,8 +690,7 @@ void GameMain::Draw()
 		if (clear_flag == true) { SpriteBatch.DrawString(text2, Vector2(200, 600), Color_White, _T("タイトルに戻るためEnterキーを押す")); }
 		if (clear_flag == true) { SpriteBatch.Draw(*clear, Vector3(250, 100, 0)); }
 
-		SpriteBatch.Draw(*floor, Vector3(floor3_1x, 0.0f, 0.0f));
-		SpriteBatch.Draw(*kaidan, Vector3(kaidan3_x, 0.0f, 0.0f));
+		SpriteBatch.Draw(*floor, Vector3(floor1_1x, 0.0f, 0.0f));
 
 		if (enemy_move_flg == false && hit_state == 0)
 		{
@@ -639,9 +701,10 @@ void GameMain::Draw()
 			SpriteBatch.Draw(*enemy, Vector3(enemy_x, enemy_y, -1.0f));
 		}
 	}
-	if (game_scene == 0) {
-		SpriteBatch.Draw(*Title, Vector3(0, 0, 0));
+	if (game_scene == 3) {
+		SpriteBatch.Draw(*floor2, Vector3(floor3_1x, 0.0f, 0.0f));
 	}
+
 	if (game_scene == 5) {
 		SpriteBatch.Draw(*GameOver, Vector3(0, 0, 0));
 	}

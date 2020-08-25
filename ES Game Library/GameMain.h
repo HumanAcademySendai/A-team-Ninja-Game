@@ -85,6 +85,8 @@ private:
 	SOUND se_start1;
 	SOUND se_start2;
 
+	MUSIC music;
+
 	float hp_x;
 	float hp_count;
 	int enemyhit_count;
@@ -98,14 +100,7 @@ private:
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
 	float floor1_0x,floor1_1x, floor1_2x, kaidan1_x;
 	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
-	float player_frame;
-
-	//ANIMATIONMODEL player;
-	//ANIMATIONMODEL leftplayer;
-	//MODEL player_jump;
-	//int player_jump_flg;
-
-	CAMERA camera;
+    int player_frame;
 
 	float floor1_1y;
 	float floor3_0x, floor3_1x, floor3_2x, kaidan3_x;
@@ -113,7 +108,6 @@ private:
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
 	float shot_y[SHOT_MAX];
-	float player_frame;
 	float makimono_x, makimono_y;
 	int ohiroma_flag, clear_flag;
 
