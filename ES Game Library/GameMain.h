@@ -57,13 +57,22 @@ private:
 private:
 	// 変数宣言
 
-	SPRITE Space, Right, Up;
+	SPRITE Space;
+	SPRITE clear;
+	SPRITE ohiroma;
+	SPRITE nin2, nin2Left;
 	SPRITE enemy;
+	SPRITE  leftplayer;
+	SPRITE Right, Up;
+	FONT text, text2;
+	SOUND open, close, endtaiko;
+	SPRITE Title;
+	SPRITE end;
+	SPRITE hp;
 	SPRITE  player, jump;
 	SPRITE ene_nin;
 	SPRITE	kunai, kunai2;
-	SPRITE floor, kaidan;
-	FONT text,text2;
+	SPRITE floor,floor2, kaidan;
 	float enemy_x, enemy_y;
 	float enemy_x2, enemy_y2;
 
@@ -79,36 +88,11 @@ private:
 	int  hit_enemy_state, hit_enemy2_state;//0・・当たってない	1・・当たってる
 	int jump_enemy_state;
 	int enemyhit_count; //敵と当たった時の処理
-	float time;
-	float frame;
-	float jumpspeed, jumptime, zahyou;
 	float enemy_jumpspeed, enemy_jumptime, enemy_zahyou;
-	float kunai_x, kunai_y;//攻撃用クナイ
 	float floor1_1x,floor1_1y;
 	float floor2_0x, floor2_1x, floor2_2x;
-	float kaidan1_x, kaidan1_y, kaidan2_x, kaidan2_y;
 
-	// 関数宣言
-	void MainPlayer_1_3();
-	void Initialize_1_3();
-	void Draw_1_3();
-	
-
-	SPRITE clear;
-	SPRITE ohiroma;
-	SPRITE jump;
-	SPRITE nin2, nin2Left;
-	SPRITE enemy;
-	SPRITE  player, leftplayer;
-	SPRITE	kunai, kunai2;
-	SPRITE floor, kaidan;
-	SPRITE Right, Up;
-	FONT text,text2;
-	SOUND open,close, endtaiko;
-
-	float  chara_x, chara_y;
-	int player_state, jump_state, kunai_flag;
-	int game_scene;
+	float hp_count;
 	float time;
 	float player_frame;
 	float frame;
@@ -116,13 +100,17 @@ private:
 	float kunai_x, kunai_y;//攻撃用クナイ
 	float floor3_1x;
 	float makimono_x, makimono_y;
-	int ohiroma_flag, clear_flag;
+	int ohiroma_flag;
 
 
 	// 関数宣言
 	void MainPlayer_LastStage();
 	void Initialize_LastStage();
 	void Draw_LastStage();
+	void MainPlayer_1_3();
+	void Initialize_1_3();
+	void Draw_1_3();
+
 
 
 };
