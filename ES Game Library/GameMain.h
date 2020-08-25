@@ -107,13 +107,10 @@ private:
 	// ŠÖ”éŒ¾
 	void Draw_1_3();
 	void MainPlayer_1_3();
-	void  Initialize_1_3();
+	void Initialize_1_3();
 	void MainPlayer_LastStage();
 	void Initialize_LastStage();
 	void Draw_LastStage();
-	void MainPlayer_1_3();
-	void Initialize_1_3();
-	void Draw_1_3();
-
+	
 
 };
