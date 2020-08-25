@@ -57,17 +57,23 @@ private:
 private:
 	// ïœêîêÈåæ
 	SPRITE night;
-	SPRITE enemy;
-	SPRITE  player, leftplayer;
-	SPRITE	kunai, kunai2;
-	SPRITE floor, kaidan;
-	FONT text;
 	float enemy_x, enemy_y;
 	float speed;
 	int enemy_move_flg;
 	int Game_Main_1_3_flg;
 	int Game_scene_flg;
 	int Game_scene_flg2;
+	SPRITE clear;
+	SPRITE ohiroma;
+	SPRITE jump;
+	SPRITE nin2, nin2Left;
+	SPRITE enemy;
+	SPRITE  player, leftplayer;
+	SPRITE	kunai, kunai2;
+	SPRITE floor, kaidan;
+	SPRITE Right, Up;
+	FONT text,text2;
+	SOUND open,close, endtaiko;
 
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_state, shot_count, kunai_flag,game_scene;
@@ -83,6 +89,12 @@ private:
 	int shot_flg[SHOT_MAX];
 	float shot_x[SHOT_MAX];
 	float shot_y[SHOT_MAX];
+	int game_scene;
+	float player_frame;
+	float makimono_x, makimono_y;
+	int ohiroma_flag, clear_flag;
+
+
 	// ä÷êîêÈåæ
 	void MainPlayer();
 	void steage2();
@@ -90,5 +102,8 @@ private:
 	void Initialize_1_3();
 	void Draw_1_3();
 	
+	void MainPlayer_LastStage();
+	void Initialize_LastStage();
+	void Draw_LastStage();
 
 };
