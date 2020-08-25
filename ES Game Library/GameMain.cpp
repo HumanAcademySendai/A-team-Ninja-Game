@@ -52,6 +52,7 @@ bool GameMain::Initialize()
 	hp_count = 192;
 	enemyhit_count == 0;
 	game_scene == 0;
+	player_frame = 0;
 
 	chara2_x = 0; chara2_y = 530;
 	makimono_x = 750; makimono_y = 480;
@@ -116,27 +117,21 @@ void GameMain::steage2()
 	//移動
 	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 1;
-		chara_x -= 6.0f;
 		floor2_0x += 6.0f;
 		floor2_1x += 6.0f;
 		floor2_2x += 6.0f;
 		kaidan2_x += 6.0f;
-		floor3_0x += 6.0f;
 		floor3_1x += 6.0f;
-		floor3_2x += 6.0f;
 		kaidan3_x += 6.0f;
 	}
 	if (Key.IsKeyDown(Keys_Left)) {
 		player_state = 0;
-		chara_x += 6.0f;
 		floor2_0x -= 6.0f;
 		floor2_1x -= 6.0f;
 		floor2_2x -= 6.0f;
 		kaidan2_x -= 6.0f;
 
-		floor3_0x -= 6.0f;
 		floor3_1x -= 6.0f;
-		floor3_2x -= 6.0f;
 		kaidan3_x -= 6.0f;
 	}
 	//背景移動制限
@@ -226,21 +221,6 @@ void GameMain::steage2()
 		shot_count += 1;
 	}
 
-	//当たり判定(未完成)(橋本君のプログラムをちょっと手を加えたらワープクナイできそうなのでそちらを使ってください)
-//for (int i = 0; i < SHOT_MAX; i++) {
-//	if (shot_flg[i] == 1) {
-//	if (shot_x[i] > enemy_x + 80.0f || shot_x[i] + 139.0f < enemy_x ||
-//		shot_y[i] > enemy_y + 31.0f || shot_y[i] + 69.0f < enemy_y) {
-//			// 当たっていない
-//		}
-//		else {
-//			// 当たっている
-//			hit_state = 1;
-//		}
-//	}
-//}
-
-
 // ジャンプ
 	if (jump_state == 0) {
 		if (Key_buf.IsPressed(Keys_Up)) {
@@ -252,18 +232,6 @@ void GameMain::steage2()
 			
 		}
 	}
-	/*if (player_jump_flg == false) {
-		player_jump->Rotation(90, 0, 0);
-		if (Key.IsKeyDown(Keys_Left)) {
-			player_jump_flg = true;
-		}
-	}
-	if (player_jump_flg == true) {
-		if (Key.IsKeyDown(Keys_Right)) {
-			player_jump_flg = false;
-		}
-	}*/
-
 
 	if (jump_state == 1) {
 		zahyou = chara_y;
@@ -320,9 +288,6 @@ void GameMain::Finalize()
 }
 
 
-
-
-
 /// <summary>
 /// Allows the game to run logic such as updating the world,
 /// checking for collisions, gathering input, and playing audio.
@@ -334,6 +299,20 @@ int GameMain::Update()
 {
 	// TODO: Add your update logic here
 
+	KeyboardState Key = Keyboard->GetState();
+	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
+
+	player_frame = player_frame + 258.0f;
+
+	if (player_frame = 6400.0f) {
+		player_frame = 258.0f;
+	}
+
+	if (game_scene == 0) {
+		if (Key.IsKeyDown(Keys_Enter)) {
+			game_scene = 1;
+		}
+	}
 	//敵往復移動
 	if (enemy_move_flg == false)
 	{
@@ -358,48 +337,8 @@ int GameMain::Update()
 		chara_y = 550;
 	}
 	//プレイヤー&&プレイヤー移動制限
-
-	MainPlayer_1_3();
-	
-
-	return 0;
-}
-//1と3ステ
-void GameMain::MainPlayer_1_3()
-{   //1と3ステ
-	
-		KeyboardState Key = Keyboard->GetState();
-		KeyboardBuffer Key_buf = Keyboard->GetBuffer();
-		//移動
-		
-
-		
-		if (Key.IsKeyDown(Keys_Right)) {
-			player_state = 0;
-			chara_x += 6.0f;
-			floor1_1x -= 12.0f;
-
-		}
-
-		// ジャンプ
-
-	//プレイヤー&&プレイヤー移動制限
-	if (game_scene == 3) {
-		MainPlayer_LastStage();
-	}
-
-	return ;
-}
-//最終ステージ
-void GameMain::MainPlayer_LastStage()
-{   //最終ステージ
-
-	KeyboardState Key = Keyboard->GetState();
-	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
-	//移動
 	if (Key.IsKeyDown(Keys_Right)) {
 		player_state = 1;
-		chara_x -= 6.0f;
 		floor1_0x += 6.0f;
 		floor1_1x += 6.0f;
 		floor1_2x += 6.0f;
@@ -414,44 +353,6 @@ void GameMain::MainPlayer_LastStage()
 				player_state = 0;
 				chara_x += 3.0f;
 				floor3_1x -= 12.0f;
-			}
-
-
-			// ジャンプ
-			if (ohiroma_flag == false) {
-				if (jump_state == 0) {
-					if (Key_buf.IsPressed(Keys_Up)) {
-
-						zahyou = chara_y;
-						jumpspeed = 80;
-						jumpspeed = 60;
-						jumptime = 0;
-						jump_state = 1;
-					}
-				}
-				if (jump_state == 1) {
-					if (Key.IsKeyDown(Keys_Up)) {
-						if (jumpspeed >= 80) {
-							jumpspeed = 80;
-						}
-					}
-					//jumpspeed -= 2;
-
-					if (jumpspeed >= 60) {
-						jumpspeed = 60;
-					}
-				}
-
-				jumptime = jumptime + 0.25;
-
-				chara_y -= jumpspeed;
-
-				chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
-
-				if (chara_y > 550) {
-					chara_y = 550;
-					jump_state = 0;
-				}
 			}
 
 			//タイム(カウントアップ)
@@ -543,48 +444,59 @@ void GameMain::MainPlayer_LastStage()
 
 				}
 			}
+		}
+	}
 
-			//当たり判定(未完成)(橋本君のプログラムをちょっと手を加えたらワープクナイできそうなのでそちらを使ってください)
-		//for (int i = 0; i < SHOT_MAX; i++) {
-		//	if (shot_flg[i] == 1) {
-		//	if (shot_x[i] > enemy_x + 80.0f || shot_x[i] + 139.0f < enemy_x ||
-		//		shot_y[i] > enemy_y + 31.0f || shot_y[i] + 69.0f < enemy_y) {
-		//			// 当たっていない
-		//		}
-		//		else {
-		//			// 当たっている
-		//			hit_state = 1;
-		//		}
-		//	}
-		//}
+	// ジャンプ
+	if (ohiroma_flag == false) {
+		if (jump_state == 0) {
+			if (Key_buf.IsPressed(Keys_Up)) {
 
-
-		// ジャンプ
-			if (jump_state == 0) {
-				if (Key_buf.IsPressed(Keys_Up)) {
-
-					zahyou = chara_y;
-					jumpspeed = 25;
-					jumptime = 0;
-					jump_state = 1;
+				zahyou = chara_y;
+				jumpspeed = 80;
+				jumpspeed = 60;
+				jumptime = 0;
+				jump_state = 1;
+			}
+		}
+		if (jump_state == 1) {
+			if (Key.IsKeyDown(Keys_Up)) {
+				if (jumpspeed >= 80) {
+					jumpspeed = 80;
 				}
 			}
-			/*if (player_jump_flg == false) {
-				player_jump->Rotation(90, 0, 0);
-				if (Key.IsKeyDown(Keys_Left)) {
-					player_jump_flg = true;
-				}
+			//jumpspeed -= 2;
+
+			if (jumpspeed >= 60) {
+				jumpspeed = 60;
 			}
-			if (player_jump_flg == true) {
-				if (Key.IsKeyDown(Keys_Right)) {
-					player_jump_flg = false;
-				}
-			}*/
-			//ここまで1と3ステ
-			if (chara_y > 530) {
-				chara_y = 530;
-				jump_state = 0;
-			}
+		}
+
+		jumptime = jumptime + 0.25;
+
+		chara_y -= jumpspeed;
+
+		chara_y = zahyou - (jumpspeed * jumptime - 0.5 * 9.80665 * jumptime * jumptime);
+
+		if (chara_y > 550) {
+			chara_y = 550;
+			jump_state = 0;
+		}
+	}
+
+	if (game_scene == 3) {
+		MainPlayer_LastStage();
+	}
+
+	return 0;
+}
+
+
+void GameMain::MainPlayer_LastStage()
+{   //最終ステージ
+
+	KeyboardState Key = Keyboard->GetState();
+	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
 			//大広間突入
 			if (chara_x == 1150) {
@@ -669,20 +581,8 @@ void GameMain::MainPlayer_LastStage()
 				}
 			}
 		}
-	}
-}
 
-void GameMain::scene_change()
-{
-	KeyboardState Key = Keyboard->GetState();
-	KeyboardBuffer Key_buf = Keyboard->GetBuffer();
 
-	if (game_scene == 0) {
-		if (Key.IsKeyDown(Keys_Enter)) {
-			game_scene = 1;
-		}
-	}
-}
 /// <summary>
 /// This is called when the game should draw itself.
 /// </summary>
@@ -700,7 +600,7 @@ void GameMain::Draw()
 	SpriteBatch.Draw(*hp1, Vector3(hp_x, 0, 0), RectWH(0, 0, hp_count, 60));
 
 	if (game_scene == 1) {
-		SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, 0.0f), RectWH(0, 0, 258, 254));
+		SpriteBatch.Draw(*player, Vector3(chara_x, chara_y, 0.0f), RectWH(0, 0, player_frame, 254));
 
 		for (int i = 0; i < SHOT_MAX; i++)
 		{

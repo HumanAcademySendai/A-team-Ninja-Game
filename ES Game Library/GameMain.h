@@ -120,9 +120,7 @@ private:
 
 	// ŠÖ”éŒ¾
 	void steage2();
-	void MainPlayer_1_3();
 	
 	void MainPlayer_LastStage();
 
-	void scene_change();
 };
