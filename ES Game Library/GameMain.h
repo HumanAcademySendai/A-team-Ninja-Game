@@ -75,14 +75,40 @@ private:
 	FONT text,text2;
 	SOUND open,close, endtaiko;
 
+	SPRITE Title;
+	SPRITE GameOver;
+	SPRITE Last;
+	SPRITE hp1;
+
+	SOUND se_End;
+	SOUND se_Attack;
+	SOUND se_start1;
+	SOUND se_start2;
+
+	float hp_x;
+	float hp_count;
+	int enemyhit_count;
+	int gamescene;
+
+	SPRITE  kunai, kunai2, floor, kaidan;
 	float  chara_x, chara_y;
 	int player_state, jump_state, hit_state, shot_count, kunai_flag,game_scene;
 	float time;
 	float frame;
+	float  chara2_x, chara2_y;
+	int player_state, jump_state, hit_state, shot_count, kunai_flag;
 	float jumpspeed, jumptime, zahyou;
 	float kunai_x, kunai_y, kunai2_x, kunai2_y;//攻撃用クナイ
 	float floor1_0x,floor1_1x, floor1_2x, kaidan1_x;
 	float floor2_0x, floor2_1x, floor2_2x, kaidan2_x;
+
+	ANIMATIONMODEL player;
+	ANIMATIONMODEL leftplayer;
+	MODEL player_jump;
+	int player_jump_flg;
+
+	CAMERA camera;
+
 	float floor1_1y;
 	float floor3_0x, floor3_1x, floor3_2x, kaidan3_x;
 	enum { SHOT_MAX = 1 };
@@ -106,4 +132,5 @@ private:
 	void Initialize_LastStage();
 	void Draw_LastStage();
 
+	void scene_change();
 };
