@@ -60,7 +60,7 @@ private:
 	SPRITE enemy;
 	SPRITE  player, jump;
 	SPRITE ene_nin;
-	SPRITE	kunai, kunai2;
+	SPRITE	Right_kunai, Left_kunai;
 	SPRITE floor, kaidan;
 	FONT text,text2;
 	float enemy_x, enemy_y;
@@ -71,21 +71,23 @@ private:
 	int enemy_move_flg2;
 	int clear_flag;
 
+	enum { SHOT_MAX = 5 };
+	float shot_x[SHOT_MAX];
+	float shot_y[SHOT_MAX];
+	int shot_state[SHOT_MAX];
 
 
 	float  chara_x, chara_y;
 	int player_state, jump_state, shot_count, kunai_flag,game_scene;
-	int  hit_enemy_state, hit_enemy2_state;//0・・当たってない	1・・当たってる
+	int  hit_enemy_state, hit_enemy2_state;//敵がクナイに当たった時　0・・当たってない	1・・当たってる 
 	int jump_enemy_state;
 	int enemyhit_count; //敵と当たった時の処理
 	float time;
 	float frame;
-	float jumpspeed, jumptime, zahyou;
+	float jumpspeed, jumptime, jump_zahyou;
 	float enemy_jumpspeed, enemy_jumptime, enemy_zahyou;
 	float kunai_x, kunai_y;//攻撃用クナイ
 	float floor1_1x,floor1_1y;
-	float floor2_0x, floor2_1x, floor2_2x;
-	float kaidan1_x, kaidan1_y, kaidan2_x, kaidan2_y;
 
 	// 関数宣言
 	void MainPlayer_1_3();
